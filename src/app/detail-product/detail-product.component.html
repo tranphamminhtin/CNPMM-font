@@ -1,0 +1,178 @@
+<app-header></app-header>
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-list">
+                    <h1>Sản phẩm</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shop-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                        <div class="single-pro-tab-content">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="home">
+                                    <img class="zoom" src="{{ product.image }}" alt="" />
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="profile">
+                                    <img class="zoom" src="{{ product.image2 }}" alt="" />
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="messages">
+                                    <img class="zoom" src="{{ product.image3 }}" alt="" />
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="settingss">
+                                    <img class="zoom" src="{{ product.image4 }}" alt="" />
+                                </div>
+                            </div>
+                            <ul class="single-product-tab" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                        data-toggle="tab"><img src="{{ product.image }}" alt="" /></a></li>
+                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab"
+                                        data-toggle="tab"><img src="{{ product.image2 }}" alt="" /></a></li>
+                                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab"
+                                        data-toggle="tab"><img src="{{ product.image3 }}" alt="" /></a></li>
+                                <li role="presentation"><a href="#settingss" aria-controls="settings" role="tab"
+                                        data-toggle="tab"><img src="{{ product.image4 }}" alt="" /></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-xs-12 shop-list shop-details">
+                        <div class="product-content">
+                            <h3>
+                                <a href="#">{{ product.name }}</a>
+                            </h3>
+                            <div class="price">
+                                <span>{{ product.price - product.price * product.promotion / 100 + ' đ'}}</span>
+                                <span class="old" *ngIf="product.promotion > 0">
+                                    {{ product.price + ' đ'}}</span>
+                            </div>
+                            <br />
+                            <p>
+                                Sản phẩm
+                                {{ product.name }}
+                                màu
+                                {{ product.color }}
+                                là một sản phẩm của thương hiệu
+                                {{ product.brand }}
+                                . Sản phẩm chất lượng được shop GiayNe PTT đảm bảo, phù hợp với
+                                việc đi chơi, hoạt động thể thao.
+                            </p>
+                            <br />
+                            <div class="pro-size">
+                                <label>size <span>*</span></label> <select name="size" id="size">
+                                    <option *ngFor="let size of product.sizes" value="size">
+                                        {{ size }}
+                                    </option>
+                                </select>
+                            </div>
+                            <br />
+                            <div class="gach-ngang-xuong-dong"></div>
+                            <div class="pro-size">
+                                <label>số lượng <span>*</span></label><br>
+                                <div class="cart-plus">
+                                    <form action="#">
+                                        <div>
+                                            <input type="number" value="1" min="1" id="soluong" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="gach-ngang-xuong-dong"></div>
+                            <div class="product-action">
+                                <div class="button-cart">
+                                    <button (click)="order(product.id);">
+                                        <i class="fa fa-usd" aria-hidden="true"></i> đặt hàng
+                                    </button>
+                                    &emsp;&emsp;&emsp;
+                                    <button (click)="addCart(product.id);">
+                                        <i class="fa fa-shopping-cart"></i> giỏ hàng
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="product-tabs">
+                            <div>
+                                <ul class="pro-details-tab" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab-desc" aria-controls="tab-desc"
+                                            role="tab" data-toggle="tab">Thông tin sản phẩm</a></li>
+                                    <li role="presentation"><a href="#page-info" aria-controls="page-info" role="tab"
+                                            data-toggle="tab">Miêu
+                                            tả </a></li>
+                                    <li role="presentation"><a href="#page-comments" aria-controls="page-comments"
+                                            role="tab" data-toggle="tab">Bình
+                                            luận</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="tab-desc">
+                                        <div class="product-tab-desc">
+                                            <p>{{ 'Giày ' + product.name + ' là sản phẩm chính hãng.' }}</p>
+                                            <ul id="product-desc-t">
+                                                <li>Size: {{ product.sizes }}
+                                                </li>
+                                                <li>{{'Màu: ' + product.color }}</li>
+                                                <li>{{'Giới tính: ' + product.sex }}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="page-info">
+                                        <div class="product-tab-desc">
+                                            <p>Textfree is a VoIP service that lets you chat for
+                                                free from a real U.S. phone number. With Textfree web, you
+                                                can send real SMS messages online from a bigger keyboard.
+                                                In our mobile app, you’ll find features such as calling,
+                                                voicemail, MMS, group messaging, stickers and more.</p>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="page-comments">
+                                        <div class="product-tab-desc">
+                                            <div class="product-page-comments">
+                                                <ul>
+                                                    <li>
+                                                        <div class="product-comments">
+                                                            <div class="product-comments-content">
+                                                                <p><strong>tintin</strong></p>
+                                                                <div class="desc">Giày đẹp quá</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul>
+                                                    <li>
+                                                        <div class="product-comments">
+                                                            <div class="product-comments-content">
+                                                                <p><strong>tungtung</strong></p>
+                                                                <div class="desc">Giày quá đẹp</div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="review-form-wrapper">
+                                                    <h3>Thêm bình luận</h3>
+                                                    <textarea id="product-message" cols="30" rows="10"
+                                                        placeholder="Bình luận của bạn"></textarea>
+                                                    <input type="submit" value="Bình luận" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

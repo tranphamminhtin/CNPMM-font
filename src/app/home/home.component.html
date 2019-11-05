@@ -1,0 +1,65 @@
+<app-header></app-header>
+<div class="slider-container">
+    <div id="mainSlider" class="nivoSlider slider-image">
+        <img src="assets/img/blog/logoGiayNe.png" alt="main slider" title="#htmlcaption1" /> 
+        <img src="assets/img/blog/bg.jpg" alt="main slider" title="#htmlcaption2" />
+    </div>
+</div>
+
+<div class="featured-area pad-60">
+    <div class="container">
+        <div class="row">
+            <div class="section-title">
+                <h2>MẪU GIÀY NỔI BẬC</h2>
+                <div class="title-icon">
+                    <span><i class="fa fa-angle-left"></i> <i class="fa fa-angle-right"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-tab">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <div class="row">
+                                <div class="product-curosel" >
+                                    <div class="col-md-3" *ngFor="let product of arrProducts">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                <a href="#">
+                                                    <img src="{{ product.image }} " alt="" />
+                                                </a> <span class="tag-line">new</span>
+                                                <div class="product-action">
+                                                    <div class="button-cart">
+                                                        <button (click)="order(product.id);">
+                                                        <i class="fa fa-usd" aria-hidden="true"></i> đặt hàng
+                                                        </button>
+                                                        <button (click)="addCart(product.id);">
+                                                        <i class="fa fa-shopping-cart"></i> Giỏ hàng
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h3>
+                                                    <a href="#">
+                                                        {{ product.name }}
+                                                    </a>
+                                                </h3>
+                                                <div class="price">
+                                                    <span>{{ getPriceToSale(product.price, product.promotion) + 'đ' }}</span>
+                                                        <span class="old" *ngIf="product.promotion > 0">{{ product.price }}đ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

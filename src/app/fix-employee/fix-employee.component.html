@@ -1,0 +1,77 @@
+<app-header-admin></app-header-admin>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="QLTK.jsp"> <em class="fa fa-home"></em>
+                </a></li>
+            <li class="active"><a href="QLNVController"> Sửa nhân
+                    viên </a></li>
+            <li><em class="fa"> Sửa nhân viên </em></li>
+        </ol>
+    </div>
+    <form action="QLNVController" method="post" id="fix-nv-form">
+        <div class="widget">
+            <div class="title">
+                <h4>Nhập dữ liệu</h4>
+            </div>
+            <div class="formRow">
+                <label> Tên đăng nhập </label>
+                <div class="formRight form-group">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="manv" type="text" value="{{ employee.username }}" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label> Mật khẩu</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="password" type="password" value="{{ user.password }}">
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label>Họ và tên</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="name" type="text" value="{{ employee.name }}">
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label>SĐT</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="phone" type="text" value="{{ employee.numberPhone }}">
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label>Email</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="mail" type="email" value="{{ employee.email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="formRow">
+                <label>Nhóm quyền quản lý</label>
+                <div class="form-group">
+                    <select class="form-control" id="sel1" name="maquyen">
+                        <option *ngFor="let right of arrRights" value="right.id"
+                            [selected]="employee.right.id === right.id">
+                            {{ right.description }}</option>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <input type="hidden" name="loai" value="sua" />
+            <div class="formRow" style="height: 50px">
+                <div class="formRight">
+                    <button type="submit" class="btn btn-info">HOÀN TẤT</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </form>
+</div>

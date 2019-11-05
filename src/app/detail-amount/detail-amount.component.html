@@ -1,0 +1,201 @@
+<app-header-admin></app-header-admin>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"> <em class="fa fa-home"></em>
+                </a></li>
+            <li class="active  " style="color: red">Quản lý số lượng sản
+                phẩm</li>
+        </ol>
+    </div>
+    <form action="ChiTietSanPhamController" method="Post">
+        <div class="row" style="width: 100%; margin: 0% 0% 0% 0%">
+            <div class="col-md-12">
+                <div class="row">
+                    <h4 style="text-align: center; color: blue">Số lượng chi tiết
+                        sản phẩm</h4>
+                </div>
+                <div class="row" style="width: 102%; height: 10px; background-color: #85e0e0;"></div>
+                <div class="row " style="width: 100%; margin: 1% 0% 0% 0%; border: 1px"></div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <p style="margin-top: 20px; font-size: 20px">Mã
+                            sản phẩm : {{ product.id }}</p>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <p style="margin-top: 20px; font-size: 20px">Tên
+                            sản phẩm : {{ product.name }}</p>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <p style="margin-left: 140px;  font-size: 20px; color: red; font-weight: bold;">
+                            Chi
+                            tiết</p>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="table-content ">
+                        <table style=" margin-left: 20px">
+                            <thead>
+                                <tr>
+                                    <th class="">Size</th>
+                                    <th class="">Số lượng</th>
+                                    <th class="">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let amount of arrAmounts">
+                                    <td class="">
+                                        <h3>
+                                            {{ amount.size }}
+                                        </h3>
+                                    </td>
+                                    <td class="">
+                                        <h3>
+                                            {{ amount.amount }}
+                                            đôi
+                                        </h3>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <button type="button" class="btn btn-info " data-toggle="modal"
+                                                [attr.data-target]="'#myModalXoa'+product.id + '' + amount.size"><i
+                                                    class="fa fa-times"></i> Xóa</button>
+                                            <div class="modal fade" id="myModalXoa{{ product.id + '' + amount.size}}"
+                                                role="dialog">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align: center;">
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Bạn chắc chắn xóa số lượng Sản phẩm
+                                                            </h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>
+                                                                {{ product.name + ' size: ' + amount.size }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer" style="text-align: center;">
+                                                            <button type="button" class="btn btn-success"
+                                                                data-dismiss="modal"
+                                                                (click)="removeAmount(product.id, amount.size);">Xác
+                                                                nhận</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                                <button type="button" class="btn btn-info " data-toggle="modal"
+                                                [attr.data-target]="'#myModalSua'+amount.size"><i
+                                                    class="fa fa-edit"></i> Sửa</button>
+                                            <div>
+                                                <div class="modal fade" id="myModalSua{{ amount.size}}" role="dialog">
+                                                        <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header" style="text-align: center;">
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        <h4 class="modal-title">Sửa số lượng sản phẩm</h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form action="ThemCTSPController" class="panel">
+                                                                            <div class="row ">
+                                                                                <div class="col-md-6" style="margin-top: 30px">
+                                                                                    <p style="text-align: center">Size</p>
+                                                                                </div>
+                                                                                <div class=" col-md-6" style="width: 50px">
+                                                                                    <input name="Size" type="number" disabled value="{{ amount.size }}"
+                                                                                        style="text-align: center; width: 50px; height: 30px; margin-top: 30px" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row ">
+                                                                                <div class="col-md-6" style="margin-top: 30px">
+                                                                                    <p style="text-align: center">Số lượng</p>
+                                                                                </div>
+                                                                                <div class=" col-md-6" style="width: px">
+                                                                                    <input name="SoLuong" type="number" [(ngModel)]="amount.amount" 
+                                                                                        style="text-align: center; width: 100px; height: 30px; margin-top: 30px" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer" style="text-align: center;">
+                                                                        <button type="button" class="btn btn-success" data-dismiss="modal"
+                                                                            (click)="editAmount(product.id, amount.size, amount.amount);">Xác
+                                                                            nhận</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class=" col-md-3"></div>
+                <div class="row"></div>
+                <div class="col-md-5"></div>
+                <div class="col-md-1">
+                    <button id="input-hover" class="btn btn-primary btn-md" style="width: 100px; height: 50px"
+                        data-toggle="modal" [attr.data-target]="'#myModalthem'"><i class="fa fa-plus"></i> Thêm
+                    </button>
+                    <div>
+                        <div class="modal fade" id="myModalthem" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="text-align: center;">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Thêm số lượng sản phẩm</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="ThemCTSPController" class="panel">
+                                            <div class="row ">
+                                                <div class="col-md-6" style="margin-top: 30px">
+                                                    <p style="text-align: center">Size</p>
+                                                </div>
+                                                <div class=" col-md-6" style="width: 50px">
+                                                    <input name="Size" type="number" [(ngModel)]="sizeAdd"
+                                                        style="text-align: center; width: 50px; height: 30px; margin-top: 30px" />
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-md-6" style="margin-top: 30px">
+                                                    <p style="text-align: center">Số lượng</p>
+                                                </div>
+                                                <div class=" col-md-6" style="width: px">
+                                                    <input name="SoLuong" type="number" [(ngModel)]="amountAdd"
+                                                        style="text-align: center; width: 100px; height: 30px; margin-top: 30px" />
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer" style="text-align: center;">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal"
+                                            (click)="addAmount(product.id, sizeAdd, amountAdd);">Xác
+                                            nhận</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 25px"></div>
+            </div>
+        </div>
+    </form>
+</div>

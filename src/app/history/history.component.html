@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-list">
+                    <h1>lịch sử mua hàng</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-main-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="table-content table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="ngay">Ngày đặt hàng</th>
+                                <th class="ma">Mã đơn hàng</th>
+                                <th class="so-luong">Số lượng</th>
+                                <th class="tong-gia">Tổng giá</th>
+                                <th class="tinh-trang">Tình trạng</th>
+                                <th class="chi-tiet">Chi tiết</th>
+                                <th class="xoa">Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of arrOrders">
+                                <td><span>{{ order.date }}</span></td>
+                                <td class="ma"><span>{{ order.id }}</span></td>
+                                <td class="so-luong"><span>{{ order.amount }}</span></td>
+                                <td class="tong-gia"><span class="amount">{{ order.price +'đ'}}</span></td>
+                                <td class="tinh-trang"><span>{{ order.state }}</span></td>
+                                <td class="chi-tiet"><a>
+                                        <!-- <a href="ChiTietDonHangController?madh=<c:out value="
+                                        ${donhang.getMaDonHang()}" />"> -->
+                                        <i class="fa fa-list"></i></a></td>
+                                <td class="xoa" *ngIf="order.state !== 'al'">
+                                    <a (click)="removeOrder(order.id);"><i class="fa fa-times"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 hidden-sm hidden-xs"></div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="buttons-cart">
+                            <a href="GioHangController">Giỏ hàng</a> <a href="SanPhamController">Tiếp tục mua sắm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

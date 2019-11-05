@@ -1,0 +1,59 @@
+<app-header-admin></app-header-admin>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="QLNVController"> <em class="fa fa-home"></em>
+                </a></li>
+            <li class="active">Quản lý nhân viên</li>
+        </ol>
+        <a href="#">
+            <button type="button" class="btn btn-primary btn-md" style="margin: 15px;" (click)="addEmployee()"><i
+                    class="fa fa-plus"></i> Thêm</button>
+        </a>
+
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên nhân viên</th>
+                <th>Nhóm quyền</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of arrEmployees">
+                <td>{{ employee.username }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.right.description }}</td>
+                <td><a href="#">
+                        <button type="button" class="btn btn-info" (click)="editEmployee(employee.id);"><i
+                                class="fa fa-edit"></i> Sửa</button>
+                    </a> &nbsp;
+                    <button type="button" class="btn btn-info " data-toggle="modal"
+                        [attr.data-target]="'#myModal' + employee.id"><i class="fa fa-times"></i> Xóa</button>
+
+                    <div class="modal fade" id="myModal{{ employee.id }}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="text-align: center;">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Bạn chắc chắn xóa Nhân viên</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        {{ employee.name }}
+                                    </p>
+                                </div>
+                                <div class="modal-footer" style="text-align: center;">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                                        (click)="removeEmployee(employee.id);">Xác nhận</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

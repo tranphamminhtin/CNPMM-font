@@ -1,0 +1,106 @@
+<app-header-admin></app-header-admin>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"> <em class="fa fa-home"></em>
+                </a></li>
+            <li class="active">Quản lý tài khoản</li>
+        </ol>
+
+
+    </div>
+    <div class="widget">
+        <form action="QLTKController" method="post" id="suatk-form">
+            <div class="title">
+                <h4>Thông tin tài khoản</h4>
+            </div>
+            <div class="formRow form-group">
+                <label>Tên đăng nhập</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="username" type="text" value="{{ information.username }}" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label> Họ và tên </label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="name" type="text" value="{{ information.name }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="formRow form-group">
+                <label>Số điện thoại</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="phone" type="number" value="{{ information.numberPhone }}">
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label>Email</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="mail" type="email" value="{{ information.email }}">
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label> Nhóm quyền quản lý</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="quyen" type="text" value="{{ information.right.description }}" disabled>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="loai" value="suathongtin" />
+            <div class="formRow" style="height: 50px">
+                <div class="formRight">
+                    <button type="submit" class="btn btn-info">CHỈNH SỬA</button>
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </form>
+        <form action="QLTKController" method="post" id="doimk-form">
+            <div class="title">
+                <h4>Đổi mật khẩu</h4>
+            </div>
+            <div class="formRow form-group">
+                <label> Mật khẩu cũ</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="oldpassword" type="password">
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label> Mật khẩu mới</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" id="password1" name="password1" type="password">
+                    </div>
+                </div>
+            </div>
+            <div class="formRow form-group">
+                <label>Xác nhận Mật khẩu</label>
+                <div class="formRight">
+                    <div class="col-xs-6">
+                        <input class="form-control" name="password2" type="password">
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="loai" value="doimk" />
+            <div class="formRow" style="height: 50px">
+                <div class="formRight">
+                    <button type="submit" class="btn btn-info">ĐỔI MẬT KHẨU</button>
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </form>
+    </div>
+</div>

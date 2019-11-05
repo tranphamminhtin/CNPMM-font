@@ -1,0 +1,108 @@
+<app-header-admin></app-header-admin>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"> <em class="fa fa-home"></em>
+                </a></li>
+            <li class="active">Quản lý đơn hàng</li>
+            <li><em class="fa"> Xem chi tiết đơn hàng </em></li>
+        </ol>
+    </div>
+    <div class="widget">
+        <div class="title">
+            <h4>Thông tin người mua hàng</h4>
+        </div>
+        <div class="formRow">
+            <label> Họ và tên </label>
+            <div class="formRight">
+                <div class="col-xs-6">
+                    <input class="form-control" name="name" type="text" value="{{ client.name }}" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="formRow">
+            <label> Email</label>
+            <div class="formRight">
+                <div class="col-xs-6">
+                    <input class="form-control" name="email" type="email" value="{{ client.email }}" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="formRow">
+            <label>Số điện thoại</label>
+            <div class="formRight">
+                <div class="col-xs-6">
+                    <input class="form-control" name="phone" type="number" value="{{ client.numberPhone }}" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="formRow">
+            <label>Địa chỉ</label>
+            <div class="formRight">
+                <div class="col-xs-6">
+                    <textarea name="addresshome" class="form-control" disabled>{{ client.address }}</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="title">
+            <h4>Chi tiết đơn hàng</h4>
+        </div>
+        <div class="formRow">
+            <label> Mã đơn hàng </label>
+            <div class="formRight">
+                <div class="col-xs-6">
+                    <input class="form-control" name="id-DH" type="text" disabled value="{{ order.id }}">
+                </div>
+            </div>
+        </div>
+        <div class="formRow">
+            <label> Ngày đặt hàng</label>
+            <div class="formRight">
+                <div class="col-xs-6">
+                    <input class="form-control" name="date" type="text" value="{{ order.date }}" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="formRow">
+            <label> Tổng tiền</label>
+            <div class="formRight">
+                <div class="col-xs-6">
+                    <input class="form-control" name="total" type="text" value="{{ order.price }}" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="title">
+            <h4>Chi tiết sản phẩm</h4>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Hình ảnh</th>
+                    <th>Thông tin sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Size</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let detailOrder of arrDetailOrders">
+                    <td><img src="{{ detailOrder.product.image }}" alt="" height="50" width="50" /></td>
+                    <td>{{ detailOrder.product.name }}</td>
+                    <td>{{ detailOrder.price }} đ</td>
+                    <td>{{ detailOrder.amount }}</td>
+                    <td>{{ detailOrder.size }}</td>
+                    <td>{{ detailOrder.price * detailOrder.amount }}
+                        đ</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="formRow" style="height: 50px">
+        <div class="formRight"></div>
+            <a href="QLDHController"><button class="btn btn-info"><i class="fa fa-arrow-left"></i> Quay
+                    lại</button></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

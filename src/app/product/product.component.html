@@ -1,0 +1,185 @@
+<app-header></app-header>
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-list">
+                    <h1>Sản phẩm</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shop-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <aside class="widget">
+                    <h3 class="sidebar-title">Thương hiệu</h3>
+                    <ul class="sidebar-menu">
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckAdidas'
+                                    (change)='changeCheckbox(isCheckAdidas, "Adidas", "brand");'> Adidas
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckNike'
+                                    (change)='changeCheckbox(isCheckNike, "Nike", "brand");'> Nike
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckBitis'
+                                    (change)='changeCheckbox(isCheckBitis, "Bitis", "brand");'> Bitis
+                            </label></li>
+                    </ul>
+                </aside>
+                <aside class="widget">
+                    <h3 class="sidebar-title">Giới tính</h3>
+                    <ul class="sidebar-menu">
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckMale'
+                                    (change)='changeCheckbox(isCheckMale, "nam", "sex");'> Nam
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckFemale'
+                                    (change)='changeCheckbox(isCheckFemale, "nữ", "sex");'> Nữ
+                            </label></li>
+                    </ul>
+                </aside>
+                <aside class="widget">
+                    <h3 class="sidebar-title">Màu sắc</h3>
+                    <ul class="sidebar-menu">
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckBlack'
+                                    (change)='changeCheckbox(isCheckBlack, "black", "color");'> Đen
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckWhite'
+                                    (change)='changeCheckbox(isCheckWhite, "white", "color");'> Trắng
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckGray'
+                                    (change)='changeCheckbox(isCheckGray, "gray", "color");'> Xám
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckRed'
+                                    (change)='changeCheckbox(isCheckRed, "red", "color");'> Đỏ
+                            </label></li>
+                    </ul>
+                </aside>
+                <aside class="widget">
+                    <h3 class="sidebar-title">Size</h3>
+                    <ul class="sidebar-menu">
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckSize39'
+                                    (change)='changeCheckbox(isCheckSize39, "39", "size");'> 39
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckSize40'
+                                    (change)='changeCheckbox(isCheckSize40, "40", "size");'> 40
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckSize41'
+                                    (change)='changeCheckbox(isCheckSize41, "41", "size");'> 41
+                            </label></li>
+                        <li><label> <input type="checkbox" [(ngModel)]='isCheckSize42'
+                                    (change)='changeCheckbox(isCheckSize42, "42", "size");'> 42
+                            </label></li>
+                    </ul>
+                </aside>
+                <aside class="widget">
+                    <h3 class="sidebar-title">Giá</h3>
+                    <ul class="sidebar-menu">
+                        <li><label> <input type="radio" name="gia" (change)='changeCheckbox(true, "low", "price");'>
+                                Dưới 1 triệu
+                            </label></li>
+                        <li><label> <input type="radio" name="gia" (change)='changeCheckbox(true, "normal", "price");'>
+                                1 triệu - 2
+                                triệu
+                            </label></li>
+                        <li><label> <input type="radio" name="gia" (change)='changeCheckbox(true, "high", "price");'>
+                                Trên 2 triệu
+                            </label></li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="shop-content">
+                    <div class="shop-breadcrumb">
+                        <ul>
+                            <ng-container *ngIf="page != '1'">
+                                <li class="active"><a href="#" (click)="changePage(page - 1)">{{ page - 1 }}</a></li>
+                                &nbsp;
+                                <li class="active"><a href="#" (click)="changePage(page)">{{ page }}</a></li>
+                                &nbsp;
+                                <li class="active" *ngIf="arrFilter.length > 5"><a href="#"
+                                        (click)="changePage(page + 1)">{{ page + 1 }}</a></li>
+                            </ng-container>
+                            <ng-container *ngIf="page == '1'">
+                                <li class="active"><a href="#" (click)="changePage(1)">1</a></li>
+                                &nbsp;
+                                <li class="active" *ngIf="arrFilter.length > 5">
+                                    <a href="#" (click)="changePage(2)">2</a></li>
+                            </ng-container>
+                        </ul>
+                    </div>
+                    <div class="short-by">
+                        <input type="hidden"> <span class="sorting-show">
+                            Hiển thị:</span> <select name="sapxep" id="sortBy" [(ngModel)]="sortBy"
+                            (change)="sortProducts();">
+                            <option value="new">Mới nhất</option>
+                            <option value="low">Giá thấp đến cao</option>
+                            <option value="high">Giá cao đến thấp</option>
+                        </select>
+
+                    </div>
+                    <div class="clear"></div>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4" *ngFor="let product of arrFilter">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a>
+                                                <img src="{{ product.image }}" alt="" />
+                                            </a> <span class="tag-line">new</span>
+                                            <div class="product-action">
+                                                <div class="button-cart">
+                                                    <button (click)="order(product.id);">
+                                                        <i class="fa fa-usd" aria-hidden="true"></i> đặt hàng
+                                                    </button>
+                                                    <button (click)="addCart(product.id);">
+                                                        <i class="fa fa-shopping-cart"></i> Giỏ hàng
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <h3>
+                                                <a>{{ product.name }}</a>
+                                            </h3>
+                                            <div class="price">
+                                                <span>{{ getPriceToSale(product.id) + ' đ'}}</span>
+                                                <span class="old" *ngIf="product.promotion > 0">
+                                                    {{ product.price + ' đ'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="clear"></div>
+                    <div class="shop-breadcrumb">
+                        <ul>
+                            <ng-container *ngIf="page != '1'">
+                                <li class="active"><a href="#" (click)="changePage(page - 1)">{{ page - 1 }}</a></li>
+                                &nbsp;
+                                <li class="active"><a href="#" (click)="changePage(page)">{{ page }}</a></li>
+                                &nbsp;
+                                <li class="active" *ngIf="arrFilter.length > 5"><a href="#"
+                                        (click)="changePage(page + 1)">{{ page + 1 }}</a></li>
+                            </ng-container>
+                            <ng-container *ngIf="page == '1'">
+                                <li class="active"><a href="#" (click)="changePage(1)">1</a></li>
+                                &nbsp;
+                                <li class="active" *ngIf="arrFilter.length > 5">
+                                    <a href="#" (click)="changePage(2)">2</a></li>
+                            </ng-container>
+                        </ul>
+                        <input type="hidden" id="page" value="1" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

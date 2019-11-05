@@ -1,0 +1,132 @@
+<app-header-admin></app-header-admin>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"> <em class="fa fa-home"></em>
+                </a></li>
+            <li class="active  " style="color: red">Quản lý sản phẩm</li>
+        </ol>
+    </div>
+    <div class="row" style="width: 100%; margin: 0% 0% 0% 0%">
+        <div class="col-md-12">
+            <div class="row">
+                <h4 style="text-align: center; color: red">Danh sách sản phẩm</h4>
+            </div>
+            <div class="row" style="width: 102%; height: 10px; background-color: #85e0e0;"></div>
+            <div class="row " style="width: 100%; margin: 1% 0% 0% 0%; border: 1px">
+                <button type="button" class="btn btn-primary btn-md" style="margin: 15px;" (click)="addProduct();"><i
+                        class="fa fa-plus"></i>
+                    Thêm sản phẩm</button>
+                <br>
+            </div>
+            <div class="row">
+                <div class="col-md-12 ">
+                    <form action="#">
+                        <div class="table-content ">
+                            <table style="margin-top: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th>Ảnh</th>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Thương hiệu</th>
+                                        <th>Màu</th>
+                                        <th>Giới tính</th>
+                                        <th>Khuyến mãi</th>
+                                        <th>Giá</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of arrProducts">
+                                        <td><img src="{{ product.image }}" alt="" style="width: 100px; height: 100px">
+                                        </td>
+                                        <td>
+
+                                            <h3 style="font-size: 18px">
+                                                {{ product.id }}
+                                            </h3>
+                                        </td>
+                                        <td>
+
+                                            <h3 style="font-size: 18px">
+                                                {{ product.name }}
+                                            </h3>
+                                        </td>
+                                        <td>
+                                            <h3 style="font-size: 18px">
+                                                {{ product.brand }}
+                                            </h3>
+                                        </td>
+                                        <td>
+                                            <h3 style="font-size: 18px">
+                                                {{ product.color }}
+                                            </h3>
+                                        </td>
+                                        <td>
+                                            <h3 style="font-size: 18px">
+                                                {{ product.sex }}
+                                            </h3>
+                                        </td>
+                                        <td>
+                                            <h3 style="font-size: 18px">
+                                                {{ product.promotion }}
+                                                %
+                                            </h3>
+                                        </td>
+                                        <td>
+                                            <h3 style="font-size: 18px">
+                                                {{ product.price }}
+                                                đồng
+                                            </h3>
+                                        </td>
+                                        <td>
+                                            <div class="row">
+                                                <button type="button" class="btn btn-info " data-toggle="modal"
+                                                    [attr.data-target]="'#myModal' + product.id"><i
+                                                        class="fa fa-times"></i> Xóa</button>
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <button type="button" class="btn btn-info"
+                                                    (click)="editProduct(product.id);"><i class="fa fa-edit"></i>
+                                                    Sửa</button>
+                                            </div>
+                                            <br>
+                                            <div>
+                                                <button type="button" class="btn btn-info "
+                                                    (click)="detailProduct(product.id);"><i
+                                                        class="fa fa-info-circle"></i> Chi tiết</button>
+                                            </div>
+                                            <div class="modal fade" id="myModal{{ product.id }}" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="text-align: center;">
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Bạn chắc chắn xóa Sản phẩm</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>
+                                                                {{ product.name }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer" style="text-align: center;">
+                                                            <button type="button" class="btn btn-success"
+                                                                data-dismiss="modal"
+                                                                (click)="removeProduct(product.id);">Xác nhận</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
