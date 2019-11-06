@@ -17,4 +17,9 @@ export class FixRightComponent implements OnInit {
   ngOnInit() {
   }
 
+  editRightSubmit(formEditRight) {
+    if(formEditRight.valid) {
+      console.log(formEditRight.value);
+    }
+  }
 }

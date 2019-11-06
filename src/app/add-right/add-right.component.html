@@ -9,7 +9,7 @@
             <li><em class="fa"> Thêm nhóm quyền</em></li>
         </ol>
     </div>
-    <form action="NhomQuyenController" method="post" id="nhom-quyen-form">
+    <form (ngSubmit)="addRightSubmit(formAddRight);" #formAddRight="ngForm" id="nhom-quyen-form">
         <div class="widget">
             <div class="title">
                 <h4>Nhập dữ liệu</h4>
@@ -17,7 +17,7 @@
             <div class="formRow" style="height: 110px">
                 <label> Mô tả </label>
                 <div class="formRight form-group">
-                    <textarea rows="4" cols="80" class="tipS form-control" name="mieuta"></textarea>
+                    <textarea rows="4" cols="80" class="tipS form-control" name="description" ngModel required></textarea>
                 </div>
             </div>
             <div class="formRow" style="height: 200px">
@@ -25,18 +25,18 @@
                 <div class="clear"></div>
 
                 <div class="checkbox">
-                    <label><input type="checkbox" name="admin">Admin</label>
+                    <label><input type="checkbox" name="admin" [ngModel]="false">Admin</label>
                 </div>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="sp">Quản lý
+                    <label><input type="checkbox" name="product" [ngModel]="false">Quản lý
                         sản phẩm</label>
                 </div>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="kh">Quản lý
+                    <label><input type="checkbox" name="client" [ngModel]="false">Quản lý
                         khách hàng</label>
                 </div>
                 <div class="checkbox">
-                    <label><input type="checkbox" name="dh">Quản lý
+                    <label><input type="checkbox" name="order" [ngModel]="false">Quản lý
                         đơn hàng</label>
                 </div>
             </div>

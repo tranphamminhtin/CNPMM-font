@@ -12,4 +12,9 @@ export class AddRightComponent implements OnInit {
   ngOnInit() {
   }
 
+  addRightSubmit(formAddRight) {
+    if(formAddRight.valid) {
+      console.log(formAddRight.value);
+    }
+  }
 }

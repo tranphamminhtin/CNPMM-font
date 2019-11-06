@@ -23,11 +23,11 @@ $(function(){
 				required:true,
 				email: true
 			},
-			numberphone:{
+			numberPhone:{
 				required:true,
 				minlength:10
 			},
-			addresshome:{
+			address:{
 				required:true,
 			},
 			username:{
@@ -52,11 +52,11 @@ $(function(){
 				required: 'Hãy nhập địa chỉ email.',
 				email:'Vui lòng nhập đúng email.'
 			},
-			numberphone:{
+			numberPhone:{
 				required: 'Hãy nhập số điện thoại.',
 				minlength: 'Số điện thoại của bạn ngắn quá.'
 			},
-			addresshome:{
+			address:{
 				required:'Hãy nhập địa chỉ nhà bạn.'
 			},
 			username:{
@@ -181,11 +181,13 @@ $(function(){
 			},
 			email:{
 				required:true,
+				email: true
 			},
-			numberphone:{
+			numberPhone:{
 				required:true,
+				minlength: 10
 			},
-			addresshome:{
+			address:{
 				required:true,
 			},
 		},
@@ -195,11 +197,13 @@ $(function(){
 			},
 			email:{
 				required: 'Vui lòng điền email',
+				email: 'Vui lòng nhập đúng địa chỉ email'
 			},
-			numberphone:{
+			numberPhone:{
 				required: 'Vui lòng điền số điện thoại',
+				minlength: 'Số điện thoại gồm 10 kí tự'
 			},
-			addresshome:{
+			address:{
 				required: 'Vui lòng điền địa chỉ',
 			},
 		}		
@@ -209,10 +213,11 @@ $(function(){
 			name:{
 				required: true,
 			},
-			numberphone:{
+			numberPhone:{
 				required:true,
+				minlength: 10
 			},
-			addresshome:{
+			address:{
 				required:true,
 			},
 		},
@@ -220,10 +225,11 @@ $(function(){
 			name:{
 				required: 'Vui lòng điền họ tên',
 			},
-			numberphone:{
+			numberPhone:{
 				required: 'Vui lòng điền số điện thoại',
+				minlength: 'Số điện thoại bao gồm 10 kí tự'
 			},
-			addresshome:{
+			address:{
 				required: 'Vui lòng điền địa chỉ',
 			},
 		}		
@@ -262,13 +268,13 @@ $(function(){
 	});
 	$("#nhom-quyen-form").validate({
 		rules:{
-			mieuta: {
+			description: {
 				required:true,
 			},
 		},	
 		messages:{
-			mieuta: {
-				required:'Hãy nhập miêu tả',
+			description: {
+				required:'Hãy nhập mô tả',
 			},
 		}
 	});
@@ -277,13 +283,15 @@ $(function(){
 			manv:{},
 			password: {
 				required:true,
+				minlength: 6
 			},
 			name:{
 				required:true,
 			},
-			phone:{
+			Phone:{
+				minlength: 10
 			},
-			mail:{
+			email:{
 				required:true,
 				email:true
 			},
@@ -292,13 +300,15 @@ $(function(){
 			manv:{},
 			password: {
 				required: 'Hãy nhập mật khẩu.',
+				minlength: 'Mật khẩu phải từ 6 kí tự trở lên.'
 			},
 			name:{
 				required: 'Hãy điền họ tên.',
 			},
-			phone:{
+			numberPhone:{
+				minlength: 'Số điện thoại gồm 10 số.'
 			},
-			mail:{
+			email:{
 				required: 'Hãy điền email.',
 				email: 'Hãy nhập đúng email.'
 			},
@@ -309,12 +319,13 @@ $(function(){
 			name:{
 				required: true,
 			},
-			mail:{
+			email:{
 				required:true,
 				email: true
 			},
-			phone:{
+			numberPhone:{
 				required:true,
+				minlength: 10
 			},
 			username:{
 				required:true,
@@ -332,12 +343,13 @@ $(function(){
 			name:{
 				required: 'Hãy nhập họ và tên của bạn.',
 			},
-			mail:{
+			email:{
 				required: 'Hãy nhập địa chỉ email.',
 				email:'Vui lòng nhập đúng email.'
 			},
-			phone:{
+			numberPhone:{
 				required: 'Hãy nhập số điện thoại.',
+				minlength: 'Số điện thoại 10 kí tự'
 			},
 			username:{
 				required: 'Hãy nhập tên đăng nhập.',
@@ -359,10 +371,10 @@ $(function(){
 			name:{
 				required:true,
 			},
-			phone:{
+			numberPhone:{
 				required:true,
 			},
-			mail:{
+			email:{
 				required:true,
 				email:true
 			},
@@ -373,10 +385,10 @@ $(function(){
 			name:{
 				required: 'Hãy điền họ tên.',
 			},
-			phone:{
+			numberPhone:{
 				required: 'Hãy điền số điện thoại của bạn',
 			},
-			mail:{
+			email:{
 				required: 'Hãy điền email.',
 				email: 'Hãy nhập đúng email.'
 			},
@@ -389,6 +401,7 @@ $(function(){
 			},
 			password1: {
 				required:true,
+				minlength: 6
 			},
 			password2:{
 				required: true,
@@ -401,6 +414,7 @@ $(function(){
 			},
 			password1:{
 				required: 'Hãy nhập mật khẩu của bạn.',
+				minlength: 'Mật khẩu phải từ 6 kí tự trở lên.'
 			},
 			password2:{
 				required: 'Vui lòng xác nhận lại mật khẩu.',

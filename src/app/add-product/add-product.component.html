@@ -14,8 +14,8 @@
             </div>
             <div class="row" style="width: 102%; height: 10px; background-color: #85e0e0;"></div>
             <div class="row " style="width: 100%; margin: 1% 0% 0% 0%; border: 1px"></div>
-            <form id="Them_SanPham" action="ThemSanPhamController" method="post" class="panel"
-                style="background-color: white" enctype="multipart/form-data">
+            <form id="Them_SanPham" (ngSubmit)="addProductSubmit(formAddProduct);" #formAddProduct="ngForm"
+                class="panel" style="background-color: white" enctype="multipart/form-data">
                 <div class="row" style="margin-top: 10px">
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-1"></div>
@@ -24,23 +24,23 @@
                                 <p style="margin-left: 61px">Danh mục sản phẩm :</p>
                             </div>
                             <div class="col-md-3" style="margin-top: 5px">
-                                <input type="radio" name="ThuongHieu" value="Nike" required>
+                                <input type="radio" name="brand" value="Nike" required ngModel>
                                 Nike
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="col-md-7" style="margin-top: 10px">
-                                <input type="radio" name="ThuongHieu" value="Adidas" required>
+                                <input type="radio" name="brand" value="Adidas" required ngModel>
                                 Adidas
                             </div>
                             <div class="col-md-5" style="margin-top: 10px">
-                                <input type="radio" name="ThuongHieu" value="Bitis" required>
+                                <input type="radio" name="brand" value="Bitis" required ngModel>
                                 Bitis
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="col-md-7" style="margin-top: 10px">
-                                <input type="radio" name="ThuongHieu" value="Khác" required>
+                                <input type="radio" name="brand" value="other" required ngModel>
                                 Khác
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <p style="margin-left: 65px; margin-top: 10px">Mã sản phẩm :</p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 500px">
-                        <input name="MaSanPham" type="text" required class="form-control" value="" />
+                        <input name="id" type="text" required class="form-control" ngModel/>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -61,8 +61,8 @@
                         <p style="margin-left: 65px; margin-top: 10px">Tên sản phẩm :</p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 500px">
-                        <input name="TenSanPham" id="name" type="text" placeholder="Tên sản phẩm" required
-                            class="form-control" />
+                        <input name="name" id="name" type="text" placeholder="Tên sản phẩm" required
+                            class="form-control" ngModel/>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -72,12 +72,12 @@
                         <p style="margin-left: 65px; margin-top: 10px">Màu :</p>
                     </div>
                     <div class=" form-group col-md-7">
-                        <select name="MauSac" style="height: 40px; width: 250px">
-                            <option value="Đen">Đen</option>
-                            <option value="Trắng">Trắng</option>
-                            <option value="Xám">Xám</option>
-                            <option value="Đỏ">Đỏ</option>
-                            <option value="Khác">Khác</option>
+                        <select name="color" style="height: 40px; width: 250px" ngModel>
+                            <option value="black">Đen</option>
+                            <option value="white">Trắng</option>
+                            <option value="gray">Xám</option>
+                            <option value="red">Đỏ</option>
+                            <option value="other">Khác</option>
                         </select>
                     </div>
                 </div>
@@ -88,16 +88,16 @@
                             <p style="margin-left: 50px">Giới tính :</p>
                         </div>
                         <div class="col-md-3" style="margin-top: 5px">
-                            <input type="radio" name="GioiTinh" value="Nam"> Nam
+                            <input type="radio" name="sex" value="male" required ngModel> Nam
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="col-md-7" style="margin-top: 10px">
-                            <input type="radio" name="GioiTinh" value="Nữ"> Nữ
+                            <input type="radio" name="sex" value="female" required ngModel> Nữ
                         </div>
                     </div>
                     <div class="col-md-3" style="margin-top: 5px">
-                        <input type="radio" name="GioiTinh" value="Cả 2"> Cả 2
+                        <input type="radio" name="sex" value="other" required ngModel> Cả 2
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10px">
@@ -106,18 +106,18 @@
                         <p style="margin-left: 65px; margin-top: 10px">Khuyến mãi :</p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 150px">
-                        <input name="KhuyenMai" type="number" placeholder="%" min="0" max="100" required
-                            class="form-control" />
+                        <input name="promotion" type="number" placeholder="%" min="0" max="100" required
+                            class="form-control" ngModel/>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
                 <div class="row" style="margin-top: 10px">
                     <div class="col-md-1"></div>
                     <div class="col-md-3">
-                        <p style="margin-left: 65px; margin-top: 10px">Giá bán :</p>
+                        <p style="margin-left: 65px; margin-top: 10px">Giá :</p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 300px">
-                        <input name="GiaBan" type="number" placeholder="đ" required min="100" class="form-control" />
+                        <input name="price" type="number" placeholder="đ" required min="100" class="form-control" ngModel/>
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -151,7 +151,7 @@
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" class="btn btn-info"><i class="fa fa-plus"></i> Thêm</button>
+                        <button type="submit" class="btn btn-info"><i class="fa fa-plus"></i> Thêm</button>
                     </div>
                     <div class="col-md-3"></div>
                 </div>

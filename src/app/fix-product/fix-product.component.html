@@ -14,8 +14,9 @@
             </div>
             <div class="row" style="width: 102%; height: 10px; background-color: #85e0e0;"></div>
             <div class="row " style="width: 100%; margin: 1% 0% 0% 0%; border: 1px"></div>
-            <form id="Them_SanPham" action="SuaSanPhamController?action=Update" method="post" class="panel"
+            <form id="Them_SanPham" (ngSubmit)="addProductSubmit(formAddProduct);" #formAddProduct="ngForm" class="panel"
                 style="background-color: white" enctype="multipart/form-data">
+                <input type="hidden" name="id" [ngModel]="product.id">
                 <div class="row" style="margin-top: 10px">
                     <div class="row" style="margin-top: 5px">
                         <div class="col-md-1"></div>
@@ -34,7 +35,6 @@
                         <p style="margin-left: 65px; margin-top: 20px">Mã sản phẩm : </p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 500px; margin-top: 20px">
-                        <input name="MaSanPham" type="hidden" placeholder="" value="">
                         <p>
                             {{ product.id }}
                         </p>
@@ -47,7 +47,6 @@
                         <p style="margin-left: 65px; margin-top: 20px">Tên sản phẩm : </p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 500px; margin-top: 20px">
-                        <input name="TenSanPham" type="hidden" placeholder="" value="">
                         <p>
                             {{ product.name }}
                         </p>
@@ -60,12 +59,12 @@
                         <p style="margin-left: 65px; margin-top: 10px">Màu :</p>
                     </div>
                     <div class=" form-group col-md-7">
-                        <select name="MauSac" style="height: 40px; width: 250px">
-                            <option value="Đen">Đen</option>
-                            <option value="Trắng">Trắng</option>
-                            <option value="Xám">Xám</option>
-                            <option value="Đỏ">Đỏ</option>
-                            <option value="Khác">Khác</option>
+                        <select name="color" style="height: 40px; width: 250px" ngModel>
+                            <option value="black">Đen</option>
+                            <option value="white">Trắng</option>
+                            <option value="gray">Xám</option>
+                            <option value="red">Đỏ</option>
+                            <option value="other">Khác</option>
                         </select>
                     </div>
                 </div>
@@ -76,7 +75,6 @@
                             <p style="margin-left: 50px">Giới tính :</p>
                         </div>
                         <div class="col-md-3" style="margin-top: 25px; margin-left: 30px">
-                            <input type="hidden" name="GioiTinh" value="">
                             <p>
                                 {{ product.sex }}
                             </p>
@@ -90,8 +88,8 @@
                             (%):</p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 150px">
-                        <input name="KhuyenMai" type="number" placeholder="%" required min="0" max="100"
-                            class="form-control" value="{{ product.promotion }}" />
+                        <input name="promotion" type="number" placeholder="%" required min="0" max="100"
+                            class="form-control" [ngModel]="product.promotion" />
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -102,7 +100,7 @@
                             :</p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 300px">
-                        <input name="GiaBan" type="number" placeholder="đ" required min="100" value="{{ getPriceToSale() }}"
+                        <input name="price" type="number" placeholder="đ" required min="100" [ngModel]="product.price"
                         class="form-control" />
                     </div>
                     <div class="col-md-1"></div>
@@ -136,12 +134,12 @@
                 <div class="row" style="margin-top: 10px">
                     <div class="col-md-3"></div>
                     <div class="col-md-3">
-                        <a id="a-id" href="QLSPController"> <button type="button" class="btn btn-info"><i
+                        <a id="a-id" href="#"> <button type="button" class="btn btn-info"><i
                             class="fa fa-arrow-left"></i> Quay lại</button>
                         </a>
                     </div>
                     <div class="col-md-3">
-                            <button type="button" class="btn btn-info"><i class="fa fa-edit"></i> Sửa</button>
+                            <button type="submit" class="btn btn-info"><i class="fa fa-edit"></i> Sửa</button>
                     </div>
                     <div class="col-md-3"></div>
                 </div>

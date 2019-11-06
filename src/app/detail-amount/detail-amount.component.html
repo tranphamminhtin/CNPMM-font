@@ -110,7 +110,7 @@
                                                                         <h4 class="modal-title">Sửa số lượng sản phẩm</h4>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <form action="ThemCTSPController" class="panel">
+                                                                        <form class="panel">
                                                                             <div class="row ">
                                                                                 <div class="col-md-6" style="margin-top: 30px">
                                                                                     <p style="text-align: center">Size</p>
@@ -125,7 +125,7 @@
                                                                                     <p style="text-align: center">Số lượng</p>
                                                                                 </div>
                                                                                 <div class=" col-md-6" style="width: px">
-                                                                                    <input name="SoLuong" type="number" [(ngModel)]="amount.amount" 
+                                                                                    <input name="SoLuong" type="number" [(ngModel)]="amount.amount" required
                                                                                         style="text-align: center; width: 100px; height: 30px; margin-top: 30px" />
                                                                                 </div>
                                                                             </div>
@@ -163,13 +163,13 @@
                                         <h4 class="modal-title">Thêm số lượng sản phẩm</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="ThemCTSPController" class="panel">
+                                        <form class="panel">
                                             <div class="row ">
                                                 <div class="col-md-6" style="margin-top: 30px">
                                                     <p style="text-align: center">Size</p>
                                                 </div>
                                                 <div class=" col-md-6" style="width: 50px">
-                                                    <input name="Size" type="number" [(ngModel)]="sizeAdd"
+                                                    <input name="Size" type="number" [(ngModel)]="sizeAdd" required
                                                         style="text-align: center; width: 50px; height: 30px; margin-top: 30px" />
                                                 </div>
                                             </div>
@@ -178,7 +178,7 @@
                                                     <p style="text-align: center">Số lượng</p>
                                                 </div>
                                                 <div class=" col-md-6" style="width: px">
-                                                    <input name="SoLuong" type="number" [(ngModel)]="amountAdd"
+                                                    <input name="SoLuong" type="number" [(ngModel)]="amountAdd" required
                                                         style="text-align: center; width: 100px; height: 30px; margin-top: 30px" />
                                                 </div>
                                             </div>

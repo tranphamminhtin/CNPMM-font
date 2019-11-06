@@ -21,29 +21,29 @@
                         <p>Hãy điền thông tin cá nhân của bạn</p>
                     </div>
                     <div class="rows">
-                        <form action="SuaTaiKhoanController" method="post" id="ttcn-fomr">
+                        <form (ngSubmit)="editInfo(formInfo);" #formInfo="ngForm" id="ttcn-fomr">
+                            <input type="hidden" name="id" [ngModel]="client.id">
                             <div class="form-group">
                                 <label>Họ và tên <span class="required">*</span></label> <input
                                     type="text" placeholder="Họ và tên" name="name"
-                                    class="form-control"  />
-                                    <!-- value="${khachhang.getHoTen() }" -->
+                                    class="form-control" required [ngModel]="client.name" />
                             </div>
                             <div class="form-group">
                                 <label>Email <span class="required">*</span></label> <input
                                     type="text" placeholder="Địa chỉ email" name="email"
-                                    class="form-control"  />
+                                    class="form-control" required email [ngModel]="client.email" />
                                     <!-- value="${khachhang.getEmail() }" -->
                             </div>
                             <div class="form-group">
                                 <label>Số điện thoại <span class="required">*</span></label> <input
-                                    type="number" placeholder="Số điện thoại" name="numberphone"
-                                    class="form-control"  />
+                                    type="text" placeholder="Số điện thoại" name="numberPhone" (keypress)="keyPress($event)"
+                                    class="form-control" required minlength="10" [ngModel]="client.numberPhone" />
                                     <!-- value="${khachhang.getSoDienThoai() }" -->
                             </div>
                             <div class="form-group">
                                 <label>Địa chỉ <span class="required">*</span></label>
-                                <textarea name="addresshome" placeholder="Địa chỉ"
-                                    class="form-control"></textarea>
+                                <textarea name="address" placeholder="Địa chỉ"
+                                    class="form-control" required [ngModel]="client.address"></textarea>
                                     <!-- value="${khachhang.getDiaChi()}" /> -->                  
                             </div>
                             <input type="submit" value="Lưu thay đổi" class="login-sub">

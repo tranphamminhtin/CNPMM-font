@@ -17,4 +17,29 @@ export class AddEmployeeComponent implements OnInit {
   ngOnInit() {
   }
 
+  addEmployeeSubmit(formAddEmployee) {
+    if(formAddEmployee.valid) {
+      console.log(formAddEmployee.value); 
+    }
+  }
+
+  validAddEmployeeForm(formAddEmployee) {
+    if(formAddEmployee.value.username.includes(' ')) {
+      return false;
+    }
+    if(formAddEmployee.value.password1 !== formAddEmployee.value.password2) {
+      return false;
+    }
+    return true;
+  }
+
+  keyPress(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
 }

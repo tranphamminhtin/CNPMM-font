@@ -16,8 +16,10 @@ export class FixProductComponent implements OnInit {
   ngOnInit() {
   }
 
-  getPriceToSale() {
-    return this.product.price - this.product.price*this.product.promotion/100;
+  addProductSubmit(formAddProduct) {
+    if(formAddProduct.valid) {
+      console.log(formAddProduct.value);
+    }
   }
 
 }

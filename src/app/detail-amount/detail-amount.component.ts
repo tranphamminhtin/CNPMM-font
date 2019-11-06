@@ -20,7 +20,9 @@ export class DetailAmountComponent implements OnInit {
   }
 
   addAmount(id: string, size: number, amount: number) {
-    console.log('thêm '+ id +'size: ' + size + 'số lượng: ' + amount);
+    if(size > 30 && size < 100 && amount > 0) {
+      console.log('thêm '+ id +'size: ' + size + 'số lượng: ' + amount);
+    }
     // let a = {size: size, amount: amount};
     // this.arrAmounts.unshift(a);
   }

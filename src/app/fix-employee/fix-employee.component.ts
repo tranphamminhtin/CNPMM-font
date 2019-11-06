@@ -20,4 +20,19 @@ export class FixEmployeeComponent implements OnInit {
   ngOnInit() {
   }
 
+  fixEmployeeSubmit(formFixEmployee) {
+    if(formFixEmployee.valid) {
+      console.log(formFixEmployee);
+    }
+  }
+
+  keyPress(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
 }
