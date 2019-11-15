@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { DetailOrderAdminService } from "./detail-order-admin.service";
 
 @Component({
   selector: 'app-detail-order-admin',
   templateUrl: './detail-order-admin.component.html',
-  styleUrls: ['./detail-order-admin.component.css']
+  styleUrls: ['./detail-order-admin.component.css'],
+  providers: [DetailOrderAdminService]
 })
 export class DetailOrderAdminComponent implements OnInit {
 
@@ -16,7 +18,7 @@ export class DetailOrderAdminComponent implements OnInit {
   ];
 
   order = {id: '1', date: '02/11/2019', amount: 1, price: 3000, state: 'aa'};
-  constructor() { }
+  constructor(service: DetailOrderAdminService) { }
 
   ngOnInit() {
   }

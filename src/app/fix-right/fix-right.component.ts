@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FixRightService } from "./fix-right.service";
 
 @Component({
   selector: 'app-fix-right',
   templateUrl: './fix-right.component.html',
-  styleUrls: ['./fix-right.component.css']
+  styleUrls: ['./fix-right.component.css'],
+  providers: [FixRightService]
 })
 export class FixRightComponent implements OnInit {
 
@@ -12,7 +14,7 @@ export class FixRightComponent implements OnInit {
   rightProduct = true;
   rightOrder = false;
   right = {id: 1, description: 'Nhóm sản phẩm'}
-  constructor() { }
+  constructor(service: FixRightService) { }
 
   ngOnInit() {
   }

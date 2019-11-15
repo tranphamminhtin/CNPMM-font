@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AddEmployeeService } from './add-employee.service'
 
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css']
+  styleUrls: ['./add-employee.component.css'],
+  providers: [AddEmployeeService]
 })
 export class AddEmployeeComponent implements OnInit {
 
@@ -12,7 +14,7 @@ export class AddEmployeeComponent implements OnInit {
     {id: '2', description: 'Nhóm đơn hàng'},
     {id: '3', description: 'Nhóm nhân viên'}
   ];
-  constructor() { }
+  constructor(service: AddEmployeeService) { }
 
   ngOnInit() {
   }

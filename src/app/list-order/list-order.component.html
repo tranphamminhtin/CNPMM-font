@@ -1,4 +1,4 @@
-<app-header-admin></app-header-admin>
+<!-- <app-header-admin></app-header-admin> -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
@@ -30,7 +30,7 @@
                 <td>{{ order.id }}</td>
                 <td>{{ order.date }}</td>
                 <td>{{ order.username }}</td>
-                <td>{{ order.amount }}</td>
+                <td>{{ getAmount(order.id); }}</td>
                 <td>{{ order.price + ' đ'}}</td>
                 <td>
                     <button type="button" class="btn btn-info" *ngIf="order.state!=='ad'" (click)="next(order.id);"><i

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FixEmployeeService } from "./fix-employee.service";
 
 @Component({
   selector: 'app-fix-employee',
   templateUrl: './fix-employee.component.html',
-  styleUrls: ['./fix-employee.component.css']
+  styleUrls: ['./fix-employee.component.css'],
+  providers: [FixEmployeeService]
 })
 export class FixEmployeeComponent implements OnInit {
 
@@ -15,7 +17,7 @@ export class FixEmployeeComponent implements OnInit {
     {id: '2', description: 'Nhóm đơn hàng'},
     {id: '3', description: 'Nhóm nhân viên'}
   ];
-  constructor() { }
+  constructor(service: FixEmployeeService) { }
 
   ngOnInit() {
   }

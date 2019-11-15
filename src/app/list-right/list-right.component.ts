@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ListRightService } from "./list-right.service";
 
 @Component({
   selector: 'app-list-right',
   templateUrl: './list-right.component.html',
-  styleUrls: ['./list-right.component.css']
+  styleUrls: ['./list-right.component.css'],
+  providers: [ListRightService]
 })
 export class ListRightComponent implements OnInit {
 
@@ -12,7 +14,7 @@ export class ListRightComponent implements OnInit {
     {id: '2', description: 'Nhóm đơn hàng'},
     {id: '3', description: 'Nhóm nhân viên'}
   ];
-  constructor() { }
+  constructor(service: ListRightService) { }
 
   ngOnInit() {
   }

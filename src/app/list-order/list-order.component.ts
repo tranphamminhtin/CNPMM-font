@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ListOrderService } from "./list-order.service";
 
 @Component({
   selector: 'app-list-order',
   templateUrl: './list-order.component.html',
-  styleUrls: ['./list-order.component.css']
+  styleUrls: ['./list-order.component.css'],
+  providers: [ListOrderService]
 })
 export class ListOrderComponent implements OnInit {
 
@@ -16,10 +18,26 @@ export class ListOrderComponent implements OnInit {
   arrFiltered = [];
   isDone = false;
   stateShow = 'aa';
-  constructor() { }
+  constructor(private service: ListOrderService) { }
 
   ngOnInit() {
     this.arrFiltered = this.arrOrder.filter(e => e.state === this.stateShow);
+  }
+
+  getAmount(orderId) {
+    this.service.getTotal(orderId).then(result => {
+      if(!result["success"]) {
+        console.log(result['message']);
+      } else {
+        try {
+          return parseInt(result['message']);
+        } catch(err) {
+          console.log(err);
+          return 0;
+        }
+      }
+    }).catch(err => console.log(err));
+    return 0;
   }
 
   show(state: string) {

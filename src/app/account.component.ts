@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { AppComponent } from "./app.component";
 
 @Component({
     selector: 'app-account',
     template: `
-    <app-header></app-header>
             <div class="breadcrumb-area">
             <div class="container">
                 <div class="row">
@@ -46,8 +47,14 @@ import { Component } from '@angular/core';
                 </div>
             </div>
         </div>
-    <app-footer></app-footer>
 
   `
 })
-export class AccountComponent { }
+export class AccountComponent implements OnInit { 
+    @ViewChild(AppComponent, {static: false}) mychild;
+    constructor(private location: Location){}
+
+    ngOnInit() {
+        console.log(this.location.path());
+    }
+}

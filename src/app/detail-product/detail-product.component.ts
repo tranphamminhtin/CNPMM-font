@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { DetailProductService } from "./detail-product.service";
 
 @Component({
   selector: 'app-detail-product',
   templateUrl: './detail-product.component.html',
-  styleUrls: ['./detail-product.component.css']
+  styleUrls: ['./detail-product.component.css'],
+  providers: [DetailProductService]
 })
 export class DetailProductComponent implements OnInit {
 
@@ -11,7 +13,7 @@ export class DetailProductComponent implements OnInit {
               price: 3000, image: 'assets/img/product/giay1.jpg', image2: 'assets/img/product/giay1.2.jpg', 
               image3: 'assets/img/product/giay1.3.jpg', image4: 'assets/img/product/giay1.4.jpg',
               sizes: [40, 41, 42, 43]};
-  constructor() { }
+  constructor(service: DetailProductService) { }
 
   ngOnInit() {
   }

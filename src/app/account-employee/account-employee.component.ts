@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountEmployeeService } from './account-employee.service';
 
 @Component({
   selector: 'app-account-employee',
   templateUrl: './account-employee.component.html',
-  styleUrls: ['./account-employee.component.css']
+  styleUrls: ['./account-employee.component.css'],
+  providers: [AccountEmployeeService]
 })
 export class AccountEmployeeComponent implements OnInit {
 
   information = {id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', numberPhone: '1234567890',
                  email: 'tin@gmail.com', right: {id: '1', description: 'Nhóm sản phẩm'}};
-  constructor() { }
+  constructor(service: AccountEmployeeService) { }
 
   ngOnInit() {
   }

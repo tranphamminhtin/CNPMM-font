@@ -1,8 +1,9 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
+
 
 @Component({
-  selector: 'app-header',
-  template: `
+    selector: 'app-header',
+    template: `
   <header class="header-pos">
     <div class="header-bottom-area">
         <div class="container">
@@ -36,7 +37,7 @@ import { Component} from '@angular/core';
                                         </ul>
                                     </li>
                                     <li><a href="#">TIN TỨC</a></li>
-                                    <li><a href="#">LIÊN HỆ</a></li>
+                                    <li><a routerLink="/lien-he">LIÊN HỆ</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -114,4 +115,13 @@ import { Component} from '@angular/core';
     </header>
   `
 })
-export class HeaderComponent{}
+export class HeaderComponent {
+    
+    static isLogin = false;
+
+    // constructor(private cdRef : ChangeDetectorRef){}
+
+    // ngAfterViewChecked() {
+    //     this.cdRef.detectChanges();
+    // }
+}

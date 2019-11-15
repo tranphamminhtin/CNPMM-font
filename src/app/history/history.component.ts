@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { HistoryService } from "./history.service";
 
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css']
+  styleUrls: ['./history.component.css'],
+  providers: [HistoryService]
 })
 export class HistoryComponent implements OnInit {
 
@@ -13,7 +15,7 @@ export class HistoryComponent implements OnInit {
     {id: '3', date: '04/11/2019', amount: 1, price: 3000, state: 'ad'},
     {id: '4', date: '05/11/2019', amount: 1, price: 3000, state: 'af'}
   ];
-  constructor() { }
+  constructor(service: HistoryService) { }
 
   ngOnInit() {
   }

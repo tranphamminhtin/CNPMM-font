@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from './cart.service'
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
+  providers: [CartService]
 })
 export class CartComponent implements OnInit {
 
@@ -12,7 +14,7 @@ export class CartComponent implements OnInit {
     {id: '2', product: {id: '2', name: 'nike', image: 'assets/img/product/giay1.jpg'}, amount: 2, price: 3000, size: 31},
     {id: '3', product: {id: '3', name: 'hunter', image: 'assets/img/product/giay1.jpg'}, amount: 3, price: 3000, size: 32},
   ];
-  constructor() { }
+  constructor(service: CartService) { }
 
   ngOnInit() {
   }

@@ -1,0 +1,20 @@
+<div class="login-header">
+    <h1>Quản lý GIAYNE</h1>
+    <br /> <br />
+</div>
+<div class="col-md-4"></div>
+<form action="DangNhapAdminController" method="post" id="login-admin" (ngSubmmit)="signInAdmin(formSignInAdmin)"
+    #formSignInAdmin="ngForm" class="col-md-4">
+    <div class="login">
+        <div class="login-form">
+            <div class="form-group">
+                <label>Tên đăng nhập</label> <input type="text" name="username" class="form-control" ngModel required/>
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu</label> <input type="password" name="password" class="form-control" ngModel minlength="6" required/>
+            </div>
+            <input type="submit" class="btn btn-success" id="submit-button" value="Đăng nhập">
+        </div>
+    </div>
+</form>
+<div class="col-md-4"></div>

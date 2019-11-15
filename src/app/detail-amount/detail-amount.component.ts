@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { DetailAmountService } from "./detail-amount.service";
 
 @Component({
   selector: 'app-detail-amount',
   templateUrl: './detail-amount.component.html',
-  styleUrls: ['./detail-amount.component.css']
+  styleUrls: ['./detail-amount.component.css'],
+  providers: [DetailAmountService]
 })
 export class DetailAmountComponent implements OnInit {
 
@@ -14,7 +16,7 @@ export class DetailAmountComponent implements OnInit {
     {size: 41, amount: 41},
     {size: 42, amount: 42}
   ];
-  constructor() { }
+  constructor(service: DetailAmountService) { }
 
   ngOnInit() {
   }

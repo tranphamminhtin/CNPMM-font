@@ -79,5 +79,11 @@ export class HeaderAdminComponent {
             return true;
         }
         return false;
-    }
+	}
+	
+	// constructor(private cdRef : ChangeDetectorRef){}
+
+    // ngAfterViewChecked() {
+    //     this.cdRef.detectChanges();
+    // }
 }

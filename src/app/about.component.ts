@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-about',
   template: `
-  <app-header></app-header>
   <div class="breadcrumb-area">
       <div class="container">
           <div class="row">
@@ -22,7 +21,7 @@ import { Component } from '@angular/core';
           <div class="row">
               <div class="col-md-12">
                   <div class="about-img">
-                      <img src="img/about.jpg" alt="" />
+                      <img src="../assets/img/about.jpg" alt="" />
                   </div>
               </div>
               <div class="col-md-12">
@@ -100,7 +99,6 @@ import { Component } from '@angular/core';
           </div>
       </div>
   </div>
-  <app-footer></app-footer>
   `
 })
 

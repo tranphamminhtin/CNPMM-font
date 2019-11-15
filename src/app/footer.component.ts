@@ -109,4 +109,10 @@ import { Component } from '@angular/core';
     </footer>
   `
 })
-export class FooterComponent {}
+export class FooterComponent {
+    // constructor(private cdRef : ChangeDetectorRef){}
+
+    // ngAfterViewChecked() {
+    //     this.cdRef.detectChanges();
+    // }
+}

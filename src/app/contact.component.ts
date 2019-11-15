@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-contact',
   template: `
-    <app-header></app-header>
     <div class="breadcrumb-area">
 		<div class="container">
 			<div class="row">
@@ -55,7 +54,6 @@ import { Component } from '@angular/core';
 			</div>
 		</div>
 	</div>
-    <app-footer></app-footer>
   `
 })
 export class ContactComponent {

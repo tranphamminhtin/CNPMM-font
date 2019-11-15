@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderService } from "./order.service";
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  styleUrls: ['./order.component.css'],
+  providers: [OrderService]
 })
 export class OrderComponent implements OnInit {
 
@@ -14,7 +16,7 @@ export class OrderComponent implements OnInit {
     {id: '2', product: {id: '2', name: 'nike', image: 'assets/img/product/giay1.jpg'}, amount: 2, price: 3000, size: 31},
     {id: '3', product: {id: '3', name: 'hunter', image: 'assets/img/product/giay1.jpg'}, amount: 3, price: 3000, size: 32},
   ];
-  constructor() { }
+  constructor(service: OrderService) { }
 
   ngOnInit() {
   }

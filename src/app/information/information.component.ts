@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { InformationService } from "./information.service";
 
 @Component({
   selector: 'app-information',
   templateUrl: './information.component.html',
-  styleUrls: ['./information.component.css']
+  styleUrls: ['./information.component.css'],
+  providers: [InformationService]
 })
 export class InformationComponent implements OnInit {
 
   client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
 
-  constructor() { }
+  constructor(service: InformationService) { }
 
   ngOnInit() {
   }

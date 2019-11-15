@@ -140,8 +140,9 @@ $(function(){
 				required: true,
 				nowhitespace: true
 			},
-			pass:{
+			password:{
 				required:true,
+				minlength: 6
 			},
 		},
 		messages:{
@@ -149,8 +150,9 @@ $(function(){
 				required: 'Vui lòng nhập Username.',
 				nowhitespace: 'Tên đăng nhập sai.'
 			},
-			pass:{
-				required: 'Vui lòng nhập password.'
+			password:{
+				required: 'Vui lòng nhập password.',
+				minlength: 'Mật khẩu ít nhất 6 kí tự'
 			},
 		}		
 	});
@@ -161,7 +163,7 @@ $(function(){
 				nowhitespace: true
 			},
 			password:{
-				required:true,
+				required:true
 			},
 		},
 		messages:{

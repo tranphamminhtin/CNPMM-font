@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ListClientService } from "./list-client.service";
 
 @Component({
   selector: 'app-list-client',
   templateUrl: './list-client.component.html',
-  styleUrls: ['./list-client.component.css']
+  styleUrls: ['./list-client.component.css'],
+  providers: [ListClientService]
 })
 export class ListClientComponent implements OnInit {
 
@@ -13,7 +15,7 @@ export class ListClientComponent implements OnInit {
     {id: '3', username: 'tintung',  name: 'Tín Tùng', email: 'tintung@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân'},
     {id: '4', username: 'tinne',  name: 'Tín nè', email: 'tinne@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân'},
   ];
-  constructor() { }
+  constructor(service: ListClientService) { }
 
   ngOnInit() {
   }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ListProductService } from "./list-product.service";
 
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
-  styleUrls: ['./list-product.component.css']
+  styleUrls: ['./list-product.component.css'],
+  providers: [ListProductService]
 })
 export class ListProductComponent implements OnInit {
 
@@ -25,7 +27,7 @@ export class ListProductComponent implements OnInit {
     { id: '15', name: 'adidas2', color: 'gray', sex: 'nữ', brand: 'dsdsd', promotion: 2, price: 3000, image: 'assets/img/product/giay1.jpg', sizes: [39, 40, 41, 42] },
     { id: '16', name: 'adidas3', color: 'white', sex: 'nữ', brand: 'asd', promotion: 3, price: 3000, image: 'assets/img/product/giay1.jpg', sizes: [39, 40, 41, 42] },
   ];
-  constructor() { }
+  constructor(service: ListProductService) { }
 
   ngOnInit() {
   }
