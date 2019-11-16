@@ -30,7 +30,7 @@
                 <td>{{ order.id }}</td>
                 <td>{{ order.date }}</td>
                 <td>{{ order.username }}</td>
-                <td>{{ getAmount(order.id); }}</td>
+                <td>{{ getAmount(order.id) }}</td>
                 <td>{{ order.price + ' đ'}}</td>
                 <td>
                     <button type="button" class="btn btn-info" *ngIf="order.state!=='ad'" (click)="next(order.id);"><i

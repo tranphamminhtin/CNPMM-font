@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListRightService } from "./list-right.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-right',
@@ -7,21 +8,40 @@ import { ListRightService } from "./list-right.service";
   styleUrls: ['./list-right.component.css'],
   providers: [ListRightService]
 })
-export class ListRightComponent implements OnInit {
+export class ListRightComponent implements OnInit, OnDestroy {
 
   arrRights = [
-    {id: '1', description: 'Nhóm sản phẩm'},
-    {id: '2', description: 'Nhóm đơn hàng'},
-    {id: '3', description: 'Nhóm nhân viên'}
+    { id: '1', description: 'Nhóm sản phẩm' },
+    { id: '2', description: 'Nhóm đơn hàng' },
+    { id: '3', description: 'Nhóm nhân viên' }
   ];
-  constructor(service: ListRightService) { }
+  subscriptions: Subscription[] = [];
+  constructor(private service: ListRightService) { }
 
   ngOnInit() {
   }
 
-  removeRight(id: string) {
-    const index = this.arrRights.findIndex(e => e.id === id);
-    this.arrRights.splice(index, 1);
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
+  removeRight(id: string) {
+    const sub = this.service.delete(id)
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          alert('Lỗi rồi');
+        }
+      }, err => {
+        console.log(err);
+        alert('Lỗi rồi');
+      }, () => {
+        this.subscriptions.push(sub);
+        alert('Xóa thành công');
+        // refresh lại
+        // const index = this.arrRights.findIndex(e => e.id === id);
+        // this.arrRights.splice(index, 1);
+      });
+  }
 }

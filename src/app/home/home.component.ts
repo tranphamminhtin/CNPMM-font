@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HomeService } from "./home.service";
 import { AppComponent } from '../app.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./home.component.css'],
   providers: [HomeService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   arrProducts = [
     {id: '1', name: 'adidas', color: 'red', sex: 'nam', brand: 'Adidas', promotion: 5, price: 3000, image: 'assets/img/product/giay1.jpg'},
@@ -16,12 +17,16 @@ export class HomeComponent implements OnInit {
     {id: '3', name: 'adidas2', color: 'pink', sex: 'nữ', brand: 'Adidas', promotion: 2, price: 3000, image: 'assets/img/product/giay1.jpg'},
     {id: '4', name: 'adidas3', color: 'white', sex: 'nữ', brand: 'Nike', promotion: 3, price: 3000, image: 'assets/img/product/giay1.jpg'}
   ];
-  constructor(service: HomeService) { }
+  subscriptions: Subscription[] = [];
+  constructor(private service: HomeService) { }
 
   ngOnInit() {
     AppComponent.isAdmin = false;
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 
   addCart(idProduct: string) {
     console.log("Thêm vào giỏ hàng");

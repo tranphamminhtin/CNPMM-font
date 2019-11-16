@@ -16,12 +16,12 @@ export class ListEmployeeService {
 
     getList() {
         const url = 'http://localhost:3000/employee';
-        return this.http.get<any[]>(url).toPromise().then(result => result);
+        return this.http.get<any[]>(url);
     }
 
     delete(username) {
         const url = 'http://localhost:3000/employee/' + username;
-        return this.http.delete(url).toPromise().then(result => result);
+        return this.http.delete(url);
     }
 }
 

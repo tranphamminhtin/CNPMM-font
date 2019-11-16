@@ -14,13 +14,11 @@ export class InformationService {
     //     .then(res => res);
     // }
 
-    editInfo(value, username) {
-        const url = 'http://localhost:3000/client/' + username;
+    editInfo(value) {
+        const url = 'http://localhost:3000/client/' + value.username;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.put(url, body, { headers })
-            .toPromise()
-            .then(res => res);
+        return this.http.put(url, body, { headers });
     }
 }
 

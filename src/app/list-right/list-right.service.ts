@@ -16,12 +16,12 @@ export class ListRightService {
 
     getList() {
         const url = 'http://localhost:3000/right';
-        return this.http.get<any[]>(url).toPromise().then(result => result);
+        return this.http.get<any[]>(url);
     }
 
     delete(rightId) {
         const url = 'http://localhost:3000/right/' + rightId;
-        return this.http.delete(url).toPromise().then(result => result);
+        return this.http.delete(url);
     }
 }
 

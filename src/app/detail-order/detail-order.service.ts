@@ -15,12 +15,12 @@ export class DetailOrderService {
     // }
     getDetailOrder(id) {
         const url = 'http://localhost:3000/detail-order/order/' + id;
-        return this.http.get<any[]>(url).toPromise().then(result => result);
+        return this.http.get<any[]>(url);
     }
 
     getProduct(id) {
         const url = 'http://localhost:3000/product/' + id;
-        return this.http.get(url).toPromise().then(result => result);
+        return this.http.get(url);
     }
 }
 

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListProductService } from "./list-product.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-product',
@@ -7,7 +8,7 @@ import { ListProductService } from "./list-product.service";
   styleUrls: ['./list-product.component.css'],
   providers: [ListProductService]
 })
-export class ListProductComponent implements OnInit {
+export class ListProductComponent implements OnInit, OnDestroy {
 
   arrProducts = [
     { id: '1', name: 'adidas', color: 'red', sex: 'nam', brand: 'Adidas', promotion: 5, price: 3000, image: 'assets/img/product/giay1.jpg', sizes: [40, 41, 42] },
@@ -27,11 +28,15 @@ export class ListProductComponent implements OnInit {
     { id: '15', name: 'adidas2', color: 'gray', sex: 'nữ', brand: 'dsdsd', promotion: 2, price: 3000, image: 'assets/img/product/giay1.jpg', sizes: [39, 40, 41, 42] },
     { id: '16', name: 'adidas3', color: 'white', sex: 'nữ', brand: 'asd', promotion: 3, price: 3000, image: 'assets/img/product/giay1.jpg', sizes: [39, 40, 41, 42] },
   ];
-  constructor(service: ListProductService) { }
+  subscriptions: Subscription[] = [];
+  constructor(private service: ListProductService) { }
 
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
   addProduct() {
     console.log('thêm');
   }
@@ -45,7 +50,22 @@ export class ListProductComponent implements OnInit {
   }
 
   removeProduct(id: string) {
-    const index = this.arrProducts.findIndex(e => e.id === id);
-    this.arrProducts.splice(index, 1);
+    const sub = this.service.delete(id)
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          alert('Lỗi rồi');
+        }
+      }, err => {
+        console.log(err);
+        alert('Lỗi rồi');
+      }, () => {
+        this.subscriptions.push(sub);
+        alert('Xóa thành công');
+        // refresh lại
+        // const index = this.arrProducts.findIndex(e => e.id === id);
+        // this.arrProducts.splice(index, 1);
+      });
   }
 }

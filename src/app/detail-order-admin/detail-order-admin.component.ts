@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DetailOrderAdminService } from "./detail-order-admin.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-detail-order-admin',
@@ -7,7 +8,7 @@ import { DetailOrderAdminService } from "./detail-order-admin.service";
   styleUrls: ['./detail-order-admin.component.css'],
   providers: [DetailOrderAdminService]
 })
-export class DetailOrderAdminComponent implements OnInit {
+export class DetailOrderAdminComponent implements OnInit, OnDestroy {
 
   client = {id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân'};
   
@@ -18,9 +19,14 @@ export class DetailOrderAdminComponent implements OnInit {
   ];
 
   order = {id: '1', date: '02/11/2019', amount: 1, price: 3000, state: 'aa'};
-  constructor(service: DetailOrderAdminService) { }
+  subscriptions: Subscription[] = [];
+  constructor(private service: DetailOrderAdminService) { }
 
   ngOnInit() {
+  }
+  
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
 }

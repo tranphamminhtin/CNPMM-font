@@ -7,14 +7,12 @@ export class HistoryService {
 
     getList(username) {
         const url = 'http://localhost:3000/order/history/' + username;
-        return this.http.get(url)
-            .toPromise()
-            .then(result => result);
+        return this.http.get(url);
     }
 
     delete(orderId) {
         const url = 'http://localhost:3000/order/' + orderId;
-        return this.http.delete(url).toPromise().then(result => result);
+        return this.http.delete(url);
     }
 }
 

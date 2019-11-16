@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InformationService } from "./information.service";
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-information',
@@ -7,18 +9,37 @@ import { InformationService } from "./information.service";
   styleUrls: ['./information.component.css'],
   providers: [InformationService]
 })
-export class InformationComponent implements OnInit {
+export class InformationComponent implements OnInit, OnDestroy {
 
   client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
-
-  constructor(service: InformationService) { }
+  subscriptions: Subscription[] = [];
+  constructor(private service: InformationService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   editInfo(formInfo) {
     if (formInfo.valid) {
       console.log(formInfo.value);
+      const sub = this.service.editInfo(formInfo.value)
+        .subscribe(res => {
+          if (!res['success']) {
+            sub.unsubscribe();
+            console.log(res['message']);
+            alert('Lỗi rồi');
+          }
+        }, err => {
+          console.log(err);
+          alert('Lỗi rồi');
+        }, () => {
+          this.subscriptions.push(sub);
+          alert('Thay đổi thành công');
+          this.router.navigate(['/account']);
+        });
     }
   }
 

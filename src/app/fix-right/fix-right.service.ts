@@ -16,18 +16,14 @@ export class FixRightService {
 
     searchRight(rightId) {
         const url = 'http://localhost:3000/right/' + rightId;
-        return this.http.get(url)
-            .toPromise()
-            .then(result => result);
+        return this.http.get(url);
     }
 
-    fixhRight(value, rightId) {
-        const url = 'http://localhost:3000/right/' + rightId;
+    fixhRight(value) {
+        const url = 'http://localhost:3000/right/' + value.id;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.put(url, body, { headers: headers })
-            .toPromise()
-            .then(result => result);
+        return this.http.put(url, body, { headers: headers });
     }
 }
 

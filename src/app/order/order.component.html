@@ -18,6 +18,7 @@
                 <div class="checkbox-form" *ngIf="isLogin">
                     <h3>Thông tin khách hàng</h3>
                     <form (ngSubmit)="editInfoSubmit(formInfo)" #formInfo="ngForm" id="infomation-order-form">
+                        <input type="hidden" name="username" [ngModel]="client.username">
                         <div class="form-group">
                             <label>Họ tên khách hàng <span class="required">*</span></label>
                             <input type="text" placeholder="Họ tên" name="name" class="form-control" [ngModel]="client.name"

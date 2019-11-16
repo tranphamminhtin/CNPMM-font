@@ -18,32 +18,26 @@ export class SignService {
         const url = 'http://localhost:3000/user/login/1'
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.post(url, body, { headers })
-            .toPromise()
-            .then(res => res);
+        return this.http.post(url, body, { headers });
     }
 
     signUpPost(value) {
         const url = 'http://localhost:3000/user/users'
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.post(url, body, { headers })
-            .toPromise()
-            .then(res => res);
+        return this.http.post(url, body, { headers });
     }
 
     createClient(value) {
         const url = 'http://localhost:3000/client'
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.post(url, body, { headers })
-            .toPromise()
-            .then(res => res);
+        return this.http.post(url, body, { headers });
     }
 
     removeUser(username) {
-        const url = 'http://localhost:3000/user/users/' + username;
-        return this.http.delete(url).toPromise().then(res => res);
+        const url = 'http://localhost:3000/user/users/' + username ;
+        return this.http.delete(url);
     }
 
 }

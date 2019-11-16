@@ -16,16 +16,12 @@ export class DetailProductService {
 
     searchProduct(productId) {
         const url = 'http://localhost:3000/product/' + productId;
-        return this.http.get(url)
-            .toPromise()
-            .then(result => result);
+        return this.http.get(url);
     }
 
     getSize(productId){
         const url = 'http://localhost:3000/detail-product/product/' + productId;
-        return this.http.get(url)
-            .toPromise()
-            .then(result => result);
+        return this.http.get(url);
     }
 }
 

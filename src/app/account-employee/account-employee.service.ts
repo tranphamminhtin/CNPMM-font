@@ -18,17 +18,14 @@ export class AccountEmployeeService {
         const url = 'http://localhost:3000/user/users/' + username;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.put(url, body, { headers: headers })
-            .toPromise().then(result => result);
+        return this.http.put(url, body, { headers: headers });
     }
 
-    editInfo(value, username) {
-        const url = 'http://localhost:3000/employee/' + username;
+    editInfo(value) {
+        const url = 'http://localhost:3000/employee/' + value.username;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.put(url, body, { headers })
-            .toPromise()
-            .then(res => res);
+        return this.http.put(url, body, { headers });
     }
 }
 

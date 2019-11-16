@@ -16,18 +16,14 @@ export class FixProductService {
 
     searchProduct(productId) {
         const url = 'http://localhost:3000/product/' + productId;
-        return this.http.get(url)
-            .toPromise()
-            .then(result => result);
+        return this.http.get(url);
     }
 
-    fixhProduct(value, productId) {
-        const url = 'http://localhost:3000/product/' + productId;
+    fixProduct(value) {
+        const url = 'http://localhost:3000/product/' + value.id;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.put(url, body, { headers: headers })
-            .toPromise()
-            .then(result => result);
+        return this.http.put(url, body, { headers: headers });
     }
 }
 

@@ -18,9 +18,7 @@ export class AddRightService {
         const url ='http://localhost:3000/right';
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.post(url, body, { headers })
-        .toPromise()
-        .then(res => res);
+        return this.http.post(url, body, { headers });
     }
 }
 

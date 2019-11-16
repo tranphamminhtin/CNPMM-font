@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SignService } from "./sign.service";
 import { Router } from "@angular/router";
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign',
@@ -9,50 +10,70 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./sign.component.css'],
   providers: [SignService]
 })
-export class SignComponent implements OnInit {
+export class SignComponent implements OnInit, OnDestroy {
 
   username = 'tin';
   password = '123456';
+  subscriptions: Subscription[] = [];
   constructor(private service: SignService, private router: Router) { }
 
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
   signInSubmit(formSignIn) {
     if (formSignIn.valid && this.validSignIn(formSignIn)) {
-      this.service.signInPost(formSignIn.value)
-        .then(result => {
-          console.log(result);
-          if (!result["success"])
+      const sub = this.service.signInPost(formSignIn.value)
+        .subscribe(res => {
+          console.log(res);
+          if (!res["success"]) {
+            sub.unsubscribe();
+            console.log(res['message']);
             alert("Tên đăng nhập hoặc mật khẩu sai");
-          else {
-            this.router.navigate(['/account']);
           }
-        })
-        .catch(err => console.log(err));
+        }, err => {
+          alert('Lỗi rồi');
+          console.log(err);
+        }, () => {
+          this.subscriptions.push(sub);
+          this.router.navigate(['/account']);
+        });
     }
   }
 
   signUpSubmit(formSignUp: NgForm) {
     if (formSignUp.valid && this.validSignUp(formSignUp)) {
-      this.service.signUpPost(formSignUp.value)
-        .then(user => {
-          if (user["success"]) {
-            this.service.createClient(formSignUp.value)
-              .then(result => {
-                if (result["success"]) {
-                  alert("Đăng ký thành công");
-                  this.username = formSignUp.value["username"];
-                  this.password = formSignUp.value["password"];
-                } else {
-                  this.service.removeUser(formSignUp.value["username"])
-                    .catch(err => console.log(err));
-                }
-              }).catch(err => console.log(err));
-          } else {
-            alert(user["message"]);
-          }
-        }).catch(err => console.log(err));
+      const sub = this.service.signUpPost(formSignUp.value).subscribe(user => {
+        if (user["success"]) {
+          this.service.createClient(formSignUp.value)
+            .subscribe(res => {
+              if (!res["success"]) {
+                sub.unsubscribe();
+                console.log(res['message']);
+                alert('Lỗi tạo khách hàng');
+                this.service.removeUser(formSignUp.value['username']);
+              }
+            }, err => {
+              alert('Lỗi rồi');
+              console.log(err);
+            });
+        } else {
+          alert(user['message']);
+          sub.unsubscribe();
+        }
+      }, err => {
+        alert('Lỗi rồi');
+        console.log(err);
+      }, () => {
+        alert("Đăng ký thành công");
+        this.username = formSignUp.value["username"];
+        this.password = formSignUp.value["password"];
+        formSignUp.reset();
+        this.subscriptions.push(sub);
+      });
     }
   }
 

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from "./product.service";
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -7,7 +9,7 @@ import { ProductService } from "./product.service";
   styleUrls: ['./product.component.css'],
   providers: [ProductService]
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
 
   arrProducts = [
     { id: '1', name: 'adidas', color: 'red', sex: 'nam', brand: 'Adidas', promotion: 5, price: 3000, image: 'assets/img/product/giay1.jpg', sizes: [40, 41, 42] },
@@ -37,10 +39,16 @@ export class ProductComponent implements OnInit {
   sortBy = 'new';
   page = 2;
 
-  constructor(service: ProductService) { }
+
+  subscriptions: Subscription[] = [];
+  constructor(private service: ProductService, private router: Router) { }
 
   ngOnInit() {
     this.arrFilter = this.arrProducts;
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   addCart(idProduct: string) {

@@ -16,17 +16,17 @@ export class ListOrderService {
 
     getList() {
         const url = 'http://localhost:3000/order'
-        return this.http.get<any[]>(url).toPromise().then(result => result);
+        return this.http.get<any[]>(url);
     }
 
     getTotal(orderId) {
         const url = 'http://localhost:3000/order/getTotal/' + orderId;
-        return this.http.get(url).toPromise().then(result => result);
+        return this.http.get(url);
     }
 
     delete(orderId) {
         const url = 'http://localhost:3000/order/' + orderId;
-        return this.http.delete(url).toPromise().then(result => result);
+        return this.http.delete(url);
     }
 }
 

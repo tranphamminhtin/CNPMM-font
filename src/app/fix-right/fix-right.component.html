@@ -9,7 +9,8 @@
             <li><em class="fa"> Sửa nhóm quyền</em></li>
         </ol>
     </div>
-    <form (ngSubmit)="editRightSubmit(formEditRight);" #formEditRight="ngForm" id="nhom-quyen-form">
+    <form (ngSubmit)="fixRightSubmit(formFixRight);" #formFixRight="ngForm" id="nhom-quyen-form">
+        <input type="hidden" name="id" [ngModel]="right.id">
         <div class="widget">
             <div class="title">
                 <h4>Nhập dữ liệu</h4>
@@ -17,8 +18,8 @@
             <div class="formRow" style="height: 110px">
                 <label> Mô tả </label>
                 <div class="formRight form-group">
-                    <textarea rows="4" cols="80" class="tipS form-control" name="description"
-                        required ngModel>{{ right.description }}</textarea>
+                    <textarea rows="4" cols="80" class="tipS form-control" name="description" required
+                        ngModel>{{ right.description }}</textarea>
                 </div>
             </div>
             <div class="formRow" style="height: 200px">
