@@ -22,7 +22,6 @@
                     </div>
                     <div class="rows">
                         <form (ngSubmit)="editInfo(formInfo);" #formInfo="ngForm" id="ttcn-fomr">
-                            <input type="hidden" name="id" [ngModel]="client.id">
                             <input type="hidden" name="username" [ngModel]="client.username">
                             <div class="form-group">
                                 <label>Họ và tên <span class="required">*</span></label> <input

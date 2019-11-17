@@ -2,15 +2,15 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="#"> <em class="fa fa-home"></em>
+            <li><a routerLink="/admin/home"> <em class="fa fa-home"></em>
                 </a></li>
-            <li class="active">Quản lý đơn hàng</li>
+            <li class="active"><a routerLink="/admin/ql-don-hang">Quản lý đơn hàng</a></li>
         </ol>
     </div>
     <div class="btn-group btn-group-justified">
-        <a href="#" class="btn btn-info" [ngClass]="{'active': stateShow ==='aa'}" (click)="show('aa');">Đơn hàng
-            chưa hoàn thành</a> <a href="#" class="btn btn-info" [ngClass]="{'active': stateShow ==='as'}"
-            (click)="show('as');">Đơn hàng đã duyệt</a> <a href="#" class="btn btn-info"
+        <a  class="btn btn-info" [ngClass]="{'active': stateShow ==='aa'}" (click)="show('aa');">Đơn hàng
+            chưa hoàn thành</a> <a  class="btn btn-info" [ngClass]="{'active': stateShow ==='as'}"
+            (click)="show('as');">Đơn hàng đã duyệt</a> <a  class="btn btn-info"
             [ngClass]="{'active': stateShow ==='ad'}" (click)="show('ad');">Đơn hàng đã
             giao</a>
     </div>
@@ -27,7 +27,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let order of arrFiltered">
-                <td>{{ order.id }}</td>
+                <td>{{ order._id }}</td>
                 <td>{{ order.date }}</td>
                 <td>{{ order.username }}</td>
                 <td>{{ getAmount(order.id) }}</td>
@@ -35,12 +35,12 @@
                 <td>
                     <button type="button" class="btn btn-info" *ngIf="order.state!=='ad'" (click)="next(order.id);"><i
                             class="fa fa-sign-in"></i> Duyệt</button> &nbsp;
-                    <a href='#'>
+                    <a routerLink='/admin/chi-tiet-don-hang-ad/{{order._id}}'>
                         <button type="button" class="btn btn-info"><i class="fa fa-info-circle"></i> Xem</button>
                     </a>&nbsp;
                     <button type="button" class="btn btn-info " data-toggle="modal"
-                        [attr.data-target]="'#myModal'+ order.id"><i class="fa fa-times"></i>Xóa</button>
-                    <div class="modal fade" id="myModal{{ order.id }}" role="dialog">
+                        [attr.data-target]="'#myModal'+ order._id"><i class="fa fa-times"></i>Xóa</button>
+                    <div class="modal fade" id="myModal{{ order._id }}" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header" style="text-align: center;">
@@ -49,12 +49,12 @@
                                 </div>
                                 <div class="modal-body">
                                     <p>
-                                        {{ order.id }}
+                                        {{ order._id }}
                                     </p>
                                 </div>
                                 <div class="modal-footer" style="text-align: center;">
                                     <button type="button" class="btn btn-default" data-dismiss="modal"
-                                        (click)="removeOrder(order.id);">Xác
+                                        (click)="removeOrder(order._id);">Xác
                                         nhận</button>
                                 </div>
                             </div>

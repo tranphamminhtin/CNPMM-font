@@ -27,5 +27,15 @@ export class AccountEmployeeService {
         const body = JSON.stringify(value);
         return this.http.put(url, body, { headers });
     }
+
+    getRight(id) {
+        const url = 'http://localhost:3000/right/' + id;
+        return this.http.get(url);
+    }
+
+    getEmployee(username) {
+        const url = 'http://localhost:3000/employee/' + username;
+        return this.http.get(url);
+    }
 }
 

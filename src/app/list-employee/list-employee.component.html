@@ -2,12 +2,12 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="QLNVController"> <em class="fa fa-home"></em>
+            <li><a routerLink="/admin/home"> <em class="fa fa-home"></em>
                 </a></li>
             <li class="active">Quản lý nhân viên</li>
         </ol>
-        <a href="#">
-            <button type="button" class="btn btn-primary btn-md" style="margin: 15px;" (click)="addEmployee()"><i
+        <a routerLink="/admin/them-nhan-vien">
+            <button type="button" class="btn btn-primary btn-md" style="margin: 15px;"><i
                     class="fa fa-plus"></i> Thêm</button>
         </a>
 
@@ -25,15 +25,15 @@
             <tr *ngFor="let employee of arrEmployees">
                 <td>{{ employee.username }}</td>
                 <td>{{ employee.name }}</td>
-                <td>{{ employee.right.description }}</td>
-                <td><a href="#">
-                        <button type="button" class="btn btn-info" (click)="editEmployee(employee.id);"><i
+                <td>{{ employee.right?.description }}</td>
+                <td><a routerLink="/admin/sua-nhan-vien/{{employee._id}}">
+                        <button type="button" class="btn btn-info" ><i
                                 class="fa fa-edit"></i> Sửa</button>
                     </a> &nbsp;
                     <button type="button" class="btn btn-info " data-toggle="modal"
-                        [attr.data-target]="'#myModal' + employee.id"><i class="fa fa-times"></i> Xóa</button>
+                        [attr.data-target]="'#myModal' + employee.username"><i class="fa fa-times"></i> Xóa</button>
 
-                    <div class="modal fade" id="myModal{{ employee.id }}" role="dialog">
+                    <div class="modal fade" id="myModal{{ employee.username }}" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header" style="text-align: center;">

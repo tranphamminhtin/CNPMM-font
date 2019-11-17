@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common'
 import { HistoryComponent } from './history.component';
 
 const routesConfig: Routes = [
-    { path: 'lich-su/:id', component: HistoryComponent}
+    { path: 'lich-su', component: HistoryComponent}
 ]
 
 @NgModule({

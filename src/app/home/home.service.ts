@@ -16,7 +16,7 @@ export class HomeService {
 
     getList() {
         const url ='http://localhost:3000/product'
-        return this.http.get<any[]>(url);
+        return this.http.get(url);
     }
 }
 

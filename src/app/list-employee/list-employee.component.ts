@@ -10,36 +10,62 @@ import { Subscription } from 'rxjs';
 })
 export class ListEmployeeComponent implements OnInit, OnDestroy {
 
-  arrEmployees = [
-    {
-      id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', numberPhone: '1234567890',
-      email: 'tin@gmail.com', right: { id: '1', description: 'Nhóm sản phẩm' }
-    },
-    {
-      id: '2', username: 'tungtung', name: 'Trần Minh Tùng', numberPhone: '1234567890',
-      email: 'tung@gmail.com', right: { id: '1', description: 'Nhóm khách hàng' }
-    },
-    {
-      id: '3', username: 'tintung', name: 'Tín Tùng', numberPhone: '1234567890',
-      email: 'tintung@gmail.com', right: { id: '1', description: 'Admin' }
-    }
-  ];
+  // arrEmployees = [
+  //   {
+  //     id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', numberPhone: '1234567890',
+  //     email: 'tin@gmail.com', right: { id: '1', description: 'Nhóm sản phẩm' }
+  //   },
+  //   {
+  //     id: '2', username: 'tungtung', name: 'Trần Minh Tùng', numberPhone: '1234567890',
+  //     email: 'tung@gmail.com', right: { id: '1', description: 'Nhóm khách hàng' }
+  //   },
+  //   {
+  //     id: '3', username: 'tintung', name: 'Tín Tùng', numberPhone: '1234567890',
+  //     email: 'tintung@gmail.com', right: { id: '1', description: 'Admin' }
+  //   }
+  // ];
+  arrEmployees = [];
   subscriptions: Subscription[] = [];
   constructor(private service: ListEmployeeService) { }
 
   ngOnInit() {
+    this.getListEmployee();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  addEmployee() {
-    console.log('thêm');
-  }
-
-  editEmployee(id: string) {
-    console.log('sửa ' + id);
+  getListEmployee() {
+    const sub = this.service.getList()
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          alert('Lỗi lấy danh sách');
+        } else {
+          // console.log(res['message']);
+          this.arrEmployees = res['message'];
+          this.arrEmployees.forEach(employee => {
+            this.service.getRight(employee.rightId)
+              .subscribe(right => {
+                if (!right['success']) {
+                  sub.unsubscribe();
+                  console.log(right['message']);
+                  alert('Lỗi lấy danh sách');
+                } else {
+                  Object.assign(employee, { right: right['message'] });
+                }
+              }, err => {
+                console.log(err);
+                alert('Lỗi rồi');
+              })
+          })
+        }
+      }, err => {
+        console.log(err);
+        alert('Lỗi rồi');
+      }, () => this.subscriptions.push(sub));
   }
 
   removeEmployee(username: string) {
@@ -56,6 +82,7 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
       }, () => {
         this.subscriptions.push(sub);
         alert('Xóa thành công');
+        this.getListEmployee();
         // refresh lại
         // const index = this.arrEmployees.findIndex(e => e.id === id);
         // this.arrEmployees.splice(index, 1);

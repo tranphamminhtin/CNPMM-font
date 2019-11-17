@@ -11,11 +11,28 @@ import { Router } from '@angular/router';
 })
 export class InformationComponent implements OnInit, OnDestroy {
 
-  client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
+  // client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
+  username = 'tin';
+  client = {};
   subscriptions: Subscription[] = [];
   constructor(private service: InformationService, private router: Router) { }
 
   ngOnInit() {
+    const sub = this.service.getInfo(this.username)
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          alert('Không tìm thấy người dùng');
+          this.router.navigate(['/home']);
+        } else {
+          // console.log(res['message']);
+          this.client = res['message'];
+        }
+      }, err => {
+        console.log(err);
+        alert('Lỗi rồi');
+      }, () => this.subscriptions.push(sub));
   }
 
   ngOnDestroy() {

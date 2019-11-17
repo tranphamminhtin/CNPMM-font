@@ -21,7 +21,7 @@ export class DetailProductService {
 
     getSize(productId){
         const url = 'http://localhost:3000/detail-product/product/' + productId;
-        return this.http.get(url);
+        return this.http.get<any[]>(url);
     }
 }
 

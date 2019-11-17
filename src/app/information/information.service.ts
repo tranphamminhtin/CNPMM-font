@@ -20,5 +20,10 @@ export class InformationService {
         const body = JSON.stringify(value);
         return this.http.put(url, body, { headers });
     }
+
+    getInfo(username) {
+        const url = 'http://localhost:3000/client/' + username;
+        return this.http.get(url);
+    }
 }
 

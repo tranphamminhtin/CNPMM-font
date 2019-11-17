@@ -18,10 +18,10 @@ export class LoginAdminComponent implements OnDestroy {
 
   signInAdmin(formSignInAdmin) {
     if (formSignInAdmin.valid && this.validFormSignIn(formSignInAdmin)) {
+      console.log(formSignInAdmin.value);
       const url = 'http://localhost:3000/user/login/0';
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       const body = JSON.stringify(formSignInAdmin.value);
-
       const sub = this.http.post(url, body, { headers })
         .subscribe(res => {
           if (!res["success"]) {

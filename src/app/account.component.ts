@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { AppComponent } from "./app.component";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-account',
@@ -26,17 +26,17 @@ import { AppComponent } from "./app.component";
                             <table>
                                 <thead>
                                     <tr>
-                                        <th><a href="#"><i class="fa fa-user"></i> Sửa thông tin cá nhân</a></th>
-                                        <th><a href="#"><i class="fa fa-history"></i> Lịch sử mua hàng</a></th>
+                                        <th><a routerLink="/thong-tin"><i class="fa fa-user"></i> Sửa thông tin cá nhân</a></th>
+                                        <th><a routerLink="/lich-su"><i class="fa fa-history"></i> Lịch sử mua hàng</a></th>
                                     </tr>							
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><a href="#"><i class="fa fa-key"></i> Thay đổi mật khẩu</a></td>
-                                        <td><a href="#"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></td>
+                                        <td><a routerLink="/doi-mk"><i class="fa fa-key"></i> Thay đổi mật khẩu</a></td>
+                                        <td><a routerLink="/gio-hang"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></td>
                                     </tr>
                                     <tr>
-                                        <td><a href="#"><i class="fa fa-sign-out"></i> Đăng xuất</a></td>
+                                        <td><a (click)="signOut();"><i class="fa fa-sign-out"></i> Đăng xuất</a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -51,10 +51,14 @@ import { AppComponent } from "./app.component";
   `
 })
 export class AccountComponent implements OnInit { 
-    @ViewChild(AppComponent, {static: false}) mychild;
-    constructor(private location: Location){}
+
+    constructor(private location: Location, private router: Router){}
 
     ngOnInit() {
         console.log(this.location.path());
+    }
+
+    signOut() {
+        alert('Đăng xuất thành công');
     }
 }

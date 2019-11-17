@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DetailOrderAdminService } from "./detail-order-admin.service";
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detail-order-admin',
@@ -20,9 +21,11 @@ export class DetailOrderAdminComponent implements OnInit, OnDestroy {
 
   order = {id: '1', date: '02/11/2019', amount: 1, price: 3000, state: 'aa'};
   subscriptions: Subscription[] = [];
-  constructor(private service: DetailOrderAdminService) { }
+  id = '';
+  constructor(private service: DetailOrderAdminService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
   }
   
   ngOnDestroy() {

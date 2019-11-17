@@ -72,6 +72,7 @@ export class SignComponent implements OnInit, OnDestroy {
         this.username = formSignUp.value["username"];
         this.password = formSignUp.value["password"];
         formSignUp.reset();
+        formSignUp.value.right = 1;
         this.subscriptions.push(sub);
       });
     }

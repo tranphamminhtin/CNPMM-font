@@ -284,7 +284,6 @@ $(function(){
 		rules:{
 			manv:{},
 			password: {
-				required:true,
 				minlength: 6
 			},
 			name:{
@@ -301,7 +300,6 @@ $(function(){
 		messages:{
 			manv:{},
 			password: {
-				required: 'Hãy nhập mật khẩu.',
 				minlength: 'Mật khẩu phải từ 6 kí tự trở lên.'
 			},
 			name:{

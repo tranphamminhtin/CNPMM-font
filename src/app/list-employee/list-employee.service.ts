@@ -23,5 +23,10 @@ export class ListEmployeeService {
         const url = 'http://localhost:3000/employee/' + username;
         return this.http.delete(url);
     }
+
+    getRight(rightId) {
+        const url = 'http://localhost:3000/right/' + rightId;
+        return this.http.get(url);
+    }
 }
 

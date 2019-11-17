@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="section-title">
-                <h2>MẪU GIÀY NỔI BẬC</h2>
+                <h2>MẪU GIÀY MỚI NHẤT</h2>
                 <div class="title-icon">
                     <span><i class="fa fa-angle-left"></i> <i class="fa fa-angle-right"></i></span>
                 </div>
@@ -26,7 +26,7 @@
                                     <div class="col-md-3" *ngFor="let product of arrProducts">
                                         <div class="single-product">
                                             <div class="product-img">
-                                                <a href="#">
+                                                <a routerLink="/san-pham/{{product._id}}">
                                                     <img src="{{ product.image }} " alt="" />
                                                 </a> <span class="tag-line">new</span>
                                                 <div class="product-action">
@@ -42,7 +42,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3>
-                                                    <a href="#">
+                                                    <a routerLink="/san-pham/{{product._id}}">
                                                         {{ product.name }}
                                                     </a>
                                                 </h3>

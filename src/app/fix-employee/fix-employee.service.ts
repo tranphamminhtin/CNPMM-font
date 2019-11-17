@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 @Injectable()
 
 export class FixEmployeeService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     // sendPost(value) {
     //     const url ='http://localhost:3000/signin'
@@ -19,11 +19,16 @@ export class FixEmployeeService {
         return this.http.get(url);
     }
 
-    fixhEmployee(value) {
-        const url = 'http://localhost:3000/employee/' + value.id;
+    fixhEmployee(value, id) {
+        const url = 'http://localhost:3000/employee/' + id;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
         return this.http.put(url, body, { headers: headers });
+    }
+
+    getListRight() {
+        const url = 'http://localhost:3000/right/';
+        return this.http.get<any[]>(url);
     }
 }
 

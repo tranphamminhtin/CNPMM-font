@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DetailProductService } from "./detail-product.service";
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail-product',
@@ -10,16 +11,48 @@ import { Subscription } from 'rxjs';
 })
 export class DetailProductComponent implements OnInit, OnDestroy {
 
-  product = {id: '1', name: 'adidas', color: 'red', sex: 'nam', brand: 'Adidas', promotion: 5, 
-              price: 3000, image: 'assets/img/product/giay1.jpg', image2: 'assets/img/product/giay1.2.jpg', 
-              image3: 'assets/img/product/giay1.3.jpg', image4: 'assets/img/product/giay1.4.jpg',
-              sizes: [40, 41, 42, 43]};
-  subscriptions: Subscription[] = [];              
-  constructor(private service: DetailProductService) { }
+  product = {
+    id: '1', name: 'adidas', color: 'red', sex: 'nam', brand: 'Adidas', promotion: 5,
+    price: 3000, image: 'assets/img/product/giay1.jpg', image2: 'assets/img/product/giay1.2.jpg',
+    image3: 'assets/img/product/giay1.3.jpg', image4: 'assets/img/product/giay1.4.jpg',
+    sizes: [40, 41, 42, 43]
+  };
+  subscriptions: Subscription[] = [];
+  id = '';
+  constructor(private service: DetailProductService, private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
+    const sub = this.service.searchProduct(this.id)
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          alert('Không tìm thầy sản phẩm');
+          this.router.navigate(['/san-pham']);
+        } else {
+          this.service.getSize(this.id)
+            .subscribe(size => {
+              if (!size['success']) {
+                sub.unsubscribe();
+                console.log(res['message']);
+                alert('Lỗi size');
+              } else {
+                this.product = Object.assign(res['message'], { size: size['message'] });
+                console.log(this.product);
+              }
+            }, err => {
+              console.log(err);
+              alert('Lỗi rồi');
+            })
+        }
+      }, err => {
+        console.log(err);
+        alert('Lỗi rồi');
+      }, () => this.subscriptions.push(sub));
   }
-   
+
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }

@@ -2,15 +2,14 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="QLTK.jsp"> <em class="fa fa-home"></em>
+            <li><a routerLink="/admin/home"> <em class="fa fa-home"></em>
                 </a></li>
-            <li class="active"><a href="QLNVController"> Sửa nhân
+            <li class="active"><a routerLink="/admin/ql-nhan-vien"> Quản lý nhân
                     viên </a></li>
             <li><em class="fa"> Sửa nhân viên </em></li>
         </ol>
     </div>
     <form (ngSubmit)="fixEmployeeSubmit(formFixEmployee);" #formFixEmployee="ngForm" id="fix-nv-form">
-        <input type="hidden" name="id" [ngModel]="employee.id">
         <div class="widget">
             <div class="title">
                 <h4>Nhập dữ liệu</h4>
@@ -27,8 +26,7 @@
                 <label> Mật khẩu</label>
                 <div class="formRight">
                     <div class="col-xs-6">
-                        <input class="form-control" name="password" type="password" [ngModel]="user.password" required
-                            minlength="6">
+                        <input class="form-control" name="password" type="password" ngModel >
                     </div>
                 </div>
             </div>
@@ -60,8 +58,8 @@
             <div class="formRow">
                 <label>Nhóm quyền quản lý</label>
                 <div class="form-group">
-                    <select class="form-control" id="sel1" name="rightId" [ngModel]="employee.right.id">
-                        <option *ngFor="let right of arrRights" value="{{ right.id }}">
+                    <select class="form-control" id="sel1" name="rightId" [ngModel]="employee.rightId">
+                        <option *ngFor="let right of arrRights" value="{{ right._id }}">
                             {{ right.description }}</option>
                     </select>
                 </div>

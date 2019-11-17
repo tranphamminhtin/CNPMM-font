@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
                 <div class="row">
                     <div class="col-md-2 col-sm-4 col-xs-5">
                         <div class="logo">
-                            <a href="#"><img src="assets/img/logoGiayNe.png" alt=""
+                            <a routerLink="/"><img src="assets/img/logoGiayNe.png" alt=""
                                     style="width: 90px; height: 70px;" /></a>
                         </div>
                     </div>
@@ -19,9 +19,9 @@ import { Component } from '@angular/core';
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li><a href="#">TRANG CHỦ</a>
+                                    <li><a routerLink="/">TRANG CHỦ</a>
                                     </li>
-                                    <li><a href="#">GIỚI THIỆU</a></li>
+                                    <li><a routerLink="/gioi-thieu">GIỚI THIỆU</a></li>
                                     <li><a href="#">GIÀY NAM</a>
                                         <ul>
                                             <li><a href="#">ADIDAS</a></li>
@@ -53,11 +53,11 @@ import { Component } from '@angular/core';
                         </div>
                         <div class="user-meta">
                             <a href="#"><i class="fa fa-cog"></i></a>
-                            <ul *ngIf="isLogin">
+                            <ul *ngIf="getIsLogin()">
                                 <li><a href="#">Tài khoản</a></li>
                                 <li><a href="#">Đăng xuất</a></li>
                             </ul>
-                            <ul *ngIf="!isLogin">
+                            <ul *ngIf="!getIsLogin()">
                                 <li><a href="#">Tài khoản</a></li>
                                 <li><a href="#">Đăng xuất</a></li>
                             </ul>
@@ -118,6 +118,10 @@ import { Component } from '@angular/core';
 export class HeaderComponent {
     
     static isLogin = false;
+
+    getIsLogin() {
+        return HeaderComponent.isLogin;
+    }
 
     // constructor(private cdRef : ChangeDetectorRef){}
 

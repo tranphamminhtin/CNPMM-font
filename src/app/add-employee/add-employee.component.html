@@ -2,15 +2,16 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="QLTK.jsp"> <em class="fa fa-home"></em>
+            <li><a routerLink="/admin/home"> <em class="fa fa-home"></em>
                 </a></li>
-            <li class="active"><a href="QLNVController"> Danh sách nhân
+            <li class="active"><a routerLink="/admin/ql-nhan-vien"> Danh sách nhân
                     viên </a></li>
             <li><em class="fa"> Thêm nhân viên </em></li>
         </ol>
     </div>
     <div class="widget">
         <form (ngSubmit)="addEmployeeSubmit(formAddEmployee);" #formAddEmployee="ngForm" id="add-nv-form">
+            <input type="hidden" name="right" [ngModel]="0">
             <div class="title">
                 <h4>Nhập dữ liệu</h4>
             </div>
@@ -26,7 +27,7 @@
                 <label> Mật khẩu</label>
                 <div class="formRight form-group">
                     <div class="col-xs-6">
-                        <input class="form-control" id="password1" name="password1" type="password" ngModel required>
+                        <input class="form-control" id="password1" name="password" type="password" ngModel required>
                     </div>
                 </div>
             </div>
@@ -38,7 +39,6 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="right" [ngModel]="0">
             <div class="formRow">
                 <label>Họ và tên</label>
                 <div class="formRight form-group">
@@ -51,8 +51,8 @@
                 <label>SĐT</label>
                 <div class="formRight">
                     <div class="col-xs-6">
-                        <input class="form-control" name="numberPhone" type="text" (keypress)="keyPress($event)"
-                        ngModel required minlength="10">
+                        <input class="form-control" name="numberPhone" type="text" (keypress)="keyPress($event)" ngModel
+                            required minlength="10">
                     </div>
                 </div>
             </div>
@@ -67,8 +67,8 @@
             <div class="formRow">
                 <label>Nhóm quyền quản lý</label>
                 <div class="form-group">
-                    <select class="form-control" id="sel1" name="rightId" [ngModel]="arrRights[0].id">
-                        <option *ngFor="let right of arrRights" value="{{ right.id }}">{{ right.description }}
+                    <select class="form-control" id="sel1" name="rightId" [ngModel]="arrRights[0]._id">
+                        <option *ngFor="let right of arrRights" value="{{ right._id }}">{{ right.description }}
                         </option>
                     </select>
                 </div>

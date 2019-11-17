@@ -2,9 +2,9 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="#"> <em class="fa fa-home"></em>
+            <li><a routerLink="/admin/home"> <em class="fa fa-home"></em>
                 </a></li>
-            <li class="active">Quản lý khách hàng</li>
+            <li class="active"><a routerLink="/admin/ql-khach-hang">Quản lý khách hàng</a></li>
         </ol>
 
     </div>
@@ -28,10 +28,10 @@
                 <td>{{ client.address }}</td>
                 <td>
                     <button type="button" class="btn btn-info " data-toggle="modal"
-                        [attr.data-target]="'#myModal'+client.id"><i
+                        [attr.data-target]="'#myModal'+client.username"><i
                         class="fa fa-times"></i> Xóa</button>
 
-                    <div class="modal fade" id="myModal{{ client.id }}" role="dialog">
+                    <div class="modal fade" id="myModal{{ client.username }}" role="dialog">
                         <div class="modal-dialog">
 
                             <div class="modal-content">

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -8,10 +9,15 @@ import { Router } from '@angular/router';
 	templateUrl: './change-password.html',
 
 })
-export class ChangePasswordComponent {
+export class ChangePasswordComponent implements OnDestroy {
 
-	username = '';
+	username = 'tin';
+	subscriptions: Subscription[] = [];
 	constructor(private http: HttpClient, private router: Router) { }
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sub => sub.unsubscribe());
+	}
 
 	changePasswordSubmit(formChangePassword) {
 		if (formChangePassword.valid && this.validFormChangePassword(formChangePassword)) {
@@ -19,22 +25,26 @@ export class ChangePasswordComponent {
 			const url = 'http://localhost:3000/user/users/' + this.username;
 			const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 			const body = JSON.stringify(formChangePassword.value);
-			this.http.put(url, body, { headers: headers })
-				.toPromise().then(result => {
-					if (!result['success']) {
-						console.log(result['message']);
-						alert('Lỗi rồi! Đổi mật khẩu thất bại');
+			const sub = this.http.put(url, body, { headers: headers })
+				.subscribe(res => {
+					console.log(res);
+					if (!res['success']) {
+						sub.unsubscribe();
+						console.log(res['message']);
+						alert(res['message']);
 					}
-					else{
-						alert('Đổi mật khẩu thành công');
-						this.router.navigate(['/account']);
-					}
-				})
-				.catch(err => console.log(err));
+				}, err => {
+					console.log(err);
+					alert('Lỗi rồi');
+				}, () => {
+					this.subscriptions.push(sub);
+					alert('Đổi mật khẩu thành công');
+					formChangePassword.reset();
+				});
 		}
 	}
 
 	validFormChangePassword(formChangePassword) {
-		return formChangePassword.value.password1 === formChangePassword.value.password2;
+		return formChangePassword.value.password === formChangePassword.value.password2;
 	}
 }

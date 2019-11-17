@@ -20,6 +20,20 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
   constructor(private service: AddEmployeeService, private router: Router) { }
 
   ngOnInit() {
+    const sub = this.service.getListRight()
+    .subscribe(res => {
+      if(!res['success']){
+        sub.unsubscribe();
+        console.log(res['message']);
+        alert('Lỗi rồi');
+      } else {
+        this.arrRights = res['message'];
+        // console.log(res['message']);
+      }
+    }, err => {
+      console.log(err);
+      alert('Lỗi rồi');
+    });
   }
 
   ngOnDestroy() {
@@ -30,16 +44,18 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
     if (formAddEmployee.valid) {
       console.log(formAddEmployee.value);
       const sub = this.service.addUser(formAddEmployee.value)
-        .subscribe(result => {
-          if (!result['success']) {
-            alert(result['message']);
+        .subscribe(res => {
+          if (!res['success']) {
             sub.unsubscribe();
+            alert('Lỗi tạo người dùng');
+            console.log(res['message']);
           }
           this.service.addEmployee(formAddEmployee.value)
             .subscribe(employee => {
               if (!employee['success']) {
-                alert(employee['message']);
-                this.service.removeUser(formAddEmployee.value['username']);
+                alert('Lỗi tạo nhân viên');
+                console.log(employee['message']);
+                this.service.removeUser(formAddEmployee.value.username);
                 sub.unsubscribe();
               }
             }, err => {
@@ -61,7 +77,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
     if (formAddEmployee.value.username.includes(' ')) {
       return false;
     }
-    if (formAddEmployee.value.password1 !== formAddEmployee.value.password2) {
+    if (formAddEmployee.value.password !== formAddEmployee.value.password2) {
       return false;
     }
     return true;

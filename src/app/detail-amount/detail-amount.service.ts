@@ -20,8 +20,8 @@ export class DetailAmountService {
         return this.http.get(url);
     }
 
-    getDetailProduct(id) {
-        const url = 'http://localhost:3000/detail-product/product/' + id;
+    getDetailProduct(productId) {
+        const url = 'http://localhost:3000/detail-product/product/' + productId;
         return this.http.get<any[]>(url);
     }
 

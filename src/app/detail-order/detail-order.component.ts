@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DetailOrderService } from "./detail-order.service";
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detail-order',
@@ -16,9 +17,11 @@ export class DetailOrderComponent implements OnInit, OnDestroy {
     {id: '3', product: {id: '3', name: 'hunter', image: 'assets/img/product/giay1.jpg'}, amount: 3, price: 3000, size: 32},
   ];
   subscriptions: Subscription[] = [];
-  constructor(private service: DetailOrderService) { }
+  constructor(private service: DetailOrderService,  private activatedRoute: ActivatedRoute) { }
 
+  id = '';
   ngOnInit() {
+    this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
   }
   
   ngOnDestroy() {

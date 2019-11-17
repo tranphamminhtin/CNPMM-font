@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AccountEmployeeService } from './account-employee.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-account-employee',
@@ -11,59 +12,101 @@ import { NgForm } from '@angular/forms';
 })
 export class AccountEmployeeComponent implements OnInit, OnDestroy {
 
-  information = {
-    id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', numberPhone: '1234567890',
-    email: 'tin@gmail.com', right: { id: '1', description: 'Nhóm sản phẩm' }
-  };
+  // information = {
+  //   id: '5dcbe09e14d7f3514cb9ddc2', username: 'tintin', name: 'tranphamminhtin', numberPhone: '1234567890',
+  //   email: 'tin@gmail', right: { id: '5dca750ea5c6196650e854aa', description: 'Nhóm sản phẩm' }
+  // };
+  // information = {
+  //   id: '', username: '', name: '', numberPhone: '',
+  //   email: 'tin@', right: { id: '', description: '' }
+  // };
   subscriptions: Subscription[] = [];
   constructor(private service: AccountEmployeeService) { }
 
+  userId = '5dcbe09e14d7f3514cb9ddc2';
+  information = {};
   ngOnInit() {
+    AppComponent.isAdmin = true;
+    const sub = this.service.getEmployee(this.userId)
+      .subscribe(res => {
+        console.log(res);
+        if (res['success']) {
+          // Object.assign(this.information, res['message']);
+          this.information = res['message'];
+          const s = this.service.getRight(this.information['rightId'])
+            .subscribe(right => {
+              if (!right['success']) {
+                s.unsubscribe();
+                console.log(right['message']);
+                alert('Lỗi quyền');
+              } else {
+                Object.assign(this.information, { right: right['message'] });
+              }
+            }, err => {
+              console.log(err);
+              alert('Lỗi rồi');
+            });
+        } else {
+          console.log(res['message']);
+          alert('Lỗi lấy người');
+        }
+      }, err => {
+        console.log(err);
+        alert('Lỗi rồi');
+      }, () => {
+        this.subscriptions.push(sub);
+        console.log(this.information);
+      });
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  username = '';
-
   editInfoSubmit(formInfo) {
     if (formInfo.valid) {
       console.log(formInfo.value);
-      this.subscriptions.push(this.service.editInfo(formInfo.value)
+        const sub = this.service.editInfo(formInfo.value)
         .subscribe(res => {
           if (!res['success']) {
+            sub.unsubscribe();
             console.log(res['message']);
             alert('Lỗi rồi! Sửa thất bại');
           }
         }, err => {
           console.log(err);
           alert('Lỗi rồi');
-        }, () => alert('Sửa thành công')));
+        }, () => {
+          this.subscriptions.push(sub);
+          alert('Sửa thành công');
+        });
     }
   }
 
   changePasswordSubmit(formChangePassword: NgForm) {
     if (formChangePassword.valid && this.validChangePasswordForm(formChangePassword)) {
       console.log(formChangePassword.value);
-      this.subscriptions.push(this.service.changePassword(formChangePassword.value, this.username)
+      const sub = this.service.changePassword(formChangePassword.value, this.information['username'])
         .subscribe(res => {
+          console.log(res);
           if (!res['success']) {
+            sub.unsubscribe();
             console.log(res['message']);
-            alert('Lỗi rồi! Đổi mật khẩu thất bại');
+            alert(res['message']);
           }
         }, err => {
           console.log(err);
           alert('Lỗi rồi');
         }, () => {
+          this.subscriptions.push(sub);
           alert('Đổi mật khẩu thành công');
           formChangePassword.reset();
-        }));
+        });
     }
   }
 
   validChangePasswordForm(formChangePassword) {
-    return formChangePassword.value.password1 === formChangePassword.value.password2;
+    return formChangePassword.value.password === formChangePassword.value.password2;
   }
 
   keyPress(event: any) {

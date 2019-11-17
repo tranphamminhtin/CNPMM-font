@@ -13,10 +13,8 @@ import { Component } from '@angular/core';
 					<ul class="nav navbar-top-links navbar-right">
 				 	<li>
 				 		<div class="col-md-12 text-right">
-				 			<a class="navbar-brand fa fa-user" href="#">Thông tin cá nhân</a>
-					
+				 			<a class="navbar-brand fa fa-user" routerLink="/admin/home">Thông tin cá nhân</a>
 				 		</div>
-				
 					</li>
 				</ul>
 				</div>
@@ -34,36 +32,33 @@ import { Component } from '@angular/core';
 			<div class="clear"></div>
 		</div>
 		<div class="divider"></div>
-		
 		<ul class="nav menu">
-			<li><a href="QLTKController"><em >&nbsp;</em> Quản lý tài khoản</a></li>
+			<li><a routerLink="/admin/home"><em >&nbsp;</em> Quản lý tài khoản</a></li>
 			<ng-container *ngIf="rightAdmin">
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> Quản lý nhân viên <span data-toggle="collapse"  class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-1">
-					<li><a class="" href="NhomrightController">
+					<li><a class="" routerLink="/admin/ql-quyen">
 						<span class="fa fa-arrow-right">&nbsp;</span> Các nhóm quyền
 					</a></li>
-					<li><a href="QLNVController">
+					<li><a routerLink="/admin/ql-nhan-vien">
 						<span class="fa fa-arrow-right">&nbsp;</span> Danh sách nhân viên
 					</a></li>
-					
 				</ul>
-				
 			</li>
-			<li><a href="QLKHController"><em >&nbsp;</em> Quản lý khách hàng</a></li>
-			<li><a href="QLSPController"><em >&nbsp;</em> Quản lý sản phẩm</a></li>
-			<li><a href="QLDHController"><em >&nbsp;</em> Quản lý đơn hàng</a></li>
+			<li><a routerLink="/admin/ql-khach-hang"><em >&nbsp;</em> Quản lý khách hàng</a></li>
+			<li><a routerLink="/admin/ql-san-pham"><em >&nbsp;</em> Quản lý sản phẩm</a></li>
+			<li><a routerLink="/admin/ql-don-hang"><em >&nbsp;</em> Quản lý đơn hàng</a></li>
             </ng-container>
             
-            <li *ngIf="show(rightClient);"><a href="QLKHController"><em >&nbsp;</em> Quản lý khách hàng</a></li>	
+            <li *ngIf="show(rightClient);"><a routerLink="/admin/ql-khach-hang"><em >&nbsp;</em> Quản lý khách hàng</a></li>	
             		
-			<li *ngIf="show(rightProduct);"><a href="QLSPController"><em >&nbsp;</em> Quản lý sản phẩm</a></li>
+			<li *ngIf="show(rightProduct);"><a routerLink="/admin/ql-san-pham"><em >&nbsp;</em> Quản lý sản phẩm</a></li>
 
-			<li *ngIf="show(rightOrder);"><a href="QLDHController"><em >&nbsp;</em> Quản lý đơn hàng</a></li>
+			<li *ngIf="show(rightOrder);"><a routerLink="/admin/ql-don-hang"><em >&nbsp;</em> Quản lý đơn hàng</a></li>
 			
-			<li><a href="DangXuatController"><em >&nbsp;</em> Đăng xuất</a></li>
+			<li><a (click)="logOut();"><em >&nbsp;</em> Đăng xuất</a></li>
 		</ul>
 	</div><!--/.sidebar-->
   `
@@ -79,6 +74,10 @@ export class HeaderAdminComponent {
             return true;
         }
         return false;
+	}
+
+	logOut() {
+
 	}
 	
 	// constructor(private cdRef : ChangeDetectorRef){}

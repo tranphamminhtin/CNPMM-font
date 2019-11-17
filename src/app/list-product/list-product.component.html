@@ -2,9 +2,10 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
-            <li><a href="#"> <em class="fa fa-home"></em>
+            <li><a routerLink="/admin/home"> <em class="fa fa-home"></em>
                 </a></li>
-            <li class="active  " style="color: red">Quản lý sản phẩm</li>
+            <li class="active  " style="color: red"><a routerLink="/admin/ql-san-pham">Quản lý sản phẩm
+                </a></li>
         </ol>
     </div>
     <div class="row" style="width: 100%; margin: 0% 0% 0% 0%">
@@ -14,9 +15,9 @@
             </div>
             <div class="row" style="width: 102%; height: 10px; background-color: #85e0e0;"></div>
             <div class="row " style="width: 100%; margin: 1% 0% 0% 0%; border: 1px">
-                <button type="button" class="btn btn-primary btn-md" style="margin: 15px;" (click)="addProduct();"><i
+                <a routerLink="/admin/them-san-pham"><button type="button" class="btn btn-primary btn-md" style="margin: 15px;"><i
                         class="fa fa-plus"></i>
-                    Thêm sản phẩm</button>
+                    Thêm sản phẩm</button></a>
                 <br>
             </div>
             <div class="row">
@@ -44,7 +45,7 @@
                                         <td>
 
                                             <h3 style="font-size: 18px">
-                                                {{ product.id }}
+                                                {{ product._id }}
                                             </h3>
                                         </td>
                                         <td>
@@ -83,22 +84,23 @@
                                         <td>
                                             <div class="row">
                                                 <button type="button" class="btn btn-info " data-toggle="modal"
-                                                    [attr.data-target]="'#myModal' + product.id"><i
+                                                    [attr.data-target]="'#myModal' + product._id"><i
                                                         class="fa fa-times"></i> Xóa</button>
                                             </div>
                                             <br>
                                             <div>
-                                                <button type="button" class="btn btn-info"
-                                                    (click)="editProduct(product.id);"><i class="fa fa-edit"></i>
-                                                    Sửa</button>
+                                                <a routerLink="/admin/sua-san-pham/{{product._id}}">
+                                                    <button type="button" class="btn btn-info"><i
+                                                            class="fa fa-edit"></i>
+                                                        Sửa</button></a>
                                             </div>
                                             <br>
                                             <div>
-                                                <button type="button" class="btn btn-info "
-                                                    (click)="detailProduct(product.id);"><i
-                                                        class="fa fa-info-circle"></i> Chi tiết</button>
+                                                <a routerLink="/admin/chi-tiet-san-pham/{{product._id}}"><button
+                                                        type="button" class="btn btn-info "><i
+                                                            class="fa fa-info-circle"></i> Chi tiết</button></a>
                                             </div>
-                                            <div class="modal fade" id="myModal{{ product.id }}" role="dialog">
+                                            <div class="modal fade" id="myModal{{ product._id }}" role="dialog">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header" style="text-align: center;">
@@ -114,7 +116,7 @@
                                                         <div class="modal-footer" style="text-align: center;">
                                                             <button type="button" class="btn btn-success"
                                                                 data-dismiss="modal"
-                                                                (click)="removeProduct(product.id);">Xác nhận</button>
+                                                                (click)="removeProduct(product._id);">Xác nhận</button>
                                                         </div>
                                                     </div>
                                                 </div>
