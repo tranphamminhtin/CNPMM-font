@@ -424,56 +424,56 @@ $(function(){
 	});
 	$("#Them_SanPham").validate({
 		rules:{
-			MaSanPham:{
+			_id:{
 				required:true,
 			},
-			TenSanPham:{
+			name:{
 				required:true,
 			},
-			KhuyenMai:{
+			promotion:{
 				required:true,
 			},
-			GiaBan:{
+			price:{
 				required:true,
 			},
-			HinhAnh1:{
-				
+			image:{
+				required: true
 			},
-			HinhAnh2:{
-				
+			image2:{
+				required: true
 			},
-			HinhAnh3:{
-				
+			image3:{
+				required: true
 			},
-			HinhAnh4:{
-				
+			image4:{
+				required: true
 			},
 			
 		},
 		message:{
-			MaSanPham:{
+			_id:{
 				required:'Nhập mã sản phẩm .',
 			},
-			TenSanPham:{
+			name:{
 				required:'Nhập tên sản phẩm',
 			},
-			KhuyenMai:{
+			promotion:{
 				required:'Nhập giá khuyến mãi',
 			},
-			GiaBan:{
+			price:{
 				required:'Nhập giá bán .',
 			},
-			HinhAnh1:{
-				
+			image:{
+				required: 'Chọn hình'
 			},
-			HinhAnh2:{
-				
+			image2:{
+				required: 'Chọn hình'
 			},
-			HinhAnh3:{
-				
+			image3:{
+				required: 'Chọn hình'
 			},
-			HinhAnh4:{
-				
+			image4:{
+				required: 'Chọn hình'
 			},
 		}
 	})

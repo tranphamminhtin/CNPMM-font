@@ -1,6 +1,6 @@
 <app-header-admin *ngIf="getIsAdmin()"></app-header-admin>
 <app-header *ngIf="!getIsAdmin()"></app-header>
 
-<router-outlet></router-outlet>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
 
 <app-footer *ngIf="!getIsAdmin()"></app-footer>

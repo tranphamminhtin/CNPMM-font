@@ -3,6 +3,7 @@ import { DetailAmountService } from "./detail-amount.service";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail-amount',
@@ -24,7 +25,7 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   id = '';
   constructor(private service: DetailAmountService,
-    private activatedRoute: ActivatedRoute, private router: Router) { }
+    private activatedRoute: ActivatedRoute, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
@@ -33,7 +34,7 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi lấy sản phẩm');
+          this.toastr.error('Lỗi lấy sản phẩm', 'Lỗi rồi');
           this.router.navigate(['/ql-san-pham']);
         } else {
           this.product = res['message'];
@@ -41,7 +42,7 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi')
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
       })
@@ -56,14 +57,14 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
       .subscribe(detail => {
         if (!detail['success']) {
           console.log(detail['message']);
-          alert('Lỗi lấy chi tiết');
+          this.toastr.error('Lỗi lấy chi tiết sản phẩm', 'Lỗi rồi');
           sub.unsubscribe();
         } else {
           this.arrAmounts = detail['message'];
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       });
   }
 
@@ -75,17 +76,17 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert('Lỗi rồi');
+            this.toastr.error('Thêm thất bại', 'Lỗi rồi');
           } else {
             this.refreshArrAmounts(sub);
             formAdd.reset();
           }
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          alert('Thêm thành công');
+          this.toastr.success('Thêm thành công', 'Thành công');
           // let amout = { id: res['message'], size: size, amount: amount};
           //   this.arrAmounts.unshift(amout);
         });
@@ -99,16 +100,16 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi rồi');
+          this.toastr.error('Sửa thất bại', 'Lỗi rồi');
         } else {
           this.refreshArrAmounts(sub);
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
-        alert('Sửa thành công');
+        this.toastr.success('Sửa thành công', 'Thành công');
         // refresh lại
         // const index = this.arrAmounts.findIndex(e => e.size === size);
         // this.arrAmounts[index].amount = amount;
@@ -121,16 +122,16 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi rồi');
+          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
         } else {
           this.refreshArrAmounts(sub);
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
-        alert('Xóa thành công');
+        this.toastr.success('Xóa thành công', 'Thành công');
         // refresh lại
         // const index = this.arrAmounts.findIndex(e => e.size === size);
         // this.arrAmounts.splice(index, 1);

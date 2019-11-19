@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FixProductService } from "./fix-product.service";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-fix-product',
@@ -20,7 +21,7 @@ export class FixProductComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   id = '';
   constructor(private service: FixProductService, private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
@@ -30,13 +31,13 @@ export class FixProductComponent implements OnInit, OnDestroy {
           sub.unsubscribe();
           console.log(res['message']);
           this.router.navigate(['/admin/ql-san-pham']);
-          alert('Không tìm thầy sản phẩm');
+          this.toastr.warning('Không tìm thầy sản phẩm', 'Sai mã sản phẩm');
         } else {
           this.product = res['message'];
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => this.subscriptions.push(sub));
   }
 
@@ -46,21 +47,22 @@ export class FixProductComponent implements OnInit, OnDestroy {
 
   fixProductSubmit(formAddProduct) {
     if (formAddProduct.valid) {
-      console.log(formAddProduct.value);
-      // const sub = this.service.fixProduct(formAddProduct.value)
-      //   .subscribe(res => {
-      //     if (!res['success']) {
-      //       sub.unsubscribe();
-      //       console.log(res['message']);
-      //       alert('Lỗi rồi');
-      //     }
-      //   }, err => {
-      //     console.log(err);
-      //     alert('Lỗi rồi');
-      //   }, () => {
-      //     this.subscriptions.push(sub);
-      //     alert('Sủa thành công');
-      //   });
+      // console.log(formAddProduct.value);
+      const sub = this.service.fixProduct(formAddProduct.value, this.id)
+        .subscribe(res => {
+          if (!res['success']) {
+            sub.unsubscribe();
+            console.log(res['message']);
+            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
+          }
+        }, err => {
+          console.log(err);
+          this.toastr.error('', 'Lỗi rồi');
+        }, () => {
+          this.subscriptions.push(sub);
+          this.toastr.success('Sửa thành công', 'Thành công');
+          this.router.navigate(['/admin/ql-san-pham']);
+        });
     }
   }
 

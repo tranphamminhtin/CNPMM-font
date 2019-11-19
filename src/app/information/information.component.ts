@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InformationService } from "./information.service";
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-information',
@@ -15,7 +16,8 @@ export class InformationComponent implements OnInit, OnDestroy {
   username = 'tin';
   client = {};
   subscriptions: Subscription[] = [];
-  constructor(private service: InformationService, private router: Router) { }
+  constructor(private service: InformationService, private router: Router
+    , private toastr: ToastrService) { }
 
   ngOnInit() {
     const sub = this.service.getInfo(this.username)
@@ -23,7 +25,7 @@ export class InformationComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Không tìm thấy người dùng');
+          this.toastr.warning('Không tìm thấy người dùng', '');
           this.router.navigate(['/home']);
         } else {
           // console.log(res['message']);
@@ -31,7 +33,7 @@ export class InformationComponent implements OnInit, OnDestroy {
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => this.subscriptions.push(sub));
   }
 
@@ -47,14 +49,14 @@ export class InformationComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert('Lỗi rồi');
+            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          alert('Thay đổi thành công');
+          this.toastr.success('Thay đổi thành công', 'Thành công');
           this.router.navigate(['/account']);
         });
     }

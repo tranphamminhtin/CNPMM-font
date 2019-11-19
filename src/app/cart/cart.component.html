@@ -1,4 +1,3 @@
-<!-- <app-header></app-header> -->
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
@@ -28,60 +27,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <c:forEach items="${giohang.getListCTDH()}" var="chitietgiohang">
-                                <tr id='tr<c:out value="${ chitietgiohang.getMaChiTietDonHang()}"/>'>
-                                    <td class="product-thumbnail"><a href="ChiTietSPController?masp=<c:out value="
-                                            ${chitietgiohang.getSanPham().getMaSanPham()}" />">
-                                        <img src="<c:out value=" ${chitietgiohang.getSanPham().getHinhAnh()}" />"
-                                        alt="" />
-                                        </a></td>
-                                    <td class="product-name"><a href="ChiTietSPController?masp=<c:out value="
-                                            ${chitietgiohang.getSanPham().getMaSanPham()}" />">
-                                        <c:out value="${chitietgiohang.getSanPham().getTenSanPham()}" />
-                                        </a></td>
-                                    <td class="product-price"><span class="amount">
-                                            <c:out value="${chitietgiohang.getDonGia()}" />đ</span></td>
-                                    <td class="product-quantity"><input type="number"
-                                            id='SoLuong<c:out value="${ chitietgiohang.getMaChiTietDonHang()}"/>'
-                                            value="<c:out value=" ${chitietgiohang.getSoLuong()}" />"
-                                        min="1" /></td>
-                                    <td class="product-size"><span>
-                                            <c:out value="${chitietgiohang.getSize()}" /></span></td>
-                                    <td class="product-subtotal"><span class="amount">
-                                            <c:out
-                                                value="${chitietgiohang.getSoLuong() * chitietgiohang.getDonGia()}" />
-                                            đ</span></td>
-                                    <td class="product-remove">
-                                        <a href="javascript://"
-                                            onclick="SuaTrongGioHang('<c:out value="
-                                            ${chitietgiohang.getMaChiTietDonHang()}" />')">
-                                            <a><i class="fa fa-edit"></i></a> <br /> <br /> <a href="javascript://"
-                                            onclick="XoaTrongGioHang('<c:out value="
-                                            ${chitietgiohang.getMaChiTietDonHang()}" />')"><i
-                                            class="fa fa-times"></i></a></td>
-                                </tr>
-                            </c:forEach> -->
                             <tr *ngFor="let cart of arrCarts">
                                 <td class="product-thumbnail">
-                                    <!-- <a href="ChiTietSPController?masp=<c:out value="
-                                        ${chitietgiohang.getSanPham().getMaSanPham()}" />"> -->
                                     <a><img src="{{ cart.product.image }}" alt="" /></a></td>
                                 <td class="product-name">
-                                    <!-- <a href="ChiTietSPController?masp=<c:out value="
-                                        ${chitietgiohang.getSanPham().getMaSanPham()}" />">
-                                    <c:out value="${chitietgiohang.getSanPham().getTenSanPham()}" /> -->
                                     <a>{{ cart.product.name }}</a></td>
                                 <td class="product-price"><span class="amount">
                                         {{ cart.price + ' đ'}}</span></td>
                                 <td class="product-quantity">
-                                    <input type="number" [(ngModel)]="cart.amount" value="{{ cart.amount }}" min="1" /></td>
+                                    <input type="number" [(ngModel)]="cart.amount" value="{{ cart.amount }}" min="1" />
+                                </td>
                                 <td class="product-size"><span>
                                         {{ cart.size }}</span></td>
                                 <td class="product-subtotal"><span class="amount">
                                         {{ cart.price * cart.size}}đ</span></td>
                                 <td class="product-remove">
-                                    <a (click)="updateCart(cart.id, cart.amount);"><i class="fa fa-edit"></i></a> 
-                                    <br /> <br /> 
+                                    <a (click)="updateCart(cart.id, cart.amount);"><i class="fa fa-edit"></i></a>
+                                    <br /> <br />
                                     <a (click)="removeCart(cart.id);"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
@@ -118,4 +80,3 @@
         </div>
     </div>
 </div>
-<!-- <app-footer></app-footer> -->

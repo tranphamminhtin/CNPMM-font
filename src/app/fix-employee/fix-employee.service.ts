@@ -5,15 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 export class FixEmployeeService {
     constructor(private http: HttpClient) { }
 
-    // sendPost(value) {
-    //     const url ='http://localhost:3000/signin'
-    //     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    //     const body = JSON.stringify(value);
-    //     return this.http.post(url, body, { headers })
-    //     .toPromise()
-    //     .then(res => res);
-    // }
-
     searchEmployee(employeeId) {
         const url = 'http://localhost:3000/employee/' + employeeId;
         return this.http.get(url);
@@ -28,7 +19,7 @@ export class FixEmployeeService {
 
     getListRight() {
         const url = 'http://localhost:3000/right/';
-        return this.http.get<any[]>(url);
+        return this.http.get(url);
     }
 }
 

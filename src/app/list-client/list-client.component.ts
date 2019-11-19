@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListClientService } from "./list-client.service";
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-client',
@@ -18,7 +19,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
   // ];
   arrClients = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: ListClientService) { }
+  constructor(private service: ListClientService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getListClient();
@@ -30,39 +31,39 @@ export class ListClientComponent implements OnInit, OnDestroy {
 
   getListClient() {
     const sub = this.service.getList()
-    .subscribe(res => {
-      if(!res['success']){
-        sub.unsubscribe();
-        console.log(res['message']);
-        alert('Lỗi lấy khách hàng');
-      } else {
-        // console.log(res['message']);
-        this.arrClients = res['message'];
-      }
-    }, err => {
-      console.log(err);
-      alert('Lỗi rồi');
-    }, () => this.subscriptions.push(sub));
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          this.toastr.warning('Lỗi lấy khách hàng', '!!!');
+        } else {
+          // console.log(res['message']);
+          this.arrClients = res['message'];
+        }
+      }, err => {
+        console.log(err);
+        this.toastr.error('', 'Lỗi rồi');
+      }, () => this.subscriptions.push(sub));
   }
 
   removeClient(username: string) {
     const sub = this.service.delete(username)
-    .subscribe(res => {
-      if(!res['success']) {
-        sub.unsubscribe();
-        console.log(res['message']);
-        alert('Lỗi rồi');
-      }
-    }, err => {
-      console.log(err);
-      alert('Lỗi rồi');
-    }, () => {
-      this.subscriptions.push(sub);
-      alert('Xóa thành công');
-      this.getListClient();
-      // refresh lại
-      // const index = this.arrClients.findIndex(e => e.id === id)
-      // this.arrClients.splice(index, 1);
-    });
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
+        }
+      }, err => {
+        console.log(err);
+        this.toastr.error('', 'Lỗi rồi');
+      }, () => {
+        this.subscriptions.push(sub);
+        this.toastr.success('Xóa thành công', 'Thành công');
+        this.getListClient();
+        // refresh lại
+        // const index = this.arrClients.findIndex(e => e.id === id)
+        // this.arrClients.splice(index, 1);
+      });
   }
 }

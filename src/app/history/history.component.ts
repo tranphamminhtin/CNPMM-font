@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HistoryService } from "./history.service";
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-history',
@@ -17,7 +18,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     { id: '4', date: '05/11/2019', amount: 1, price: 3000, state: 'af' }
   ];
   subscriptions: Subscription[] = [];
-  constructor(private service: HistoryService) { }
+  constructor(private service: HistoryService, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -32,14 +33,14 @@ export class HistoryComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert('Lỗi rồi');
+            this.toastr.error('Xóa thất bại', 'Lỗi rồi');
           }
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          alert('Xóa thành công');
+          this.toastr.success('Xóa thành công', 'Thành công');
           // refresh lại
           // const index = this.arrOrders.findIndex(order => order.id === id);
           // this.arrOrders.splice(index, 1);

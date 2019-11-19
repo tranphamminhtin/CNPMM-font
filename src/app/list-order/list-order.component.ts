@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListOrderService } from "./list-order.service";
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-order',
@@ -20,7 +21,7 @@ export class ListOrderComponent implements OnInit, OnDestroy {
   isDone = false;
   stateShow = 'aa';
   subscriptions: Subscription[] = [];
-  constructor(private service: ListOrderService) { }
+  constructor(private service: ListOrderService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.arrFiltered = this.arrOrder.filter(e => e.state === this.stateShow);
@@ -60,14 +61,14 @@ export class ListOrderComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi rồi');
+          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
-        alert('Xóa thành công');
+        this.toastr.success('Xóa thành công', 'Thành công');
         // refresh lại
         // const index = this.arrFiltered.findIndex(e => e.id === id);
         // this.arrFiltered.splice(index, 1);

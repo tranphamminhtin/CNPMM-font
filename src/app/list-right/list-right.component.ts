@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListRightService } from "./list-right.service";
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-right',
@@ -17,7 +18,7 @@ export class ListRightComponent implements OnInit, OnDestroy {
   // ];
   arrRights = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: ListRightService) { }
+  constructor(private service: ListRightService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getListRight();
@@ -29,18 +30,18 @@ export class ListRightComponent implements OnInit, OnDestroy {
 
   getListRight() {
     const sub = this.service.getList()
-    .subscribe(res => {
-      if(!res['success']){
-        sub.unsubscribe();
-        console.log(res['message']);
-        alert('Lỗi lấy sản phẩm');
-      } else {
-        this.arrRights = res['message'];
-      }
-    }, err => {
-      console.log(err);
-      alert('Lỗi rồi')
-    }, () => this.subscriptions.push(sub));
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          this.toastr.warning('Lỗi lấy quyền', '!!!');
+        } else {
+          this.arrRights = res['message'];
+        }
+      }, err => {
+        console.log(err);
+        this.toastr.error('', 'Lỗi rồi')
+      }, () => this.subscriptions.push(sub));
   }
 
   removeRight(id: string) {
@@ -49,14 +50,14 @@ export class ListRightComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi rồi');
+          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
-        alert('Xóa thành công');
+        this.toastr.success('Xóa thành công', 'Thành công');
         this.getListRight();
         // refresh lại
         // const index = this.arrRights.findIndex(e => e.id === id);

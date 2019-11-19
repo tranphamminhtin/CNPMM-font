@@ -5,16 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 export class DetailAmountService {
     constructor(private http: HttpClient) { }
 
-    // sendPost(value) {
-    //     const url ='http://localhost:3000/signin'
-    //     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    //     const body = JSON.stringify(value);
-    //     return this.http.post(url, body, { headers })
-    //     .toPromise()
-    //     .then(res => res);
-    // }
-
-
     getProduct(id) {
         const url = 'http://localhost:3000/product/' + id;
         return this.http.get(url);
@@ -22,7 +12,7 @@ export class DetailAmountService {
 
     getDetailProduct(productId) {
         const url = 'http://localhost:3000/detail-product/product/' + productId;
-        return this.http.get<any[]>(url);
+        return this.http.get(url);
     }
 
     fix(value, id) {

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AddEmployeeService } from './add-employee.service'
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-employee',
@@ -17,23 +18,23 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
     { id: '3', description: 'Nhóm nhân viên' }
   ];
   subscriptions: Subscription[] = [];
-  constructor(private service: AddEmployeeService, private router: Router) { }
+  constructor(private service: AddEmployeeService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     const sub = this.service.getListRight()
-    .subscribe(res => {
-      if(!res['success']){
-        sub.unsubscribe();
-        console.log(res['message']);
-        alert('Lỗi rồi');
-      } else {
-        this.arrRights = res['message'];
-        // console.log(res['message']);
-      }
-    }, err => {
-      console.log(err);
-      alert('Lỗi rồi');
-    });
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          this.toastr.error('Lấy danh sách quyền thất bại', 'Lỗi rồi');
+        } else {
+          this.arrRights = res['message'];
+          // console.log(res['message']);
+        }
+      }, err => {
+        console.log(err);
+        this.toastr.error('', 'Lỗi rồi');
+      });
   }
 
   ngOnDestroy() {
@@ -47,27 +48,27 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
         .subscribe(res => {
           if (!res['success']) {
             sub.unsubscribe();
-            alert('Lỗi tạo người dùng');
+            this.toastr.error('Lỗi tạo người dùng', 'Lỗi');
             console.log(res['message']);
           }
           this.service.addEmployee(formAddEmployee.value)
             .subscribe(employee => {
               if (!employee['success']) {
-                alert('Lỗi tạo nhân viên');
+                this.toastr.error('Lỗi tạo nhân viên', 'Lỗi');
                 console.log(employee['message']);
                 this.service.removeUser(formAddEmployee.value.username);
                 sub.unsubscribe();
               }
             }, err => {
               console.log(err);
-              alert('Lỗi rồi');
+              this.toastr.error('', 'Lỗi rồi');
             });
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          alert('Tạo thành công');
+          this.toastr.success('Tạo thành công', 'Thành công');
           this.router.navigate(['/admin/ql-nhan-vien']);
         });
     }

@@ -1,11 +1,10 @@
-<!-- <app-header-admin></app-header-admin> -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
             <li><a routerLink="/admin/home"> <em class="fa fa-home"></em>
                 </a></li>
             <li class="active  " style="color: red"><a routerLink="/admin/ql-san-pham">Quản lý sản phẩm
-            </a></li>
+                </a></li>
         </ol>
     </div>
     <div class="row" style="width: 100%; margin: 0% 0% 0% 0%">
@@ -47,14 +46,6 @@
                         </div>
                         <div class="col-md-1"></div>
                     </div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-3">
-                        <p style="margin-left: 65px; margin-top: 10px">Mã sản phẩm :</p>
-                    </div>
-                    <div class=" form-group col-md-7" style="width: 500px">
-                        <input name="id" type="text" required class="form-control" ngModel/>
-                    </div>
-                    <div class="col-md-1"></div>
                 </div>
                 <div class="row" style="margin-top: 10px">
                     <div class="col-md-1"></div>
@@ -63,7 +54,7 @@
                     </div>
                     <div class=" form-group col-md-7" style="width: 500px">
                         <input name="name" id="name" type="text" placeholder="Tên sản phẩm" required
-                            class="form-control" ngModel/>
+                            class="form-control" ngModel />
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -108,7 +99,7 @@
                     </div>
                     <div class=" form-group col-md-7" style="width: 150px">
                         <input name="promotion" type="number" placeholder="%" min="0" max="100" required
-                            class="form-control" ngModel/>
+                            class="form-control" ngModel />
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -118,7 +109,8 @@
                         <p style="margin-left: 65px; margin-top: 10px">Giá :</p>
                     </div>
                     <div class=" form-group col-md-7" style="width: 300px">
-                        <input name="price" type="number" placeholder="đ" required min="100" class="form-control" ngModel/>
+                        <input name="price" type="number" placeholder="đ" required min="100" class="form-control"
+                            ngModel />
                     </div>
                     <div class="col-md-1"></div>
                 </div>
@@ -127,21 +119,43 @@
                     <div class="col-md-3">
                         <p style="margin-left: 65px; margin-top: 10px">Ảnh :</p>
                     </div>
-                    <div class=" form-group col-md-3">
-                        <img alt="" style="width: 200px; height: 200px" src="" id="image"><br />
-                        <img alt="" style="width: 200px; height: 200px" src="" id="image2"><br /> <img alt=""
-                            style="width: 200px; height: 200px" src="" id="image3"><br />
-                        <img alt="" style="width: 200px; height: 200px" src="" id="image4"><br />
-                    </div>
-                    <div class="col-md-2">
-                        <input type="file" name="HinhAnh" style="height: 20px" required
-                            accept="image/jpg,image/png,image/jpeg"><br />
-                        <input type="file" name="HinhAnh" style="height: 20px" required
-                            accept="image/jpg,image/png,image/jpeg"><br />
-                        <input type="file" name="HinhAnh" style="height: 20px" required
-                            accept="image/jpg,image/png,image/jpeg"><br />
-                        <input type="file" name="HinhAnh" style="height: 20px" required
-                            accept="image/jpg,image/png,image/jpeg"><br />
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img alt="" style="width: 100px; height: 100px" src="{{ img.image }}" id="image">
+                            </div>
+                            <div class="col-md-3">
+                                <img alt="" style="width: 100px; height: 100px" src="{{ img.image2 }}"
+                                    id="image2"><br />
+                            </div>
+                            <div class="col-md-3">
+                                <img alt="" style="width: 100px; height: 100px" src="{{ img.image3 }}"
+                                    id="image3"><br />
+                            </div>
+                            <div class="col-md-3">
+                                <img alt="" style="width: 100px; height: 100px" src="{{ img.image4 }}"
+                                    id="image4"><br />
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="file" name="image" style="height: 20px" accept="image/*" required
+                                    (change)="onFileChange($event, 0);">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="file" name="image2" style="height: 20px" accept="image/*" required
+                                    (change)="onFileChange($event, 1);">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="file" name="image3" style="height: 20px" accept="image/*" required
+                                    (change)="onFileChange($event, 2);">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="file" name="image4" style="height: 20px" accept="image/*" required
+                                    (change)="onFileChange($event, 3);">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10px">

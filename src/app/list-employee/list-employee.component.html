@@ -1,4 +1,3 @@
-<!-- <app-header-admin></app-header-admin> -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
@@ -7,8 +6,8 @@
             <li class="active">Quản lý nhân viên</li>
         </ol>
         <a routerLink="/admin/them-nhan-vien">
-            <button type="button" class="btn btn-primary btn-md" style="margin: 15px;"><i
-                    class="fa fa-plus"></i> Thêm</button>
+            <button type="button" class="btn btn-primary btn-md" style="margin: 15px;"><i class="fa fa-plus"></i>
+                Thêm</button>
         </a>
 
     </div>
@@ -27,8 +26,7 @@
                 <td>{{ employee.name }}</td>
                 <td>{{ employee.right?.description }}</td>
                 <td><a routerLink="/admin/sua-nhan-vien/{{employee._id}}">
-                        <button type="button" class="btn btn-info" ><i
-                                class="fa fa-edit"></i> Sửa</button>
+                        <button type="button" class="btn btn-info"><i class="fa fa-edit"></i> Sửa</button>
                     </a> &nbsp;
                     <button type="button" class="btn btn-info " data-toggle="modal"
                         [attr.data-target]="'#myModal' + employee.username"><i class="fa fa-times"></i> Xóa</button>

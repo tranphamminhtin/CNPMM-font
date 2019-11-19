@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from "@angular/forms";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 const routesConfig: Routes = [
     { path: 'doi-mk', component: ChangePasswordComponent }
@@ -22,7 +23,7 @@ const routesConfig: Routes = [
 export class ChangePasswordModule implements OnInit, OnDestroy {
 
     username = ''
-    constructor(private router: Router, private http: HttpClient) { }
+    constructor(private router: Router, private http: HttpClient, private toastr: ToastrService) { }
 
     ngOnInit() { }
     subscriptions: Subscription[] = [];
@@ -39,15 +40,15 @@ export class ChangePasswordModule implements OnInit, OnDestroy {
                 .subscribe(res => {
                     if (!res['success']) {
                         console.log(res['message']);
-                        alert('Lỗi rồi!');
+                        this.toastr.error('Đổi mật khẩu thất bại', 'Lỗi rồi!');
                         sub.unsubscribe();
                     }
                 }, err => {
                     console.log(err);
-                    alert('Lỗi rồi')
+                    this.toastr.error('', 'Lỗi rồi')
                 }, () => {
                     this.subscriptions.push(sub);
-                    alert('Đổi mật khẩu thành công');
+                    this.toastr.success('Đổi mật khẩu thành công', 'Thành công');
                     this.router.navigate(['/account']);
                 });
         }

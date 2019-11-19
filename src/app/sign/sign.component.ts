@@ -3,6 +3,7 @@ import { SignService } from "./sign.service";
 import { Router } from "@angular/router";
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign',
@@ -15,7 +16,8 @@ export class SignComponent implements OnInit, OnDestroy {
   username = 'tin';
   password = '123456';
   subscriptions: Subscription[] = [];
-  constructor(private service: SignService, private router: Router) { }
+  constructor(private service: SignService, private router: Router
+    , private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -32,10 +34,10 @@ export class SignComponent implements OnInit, OnDestroy {
           if (!res["success"]) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert("Tên đăng nhập hoặc mật khẩu sai");
+            this.toastr.warning("Tên đăng nhập hoặc mật khẩu sai", '!!!');
           }
         }, err => {
-          alert('Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
           console.log(err);
         }, () => {
           this.subscriptions.push(sub);
@@ -53,26 +55,35 @@ export class SignComponent implements OnInit, OnDestroy {
               if (!res["success"]) {
                 sub.unsubscribe();
                 console.log(res['message']);
-                alert('Lỗi tạo khách hàng');
+                this.toastr.error('Lỗi tạo khách hàng', 'Tạo tài khoản thất bại');
                 this.service.removeUser(formSignUp.value['username']);
               }
             }, err => {
-              alert('Lỗi rồi');
+              this.toastr.error('', 'Lỗi rồi');
               console.log(err);
             });
         } else {
-          alert(user['message']);
+          this.toastr.warning(user['message'], '!!!');
           sub.unsubscribe();
         }
       }, err => {
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
         console.log(err);
       }, () => {
-        alert("Đăng ký thành công");
+        this.toastr.success("Đăng ký thành công", 'Thành công');
         this.username = formSignUp.value["username"];
         this.password = formSignUp.value["password"];
         formSignUp.reset();
         formSignUp.value.right = 1;
+        // cuốn trang lên đầu
+        let scrollToTop = window.setInterval(() => {
+          let pos = window.pageYOffset;
+          if (pos > 0) {
+            window.scrollTo(0, pos - 20); // how far to scroll on each step
+          } else {
+            window.clearInterval(scrollToTop);
+          }
+        }, 16);
         this.subscriptions.push(sub);
       });
     }

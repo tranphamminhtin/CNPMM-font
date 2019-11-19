@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListEmployeeService } from "./list-employee.service";
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-employee',
@@ -26,7 +27,7 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
   // ];
   arrEmployees = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: ListEmployeeService) { }
+  constructor(private service: ListEmployeeService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getListEmployee();
@@ -42,7 +43,7 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi lấy danh sách');
+          this.toastr.warning('Không lấy được danh sách', '!!!');
         } else {
           // console.log(res['message']);
           this.arrEmployees = res['message'];
@@ -52,19 +53,19 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
                 if (!right['success']) {
                   sub.unsubscribe();
                   console.log(right['message']);
-                  alert('Lỗi lấy danh sách');
+                  this.toastr.error('Lỗi lấy quyền', 'Lỗi rồi');
                 } else {
                   Object.assign(employee, { right: right['message'] });
                 }
               }, err => {
                 console.log(err);
-                alert('Lỗi rồi');
-              })
-          })
+                this.toastr.error('', 'Lỗi rồi');
+              });
+          });
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => this.subscriptions.push(sub));
   }
 
@@ -74,14 +75,14 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi rồi');
+          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
-        alert('Xóa thành công');
+        this.toastr.success('Xóa thành công', 'Thành công');
         this.getListEmployee();
         // refresh lại
         // const index = this.arrEmployees.findIndex(e => e.id === id);

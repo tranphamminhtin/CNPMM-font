@@ -1,4 +1,3 @@
-<!-- <app-header></app-header> -->
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
@@ -21,17 +20,18 @@
                         <input type="hidden" name="username" [ngModel]="client.username">
                         <div class="form-group">
                             <label>Họ tên khách hàng <span class="required">*</span></label>
-                            <input type="text" placeholder="Họ tên" name="name" class="form-control" [ngModel]="client.name"
-                            required/>
+                            <input type="text" placeholder="Họ tên" name="name" class="form-control"
+                                [ngModel]="client.name" required />
                         </div>
                         <div class="form-group">
                             <label>Số điện thoại <span class="required">*</span></label>
                             <input type="text" placeholder="Số điện thoại" name="numberPhone" class="form-control"
-                                [ngModel]="client.numberPhone" (keypress)="keyPress($event)" minlength="10" required/>
+                                [ngModel]="client.numberPhone" (keypress)="keyPress($event)" minlength="10" required />
                         </div>
                         <div class="form-group">
                             <label>Địa chỉ <span class="required">*</span></label>
-                            <textarea name="addressh" placeholder="Địa chỉ" class="form-control" [ngModel]="client.address" required>
+                            <textarea name="addressh" placeholder="Địa chỉ" class="form-control"
+                                [ngModel]="client.address" required>
                                 </textarea>
                         </div>
                         <input class="login-sub" type="submit" value="Sửa thông tin" />
@@ -44,12 +44,12 @@
                             <div class="form-group">
                                 <label>Tên đăng nhập <span class="required">*</span></label>
                                 <input type="text" placeholder="Tên đăng nhập" name="username" class="form-control"
-                                    ngModel required/>
+                                    ngModel required />
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu <span class="required">*</span></label>
                                 <input type="password" placeholder="Mật khẩu" name="password" id="password"
-                                    class="form-control" ngModel required/>
+                                    class="form-control" ngModel required />
                             </div>
                             <input class="login-sub" type="submit" value="Đăng nhập" />
                         </form>
@@ -103,4 +103,3 @@
         </div>
     </div>
 </div>
-<!-- <app-footer></app-footer> -->

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FixEmployeeService } from "./fix-employee.service";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-fix-employee',
@@ -27,7 +28,7 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   id = '';
   constructor(private service: FixEmployeeService, private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
@@ -37,14 +38,14 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
           sub.unsubscribe();
           console.log(res['message']);
           this.router.navigate(['/admin/ql-nhan-vien']);
-          alert('Nhân viên không tồn tại');
+          this.toastr.warning('Nhân viên không tồn tại', 'Sai mã nhân viên');
         } else {
           this.employee = res['message'];
           console.log(res['message']);
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
       });
@@ -53,13 +54,13 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           s.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi lấy quyền');
+          this.toastr.error('Lỗi lấy quyền', 'Lỗi rồi');
         } else {
           this.arrRights = res['message'];
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => this.subscriptions.push(s));
   }
 
@@ -75,14 +76,14 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert('Lỗi rồi');
+            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          alert('Sửa thành công');
+          this.toastr.success('Sửa thành công', 'Thành công');
           this.router.navigate(['/admin/ql-nhan-vien']);
         });
     }

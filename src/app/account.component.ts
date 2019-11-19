@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-account',
@@ -50,15 +51,16 @@ import { Router } from '@angular/router';
 
   `
 })
-export class AccountComponent implements OnInit { 
+export class AccountComponent implements OnInit {
 
-    constructor(private location: Location, private router: Router){}
+    constructor(private location: Location, private router: Router
+        , private toastr: ToastrService) { }
 
     ngOnInit() {
         console.log(this.location.path());
     }
 
     signOut() {
-        alert('Đăng xuất thành công');
+        this.toastr.success('Đăng xuất thành công', 'Thành công');
     }
 }

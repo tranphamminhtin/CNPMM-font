@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DetailOrderAdminService } from "./detail-order-admin.service";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail-order-admin',
@@ -11,23 +12,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailOrderAdminComponent implements OnInit, OnDestroy {
 
-  client = {id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân'};
-  
+  client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
+
   arrDetailOrders = [
-    {id: '1', product: {id: '1', name: 'adidas', image: 'assets/img/product/giay1.jpg'}, amount: 1, price: 3000, size: 30},
-    {id: '2', product: {id: '2', name: 'nike', image: 'assets/img/product/giay1.jpg'}, amount: 2, price: 3000, size: 31},
-    {id: '3', product: {id: '3', name: 'hunter', image: 'assets/img/product/giay1.jpg'}, amount: 3, price: 3000, size: 32},
+    { id: '1', product: { id: '1', name: 'adidas', image: 'assets/img/product/giay1.jpg' }, amount: 1, price: 3000, size: 30 },
+    { id: '2', product: { id: '2', name: 'nike', image: 'assets/img/product/giay1.jpg' }, amount: 2, price: 3000, size: 31 },
+    { id: '3', product: { id: '3', name: 'hunter', image: 'assets/img/product/giay1.jpg' }, amount: 3, price: 3000, size: 32 },
   ];
 
-  order = {id: '1', date: '02/11/2019', amount: 1, price: 3000, state: 'aa'};
+  order = { id: '1', date: '02/11/2019', amount: 1, price: 3000, state: 'aa' };
   subscriptions: Subscription[] = [];
   id = '';
-  constructor(private service: DetailOrderAdminService, private activatedRoute: ActivatedRoute) { }
+  constructor(private service: DetailOrderAdminService, private activatedRoute: ActivatedRoute
+    , private toastr: ToastrService) { }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
   }
-  
+
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }

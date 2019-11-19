@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DetailProductService } from "./detail-product.service";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detail-product',
@@ -20,7 +21,7 @@ export class DetailProductComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   id = '';
   constructor(private service: DetailProductService, private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
@@ -29,7 +30,7 @@ export class DetailProductComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Không tìm thầy sản phẩm');
+          this.toastr.warning('Không tìm thầy sản phẩm', 'Sai mã sản phẩm');
           this.router.navigate(['/san-pham']);
         } else {
           this.service.getSize(this.id)
@@ -37,19 +38,19 @@ export class DetailProductComponent implements OnInit, OnDestroy {
               if (!size['success']) {
                 sub.unsubscribe();
                 console.log(res['message']);
-                alert('Lỗi size');
+                this.toastr.error('Lỗi lấy size sản phẩm', 'Lỗi rồi');
               } else {
                 this.product = Object.assign(res['message'], { size: size['message'] });
                 console.log(this.product);
               }
             }, err => {
               console.log(err);
-              alert('Lỗi rồi');
+              this.toastr.error('', 'Lỗi rồi');
             })
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => this.subscriptions.push(sub));
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListProductService } from "./list-product.service";
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-product',
@@ -30,7 +31,7 @@ export class ListProductComponent implements OnInit, OnDestroy {
   // ];
   arrProducts = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: ListProductService) { }
+  constructor(private service: ListProductService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.getListProduct();
@@ -42,18 +43,18 @@ export class ListProductComponent implements OnInit, OnDestroy {
 
   getListProduct() {
     const sub = this.service.getList()
-    .subscribe(res => {
-      if(!res['success']){
-        sub.unsubscribe();
-        console.log(res['message']);
-        alert('Lỗi lấy sản phẩm');
-      } else {
-        this.arrProducts = res['message'];
-      }
-    }, err => {
-      console.log(err);
-      alert('Lỗi rồi')
-    }, () => this.subscriptions.push(sub));
+      .subscribe(res => {
+        if (!res['success']) {
+          sub.unsubscribe();
+          console.log(res['message']);
+          this.toastr.warning('Lỗi lấy sản phẩm', '!!!');
+        } else {
+          this.arrProducts = res['message'];
+        }
+      }, err => {
+        console.log(err);
+        this.toastr.error('', 'Lỗi rồi')
+      }, () => this.subscriptions.push(sub));
   }
 
   removeProduct(id: string) {
@@ -62,14 +63,14 @@ export class ListProductComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi rồi');
+          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
-        alert('Xóa thành công');
+        this.toastr.success('Xóa thành công', 'Thành công');
         this.getListProduct();
         // refresh lại
         // const index = this.arrProducts.findIndex(e => e.id === id);

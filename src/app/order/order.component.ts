@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrderService } from "./order.service";
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-order',
@@ -19,7 +20,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   ];
   subscriptions: Subscription[] = [];
 
-  constructor(private service: OrderService) { }
+  constructor(private service: OrderService, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -42,14 +43,14 @@ export class OrderComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert('Lỗi rồi');
+            this.toastr.error('Sửa thất bại','Lỗi rồi');
           }
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('','Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          alert('Sửa thành công');
+          this.toastr.success('Sửa thành công','Thành công');
         });
     }
   }
@@ -62,15 +63,15 @@ export class OrderComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert('Tên đăng nhập hoặc mật khẩu sai');
+            this.toastr.warning('Tên đăng nhập hoặc mật khẩu sai','!!!');
           }
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('','Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
           this.isLogin = true;
-          // alert('Sửa thành công');
+          // this.toastr('Sửa thành công');
         });
     }
   }

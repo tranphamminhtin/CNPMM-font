@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AddRightService } from './add-right.service'
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-right',
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class AddRightComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
-  constructor(private service: AddRightService, private router: Router) { }
+  constructor(private service: AddRightService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
   }
@@ -26,16 +27,16 @@ export class AddRightComponent implements OnInit, OnDestroy {
       const sub = this.service.add(formAddRight.value)
         .subscribe(res => {
           if (!res['success']) {
-            alert('Thêm thất bại');
+            this.toastr.error('Thêm thất bại', 'Lỗi');
             console.log(res['message']);
             sub.unsubscribe();
           }
         }, err => {
-          alert('Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
           console.log(err);
         }, () => {
           this.subscriptions.push(sub);
-          alert('Thêm thành công');
+          this.toastr.success('Thêm thành công', 'Thành công');
           this.router.navigate(['/admin/ql-quyen']);
         });
     }

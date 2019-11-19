@@ -1,4 +1,3 @@
-<!-- <app-header-admin></app-header-admin> -->
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
     <div class="row">
         <ol class="breadcrumb">
@@ -28,8 +27,7 @@
                 <td>{{ client.address }}</td>
                 <td>
                     <button type="button" class="btn btn-info " data-toggle="modal"
-                        [attr.data-target]="'#myModal'+client.username"><i
-                        class="fa fa-times"></i> Xóa</button>
+                        [attr.data-target]="'#myModal'+client.username"><i class="fa fa-times"></i> Xóa</button>
 
                     <div class="modal fade" id="myModal{{ client.username }}" role="dialog">
                         <div class="modal-dialog">

@@ -2,13 +2,14 @@ import { Component, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-admin',
   templateUrl: './login-admin.html'
 })
 export class LoginAdminComponent implements OnDestroy {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) { }
 
   subscriptions: Subscription[] = [];
 
@@ -27,11 +28,11 @@ export class LoginAdminComponent implements OnDestroy {
           if (!res["success"]) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert("Tên đăng nhập hoặc mật khẩu sai");
+            this.toastr.warning("Tên đăng nhập hoặc mật khẩu sai", '!!!');
           }
         }, err => {
           console.log(err);
-          alert('Có lỗi');
+          this.toastr.error('', 'Có lỗi');
         }, () => {
           this.subscriptions.push(sub);
           this.router.navigate(['/admin/home']);

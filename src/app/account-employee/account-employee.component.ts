@@ -3,6 +3,7 @@ import { AccountEmployeeService } from './account-employee.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { AppComponent } from '../app.component';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-account-employee',
@@ -21,7 +22,7 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
   //   email: 'tin@', right: { id: '', description: '' }
   // };
   subscriptions: Subscription[] = [];
-  constructor(private service: AccountEmployeeService) { }
+  constructor(private service: AccountEmployeeService, private toastr: ToastrService) { }
 
   userId = '5dcbe09e14d7f3514cb9ddc2';
   information = {};
@@ -38,21 +39,21 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
               if (!right['success']) {
                 s.unsubscribe();
                 console.log(right['message']);
-                alert('Lỗi quyền');
+                this.toastr.error('Lỗi lấy quyền của người dùng','Lỗi lấy quyền');
               } else {
                 Object.assign(this.information, { right: right['message'] });
               }
             }, err => {
               console.log(err);
-              alert('Lỗi rồi');
+              this.toastr.error('','Lỗi rồi');
             });
         } else {
           console.log(res['message']);
-          alert('Lỗi lấy người');
+          this.toastr.error('Lỗi lấy thông tin người dùng','Lỗi lấy người');
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('','Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
         console.log(this.information);
@@ -71,14 +72,14 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert('Lỗi rồi! Sửa thất bại');
+            this.toastr.error('Sửa thất bại','Lỗi sửa thông tin');
           }
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('','Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          alert('Sửa thành công');
+          this.toastr.success('Sửa thành công','Thành công');
         });
     }
   }
@@ -92,14 +93,14 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            alert(res['message']);
+            this.toastr.error(res['message'],'Lỗi rồi');
           }
         }, err => {
           console.log(err);
-          alert('Lỗi rồi');
+          this.toastr.error('','Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          alert('Đổi mật khẩu thành công');
+          this.toastr.success('Đổi mật khẩu thành công','Thành công');
           formChangePassword.reset();
         });
     }

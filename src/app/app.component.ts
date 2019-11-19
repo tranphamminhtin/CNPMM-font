@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit, AfterViewChecked {
   static isAdmin = false;
   title = 'font';
-  constructor(private location: Location, private router: Router, private cdRef : ChangeDetectorRef) { }
+  constructor(private location: Location, private router: Router, private cdRef: ChangeDetectorRef) { }
   ngOnInit() {
     console.log(this.location.path());
     if (this.location.path().search('/admin/') > -1)
@@ -19,11 +19,22 @@ export class AppComponent implements OnInit, AfterViewChecked {
       AppComponent.isAdmin = false;
   }
 
-  getIsAdmin(){
+  getIsAdmin() {
     return AppComponent.isAdmin;
   }
 
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
+  }
+
+  onActivate(event) {
+    let scrollToTop = window.setInterval(() => {
+      let pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 20); // how far to scroll on each step
+      } else {
+        window.clearInterval(scrollToTop);
+      }
+    }, 16);
   }
 }

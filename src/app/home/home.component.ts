@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HomeService } from "./home.service";
 import { AppComponent } from '../app.component';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   arrProducts = [];
   allProducts = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: HomeService) { }
+  constructor(private service: HomeService, private toastr: ToastrService) { }
 
   ngOnInit() {
     AppComponent.isAdmin = false;
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          alert('Lỗi lấy sp');
+          this.toastr.error('Lỗi lấy sản phẩm', 'Lỗi rồi');
         } else {
           // console.log(res['message']);
           this.allProducts = res['message'];
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }, err => {
         console.log(err);
-        alert('Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => this.subscriptions.push(sub));
   }
 
