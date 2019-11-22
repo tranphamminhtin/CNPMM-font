@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-admin',
@@ -69,6 +70,8 @@ export class HeaderAdminComponent {
     rightProduct = true;
     rightOrder = true;
 
+	constructor(private router: Router) {}
+
     show(right : boolean): boolean {
         if(right === true && this.rightAdmin === false) {
             return true;
@@ -77,7 +80,9 @@ export class HeaderAdminComponent {
 	}
 
 	logOut() {
-
+		sessionStorage.removeItem('user');
+		sessionStorage.removeItem('token');
+		this.router.navigate(['/login']);
 	}
 	
 	// constructor(private cdRef : ChangeDetectorRef){}

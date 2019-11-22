@@ -18,9 +18,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
     { id: '4', date: '05/11/2019', amount: 1, price: 3000, state: 'af' }
   ];
   subscriptions: Subscription[] = [];
+  username = '';
   constructor(private service: HistoryService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.username = JSON.parse(sessionStorage.getItem('user')).username;
   }
 
   ngOnDestroy() {

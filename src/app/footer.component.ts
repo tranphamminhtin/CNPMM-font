@@ -83,10 +83,10 @@ import { Component } from '@angular/core';
                         <div class="footer-widget">
                             <h3>Thông tin GIAYNE</h3>
                             <ul class="footer-menu">
-                                <li><a href="about.jsp">Giới thiệu</a></li>
-                                <li><a href="SanPhamController">Sản phẩm</a></li>
+                                <li><a routerLink="/gioi-thieu">Giới thiệu</a></li>
+                                <li><a routerLink="/san-pham">Sản phẩm</a></li>
                                 <li><a href="TinTucController">Tin tức</a></li>
-                                <li><a href="LienHe.jsp">Liên hệ</a></li>
+                                <li><a routerLink="/lien-he">Liên hệ</a></li>
                             </ul>
                         </div>
                     </div>

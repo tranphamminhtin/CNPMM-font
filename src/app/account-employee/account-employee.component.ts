@@ -24,11 +24,13 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   constructor(private service: AccountEmployeeService, private toastr: ToastrService) { }
 
-  userId = '5dcbe09e14d7f3514cb9ddc2';
+  username = '';
   information = {};
   ngOnInit() {
+    this.username = JSON.parse(sessionStorage.getItem('user')).username;
+    console.log(this.username);
     AppComponent.isAdmin = true;
-    const sub = this.service.getEmployee(this.userId)
+    const sub = this.service.getEmployee(this.username)
       .subscribe(res => {
         console.log(res);
         if (res['success']) {

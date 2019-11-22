@@ -31,10 +31,12 @@ import { AccountComponent } from "./account.component";
 import { ContactComponent } from "./contact.component";
 import { LoginAdminModule } from './login-admin/login-admin.module';
 
+import { AuthClientGuard } from "./_guard/auth-client.guard";
+
 const routesConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
     { path: 'gioi-thieu', component: AboutComponent},
-    { path: 'account', component: AccountComponent},
+    { path: 'account', component: AccountComponent, canActivate: [AuthClientGuard]},
     { path: 'lien-he', component: ContactComponent},
     { path: '**', redirectTo: '/home', pathMatch: 'full'}
   ];

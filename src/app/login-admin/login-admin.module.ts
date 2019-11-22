@@ -5,7 +5,7 @@ import { LoginAdminComponent } from './login-admin.component';
 import { FormsModule } from "@angular/forms";
 
 const routesConfig: Routes = [
-    { path: 'login-ad', component: LoginAdminComponent}
+    { path: 'login', component: LoginAdminComponent}
 ]
 
 @NgModule({

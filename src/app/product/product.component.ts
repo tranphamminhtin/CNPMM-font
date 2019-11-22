@@ -32,6 +32,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   // ];
   arrProducts = [];
   arrFilter = [];
+  arrShow = [];
   arrNew = [];
   size = [];
   brand = [];
@@ -78,7 +79,8 @@ export class ProductComponent implements OnInit, OnDestroy {
       }, () => {
         this.subscriptions.push(sub);
         this.arrProducts.reverse();
-        this.arrFilter = this.arrProducts.slice(0, 6);
+        this.arrFilter = this.arrProducts.slice(0);
+        this.arrShow = this.arrProducts.slice(0, 6);
         // console.log(this.arrFilter);
       });
     // console.log(this.arrProducts1);
@@ -144,7 +146,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       }
       default: break;
     }
-    this.filterProduct(property);
+    this.filterProduct();
   }
 
   add(arr: any, value: any) {
@@ -156,31 +158,15 @@ export class ProductComponent implements OnInit, OnDestroy {
     arr.splice(index, 1);
   }
 
-  filterProduct(property: string) {
-    switch (property) {
-      case 'brand': {
-        this.arrProducts = this.arrProducts.filter(product => this.search(product, this.brand, property));
-        break;
-      }
-      case 'sex': {
-        this.arrProducts = this.arrProducts.filter(product => this.search(product, this.sex, property));
-        break;
-      }
-      case 'color': {
-        this.arrProducts = this.arrProducts.filter(product => this.search(product, this.color, property));
-        break;
-      }
-      case 'size': {
-        this.arrProducts = this.arrProducts.filter(product => this.search(product, this.size, property));
-        break;
-      }
-      case 'price': {
-        this.arrProducts = this.arrProducts.filter(product => this.search(product, this.price, property));
-        break;
-      }
-      default: break;
-    }
-    this.arrFilter = this.arrProducts.slice(6 * (this.page - 1), 6 * this.page);
+  filterProduct() {
+    this.arrFilter = this.arrProducts.filter(product => this.search(product, this.brand, 'brand'));
+    this.arrFilter = this.arrFilter.filter(product => this.search(product, this.sex, 'sex'));
+    this.arrFilter = this.arrFilter.filter(product => this.search(product, this.color, 'color'));
+    this.arrFilter = this.arrFilter.filter(product => this.search(product, this.size, 'size'));
+    this.arrFilter = this.arrFilter.filter(product => this.search(product, this.price, 'price'));
+    if (this.sortBy !== 'new')
+      this.sortProducts();
+    this.arrShow = this.arrFilter.slice(6 * (this.page - 1), 6 * this.page);
   }
 
   search(product: any, arr: any, property: string) {
@@ -254,25 +240,23 @@ export class ProductComponent implements OnInit, OnDestroy {
   sortProducts() {
     switch (this.sortBy) {
       case 'new': {
-        this.filterProduct('brand');
-        this.filterProduct('sex');
-        this.filterProduct('color');
-        this.filterProduct('size');
-        this.filterProduct('price');
+        this.filterProduct();
         break;
       }
       case 'low': {
-        this.arrFilter = this.arrProducts.slice(0);
+        // this.arrFilter = this.arrProducts.slice(0);
         this.arrFilter.sort((a, b) => this.getPriceToSale(a.id) - this.getPriceToSale(b.id));
+        this.arrShow = this.arrFilter.slice(6 * (this.page - 1), 6 * this.page);
         break;
       }
       case 'high': {
-        this.arrFilter = this.arrProducts.slice(0);
+        // this.arrFilter = this.arrProducts.slice(0);
         this.arrFilter.sort((a, b) => this.getPriceToSale(b.id) - this.getPriceToSale(a.id));
+        this.arrShow = this.arrFilter.slice(6 * (this.page - 1), 6 * this.page);
         break;
       }
     }
-    this.arrFilter = this.arrProducts.slice(6 * (this.page - 1), 6 * this.page);
+    // this.arrFilter = this.arrProducts.slice(6 * (this.page - 1), 6 * this.page);
   }
 
   getPriceToSale(id: string) {
@@ -282,6 +266,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   changePage(page: number) {
     this.page = page;
-    this.arrFilter = this.arrProducts.slice(6 * (this.page - 1), 6 * this.page);
+    this.arrShow = this.arrFilter.slice(6 * (this.page - 1), 6 * this.page);
+    console.log(this.arrFilter.length);
   }
 }

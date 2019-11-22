@@ -35,12 +35,17 @@ export class SignComponent implements OnInit, OnDestroy {
             sub.unsubscribe();
             console.log(res['message']);
             this.toastr.warning("Tên đăng nhập hoặc mật khẩu sai", '!!!');
+          } else {
+            sessionStorage.setItem('user', JSON.stringify({username: formSignIn.value.username, quyen: 1}));
+            sessionStorage.setItem('token', res['token']);
           }
         }, err => {
           this.toastr.error('', 'Lỗi rồi');
           console.log(err);
         }, () => {
           this.subscriptions.push(sub);
+          console.log(sessionStorage.getItem('user'));
+          console.log(sessionStorage.getItem('token'));
           this.router.navigate(['/account']);
         });
     }

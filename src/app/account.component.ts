@@ -61,6 +61,9 @@ export class AccountComponent implements OnInit {
     }
 
     signOut() {
+        sessionStorage.removeItem('user');
+		sessionStorage.removeItem('token');
         this.toastr.success('Đăng xuất thành công', 'Thành công');
+        this.router.navigate(['/home']);
     }
 }

@@ -13,6 +13,9 @@ import { FooterComponent } from './footer.component';
 import { HeaderAdminComponent } from './header-admin.component';
 import { AppRoutingModule } from "./app-routing.module";
 
+import { AuthClientGuard } from "./_guard/auth-client.guard";
+import { AuthEmployeeGuard } from "./_guard/auth-employee.guard";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +65,7 @@ import { AppRoutingModule } from "./app-routing.module";
     ToastrModule.forRoot({timeOut: 1500}), // ToastrModule added
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthClientGuard, AuthEmployeeGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

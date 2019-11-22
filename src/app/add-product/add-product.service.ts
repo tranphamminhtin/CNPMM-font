@@ -5,11 +5,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 export class AddProductService {
     constructor(private http: HttpClient) {}
 
+    headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+    });
+
     add(value) {
         const url ='http://localhost:3000/product';
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(value);
-        return this.http.post(url, body, { headers });
+        return this.http.post(url, body, { headers: this.headers });
     }
 }
 

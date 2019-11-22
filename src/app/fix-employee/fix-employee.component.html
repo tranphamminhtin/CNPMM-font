@@ -9,6 +9,7 @@
         </ol>
     </div>
     <form (ngSubmit)="fixEmployeeSubmit(formFixEmployee);" #formFixEmployee="ngForm" id="fix-nv-form">
+        <input type="hidden" name="username" [ngModel]="employee.username">
         <div class="widget">
             <div class="title">
                 <h4>Nhập dữ liệu</h4>
@@ -17,7 +18,7 @@
                 <label> Tên đăng nhập </label>
                 <div class="formRight form-group">
                     <div class="col-xs-6">
-                        <input class="form-control" name="username" type="text" [ngModel]="employee.username" disabled>
+                        <input class="form-control" type="text" [value]="employee.username" disabled>
                     </div>
                 </div>
             </div>

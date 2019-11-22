@@ -6,9 +6,10 @@ import { FormsModule } from "@angular/forms";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { AuthClientGuard } from "../_guard/auth-client.guard";
 
 const routesConfig: Routes = [
-    { path: 'doi-mk', component: ChangePasswordComponent }
+    { path: 'doi-mk', component: ChangePasswordComponent, canActivate: [AuthClientGuard] }
 ]
 
 @NgModule({
@@ -22,10 +23,16 @@ const routesConfig: Routes = [
 
 export class ChangePasswordModule implements OnInit, OnDestroy {
 
-    username = ''
+    username = '';
+    headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+    });
     constructor(private router: Router, private http: HttpClient, private toastr: ToastrService) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.username = JSON.parse(sessionStorage.getItem('user')).username;
+     }
     subscriptions: Subscription[] = [];
     ngOnDestroy() {
         this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -34,9 +41,8 @@ export class ChangePasswordModule implements OnInit, OnDestroy {
     changePasswordSubmit(formChangePassword) {
         if (formChangePassword.valid) {
             const url = 'http://localhost:3000/user/users/' + this.username;
-            const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
             const body = JSON.stringify(formChangePassword.value);
-            const sub = this.http.put(url, body, { headers: headers })
+            const sub = this.http.put(url, body, { headers: this.headers })
                 .subscribe(res => {
                     if (!res['success']) {
                         console.log(res['message']);

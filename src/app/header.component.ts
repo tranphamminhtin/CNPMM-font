@@ -22,14 +22,14 @@ import { Component } from '@angular/core';
                                     <li><a routerLink="/">TRANG CHỦ</a>
                                     </li>
                                     <li><a routerLink="/gioi-thieu">GIỚI THIỆU</a></li>
-                                    <li><a href="#">GIÀY NAM</a>
+                                    <li><a routerLink="/san-pham">GIÀY NAM</a>
                                         <ul>
                                             <li><a href="#">ADIDAS</a></li>
                                             <li><a href="#">NIKE</a></li>
                                             <li><a href="#">BITIS</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">GIÀY NỮ</a>
+                                    <li><a routerLink="/san-pham">GIÀY NỮ</a>
                                         <ul>
                                             <li><a href="#">ADIDAS</a></li>
                                             <li><a href="#">NIKE</a></li>

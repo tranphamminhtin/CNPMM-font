@@ -71,7 +71,7 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
   fixEmployeeSubmit(formFixEmployee) {
     if (formFixEmployee.valid && this.validPassword(formFixEmployee.value.password)) {
       console.log(formFixEmployee.value);
-      const sub = this.service.fixhEmployee(formFixEmployee.value, this.id)
+      const sub = this.service.fixhEmployee(formFixEmployee.value)
         .subscribe(res => {
           if (!res['success']) {
             sub.unsubscribe();

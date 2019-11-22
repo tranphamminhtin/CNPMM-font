@@ -13,13 +13,14 @@ import { ToastrService } from 'ngx-toastr';
 export class InformationComponent implements OnInit, OnDestroy {
 
   // client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
-  username = 'tin';
+  username = '';
   client = {};
   subscriptions: Subscription[] = [];
   constructor(private service: InformationService, private router: Router
     , private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.username = JSON.parse(sessionStorage.getItem('user')).username;
     const sub = this.service.getInfo(this.username)
       .subscribe(res => {
         if (!res['success']) {

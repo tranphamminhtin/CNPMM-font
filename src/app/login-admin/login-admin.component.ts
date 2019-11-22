@@ -1,17 +1,22 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login-admin',
   templateUrl: './login-admin.html'
 })
-export class LoginAdminComponent implements OnDestroy {
+export class LoginAdminComponent implements OnDestroy,OnInit {
   constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) { }
 
   subscriptions: Subscription[] = [];
+
+  ngOnInit() {
+    AppComponent.isAdmin = false;
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -29,6 +34,9 @@ export class LoginAdminComponent implements OnDestroy {
             sub.unsubscribe();
             console.log(res['message']);
             this.toastr.warning("Tên đăng nhập hoặc mật khẩu sai", '!!!');
+          } else {
+            sessionStorage.setItem('user', JSON.stringify({username: formSignInAdmin.value.username, quyen: 0}));
+            sessionStorage.setItem('token', res['token']);
           }
         }, err => {
           console.log(err);
