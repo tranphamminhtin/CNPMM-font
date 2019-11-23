@@ -1,11 +1,13 @@
 import { Component, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { Location } from "@angular/common";
 import { Router } from '@angular/router';
+import { CartSessionService } from './_service/cart-session.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [CartSessionService]
 })
 export class AppComponent implements OnInit, AfterViewChecked {
   static isAdmin = false;

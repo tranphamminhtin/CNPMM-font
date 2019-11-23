@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6">
-                <div class="checkbox-form" *ngIf="isLogin">
+                <div class="checkbox-form" *ngIf="getIsLogin()">
                     <h3>Thông tin khách hàng</h3>
                     <form (ngSubmit)="editInfoSubmit(formInfo)" #formInfo="ngForm" id="infomation-order-form">
                         <input type="hidden" name="username" [ngModel]="client.username">
@@ -37,7 +37,7 @@
                         <input class="login-sub" type="submit" value="Sửa thông tin" />
                     </form>
                 </div>
-                <div class="col-lg-12 col-md-12" *ngIf="!isLogin">
+                <div class="col-lg-12 col-md-12" *ngIf="!getIsLogin()">
                     <div class="login-content">
                         <h2 class="login-title">ĐĂNG NHẬP</h2>
                         <form (ngSubmit)="signInSubmit(formSignIn);" #formSignIn="ngForm" id="login-form">
@@ -95,7 +95,7 @@
                     </div>
                     <div class="payment-method">
                         <div class="order-button-payment">
-                            <input type="submit" value="Đặt hàng">
+                            <input type="submit" (click)="order();" value="Đặt hàng">
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { CartSessionService } from './_service/cart-session.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -45,21 +48,21 @@ import { Component } from '@angular/core';
                     <div class="col-md-2 col-sm-8 col-xs-7 header-right">
                         <div class="my-cart">
                             <div class="total-cart">
-                                <a href="#">
+                                <a routerLink="/gio-hang">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span id="SoLuongGioHang">0</span>
+                                    <span id="SoLuongGioHang">{{getAmountCart()}}</span>
                                 </a>
                             </div>
                         </div>
                         <div class="user-meta">
                             <a href="#"><i class="fa fa-cog"></i></a>
                             <ul *ngIf="getIsLogin()">
-                                <li><a href="#">Tài khoản</a></li>
-                                <li><a href="#">Đăng xuất</a></li>
+                                <li><a routerLink="/account">Tài khoản</a></li>
+                                <li><a (click)="logOut()">Đăng xuất</a></li>
                             </ul>
                             <ul *ngIf="!getIsLogin()">
-                                <li><a href="#">Tài khoản</a></li>
-                                <li><a href="#">Đăng xuất</a></li>
+                                <li><a routerLink="/dang-nhap">Đăng nhập</a></li>
+                                <li><a routerLink="/dang-ky">Đăng ký</a></li>
                             </ul>
                         </div>
                         <div class="header-search">
@@ -113,19 +116,35 @@ import { Component } from '@angular/core';
         </div>
     </div>
     </header>
-  `
+  `,
+    providers: [CartSessionService]
 })
-export class HeaderComponent {
-    
-    static isLogin = false;
+export class HeaderComponent implements AfterViewChecked {
 
-    getIsLogin() {
-        return HeaderComponent.isLogin;
+    constructor(private cartService: CartSessionService, private router: Router,
+        private toastr: ToastrService, private cdRef: ChangeDetectorRef) { }
+
+    getIsLogin(): Boolean {
+        if (sessionStorage.getItem('isLogin'))
+            return JSON.parse(sessionStorage.getItem('isLogin'));
+        return false;
     }
 
     // constructor(private cdRef : ChangeDetectorRef){}
 
-    // ngAfterViewChecked() {
-    //     this.cdRef.detectChanges();
-    // }
+    ngAfterViewChecked() {
+        this.cdRef.detectChanges();
+    }
+
+    logOut() {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('isLogin');
+        this.toastr.success('Đăng xuất thành công');
+        this.router.navigate(['/home']);
+    }
+
+    getAmountCart() {
+        return this.cartService.getAmountCart();
+    }
 }

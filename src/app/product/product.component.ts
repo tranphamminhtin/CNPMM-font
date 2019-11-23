@@ -3,6 +3,7 @@ import { ProductService } from "./product.service";
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { CartSessionService } from '../_service/cart-session.service';
 
 @Component({
   selector: 'app-product',
@@ -44,7 +45,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   constructor(private service: ProductService, private router: Router
-    , private toastr: ToastrService) { }
+    , private toastr: ToastrService, private cartSessionService: CartSessionService) { }
 
   ngOnInit() {
     // this.arrFilter = this.arrProducts;
@@ -90,15 +91,23 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  addCart(idProduct: string) {
-    console.log("Thêm vào giỏ hàng");
+  addCart(productId: string, size, amount) {
+    if (size.length === 0) {
+      this.toastr.warning('Sản phẩm hiện tại đã hết hàng');
+    } else {
+      this.cartSessionService.addCart(productId, size[0].size, amount);
+      this.toastr.success('Thêm vào giỏ hàng thành công');
+    }
   }
 
-  order(idProduct: string) {
-    console.log("Đặt hàng");
-    this.arrProducts = this.arrProducts.filter(function (x) {
-      return x.sex === 'nam';
-    })
+  order(productId: string, size, amount) {
+    if (size.length === 0) {
+      this.toastr.warning('Sản phẩm hiện tại đã hết hàng');
+    } else {
+      this.cartSessionService.addCart(productId, size[0].size, amount);
+      this.toastr.success('Thêm vào giỏ hàng thành công');
+      this.router.navigate(['/dat-hang']);
+    }
   }
 
   changeCheckbox(isCheck: boolean, value: any, property: string) {

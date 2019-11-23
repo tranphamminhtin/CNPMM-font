@@ -130,10 +130,10 @@
                                             </a> <span class="tag-line">new</span>
                                             <div class="product-action">
                                                 <div class="button-cart">
-                                                    <button (click)="order(product._id);">
+                                                    <button (click)="order(product._id, product.size, 1);">
                                                         <i class="fa fa-usd" aria-hidden="true"></i> đặt hàng
                                                     </button>
-                                                    <button (click)="addCart(product._id);">
+                                                    <button (click)="addCart(product._id, product.size, 1);">
                                                         <i class="fa fa-shopping-cart"></i> Giỏ hàng
                                                     </button>
                                                 </div>

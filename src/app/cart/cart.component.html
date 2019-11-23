@@ -29,22 +29,24 @@
                         <tbody>
                             <tr *ngFor="let cart of arrCarts">
                                 <td class="product-thumbnail">
-                                    <a><img src="{{ cart.product.image }}" alt="" /></a></td>
+                                    <a routerLink="/san-pham/{{cart.productId}}"><img src="{{ cart.product?.image }}"
+                                            alt="" /></a></td>
                                 <td class="product-name">
-                                    <a>{{ cart.product.name }}</a></td>
+                                    <a routerLink="/san-pham/{{cart.productId}}">{{ cart.product?.name }}</a></td>
                                 <td class="product-price"><span class="amount">
-                                        {{ cart.price + ' đ'}}</span></td>
+                                        {{ cart.product?.price + ' đ'}}</span></td>
                                 <td class="product-quantity">
-                                    <input type="number" [(ngModel)]="cart.amount" value="{{ cart.amount }}" min="1" />
+                                    <input type="number" value="{{ cart.amount }}" min="1" #amount />
                                 </td>
                                 <td class="product-size"><span>
                                         {{ cart.size }}</span></td>
                                 <td class="product-subtotal"><span class="amount">
-                                        {{ cart.price * cart.size}}đ</span></td>
+                                        {{ cart.product?.price * cart.amount }}đ</span></td>
                                 <td class="product-remove">
-                                    <a (click)="updateCart(cart.id, cart.amount);"><i class="fa fa-edit"></i></a>
+                                    <a (click)="updateCart(cart.productId, cart.size, amount.value);"><i
+                                            class="fa fa-edit"></i></a>
                                     <br /> <br />
-                                    <a (click)="removeCart(cart.id);"><i class="fa fa-times"></i></a>
+                                    <a (click)="removeCart(cart.productId, cart.size);"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         </tbody>

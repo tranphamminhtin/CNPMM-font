@@ -9,5 +9,10 @@ export class HomeService {
         const url ='http://localhost:3000/product'
         return this.http.get(url);
     }
+
+    getSize(ProductId) {
+        const url = 'http://localhost:3000/detail-product/product/' + ProductId
+        return this.http.get(url);
+    }
 }
 

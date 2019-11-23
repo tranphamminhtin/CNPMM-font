@@ -3,6 +3,8 @@ import { HomeService } from "./home.service";
 import { AppComponent } from '../app.component';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { CartSessionService } from '../_service/cart-session.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +23,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   arrProducts = [];
   allProducts = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: HomeService, private toastr: ToastrService) { }
+  constructor(private service: HomeService, private toastr: ToastrService,
+    private router: Router, private cartSessionService: CartSessionService) { }
 
   ngOnInit() {
     AppComponent.isAdmin = false;
@@ -36,6 +39,21 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.allProducts = res['message'];
           this.allProducts.reverse();
           this.arrProducts = this.allProducts.slice(0, 4);
+          this.arrProducts.forEach(product => {
+            this.service.getSize(product._id)
+              .subscribe(size => {
+                if (!size['success']) {
+                  sub.unsubscribe();
+                  console.log(size['message']);
+                  this.toastr.error('Lỗi lấy size', 'Lỗi rồi');
+                } else {
+                  Object.assign(product, { size: size['message'] });
+                }
+              }, err => {
+                console.log(err);
+                this.toastr.error('', 'Lỗi rồi');
+              });
+          });
         }
       }, err => {
         console.log(err);
@@ -47,12 +65,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  addCart(idProduct: string) {
-    console.log("Thêm vào giỏ hàng");
+  addCart(productId: string, size, amount) {
+    if (size.length === 0) {
+      this.toastr.warning('Sản phẩm hiện tại đã hết hàng');
+    } else {
+      this.cartSessionService.addCart(productId, size[0].size, amount);
+      this.toastr.success('Thêm vào giỏ hàng thành công');
+    }
   }
 
-  order(idProduct: string) {
-    console.log("Đặt hàng");
+  order(productId: string, size, amount) {
+    if (size.length === 0) {
+      this.toastr.warning('Sản phẩm hiện tại đã hết hàng');
+    } else {
+      this.cartSessionService.addCart(productId, size[0].size, amount);
+      this.toastr.success('Thêm vào giỏ hàng thành công');
+      this.router.navigate(['/dat-hang']);
+    }
   }
 
   getPriceToSale(price: number, promotion: number): string {

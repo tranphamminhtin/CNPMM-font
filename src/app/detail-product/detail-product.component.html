@@ -65,8 +65,8 @@
                             </p>
                             <br />
                             <div class="pro-size">
-                                <label>size <span>*</span></label> <select name="size" id="size">
-                                    <option *ngFor="let size of product.size" value="size.size">
+                                <label>size <span>*</span></label> <select name="size" id="size" #size>
+                                    <option *ngFor="let size of product.size" value="{{ size.size }}">
                                         {{ size.size }}
                                     </option>
                                 </select>
@@ -78,7 +78,7 @@
                                 <div class="cart-plus">
                                     <form action="#">
                                         <div>
-                                            <input type="number" value="1" min="1" id="soluong" />
+                                            <input type="number" value="1" min="1" id="soluong" #amount/>
                                         </div>
                                     </form>
                                 </div>
@@ -86,11 +86,11 @@
                             <div class="gach-ngang-xuong-dong"></div>
                             <div class="product-action">
                                 <div class="button-cart">
-                                    <button (click)="order(product.id);">
+                                    <button (click)="order(product._id, size.value, amount.value);">
                                         <i class="fa fa-usd" aria-hidden="true"></i> đặt hàng
                                     </button>
                                     &emsp;&emsp;&emsp;
-                                    <button (click)="addCart(product.id);">
+                                    <button (click)="addCart(product._id, size.value, amount.value);">
                                         <i class="fa fa-shopping-cart"></i> giỏ hàng
                                     </button>
                                 </div>

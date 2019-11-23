@@ -3,6 +3,7 @@ import { DetailProductService } from "./detail-product.service";
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CartSessionService } from '../_service/cart-session.service';
 
 @Component({
   selector: 'app-detail-product',
@@ -21,7 +22,7 @@ export class DetailProductComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   id = '';
   constructor(private service: DetailProductService, private activatedRoute: ActivatedRoute,
-    private router: Router, private toastr: ToastrService) { }
+    private router: Router, private toastr: ToastrService, private cartSessionService: CartSessionService) { }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
@@ -58,12 +59,23 @@ export class DetailProductComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  addCart(idProduct: string) {
-    console.log("Thêm vào giỏ hàng");
+  addCart(productId: string, size: Number, amount: Number) {
+    if (size === null) {
+      this.toastr.warning('Sản phẩm hiện tại đã hết hàng');
+    } else {
+      this.cartSessionService.addCart(productId, size, amount);
+      this.toastr.success('Thêm vào giỏ hàng thành công');
+    }
   }
 
-  order(idProduct: string) {
-    console.log("Đặt hàng");
+  order(productId: string, size: Number, amount: Number) {
+    if (size === null) {
+      this.toastr.warning('Sản phẩm hiện tại đã hết hàng');
+    } else {
+      this.cartSessionService.addCart(productId, size, amount);
+      this.toastr.success('Thêm vào giỏ hàng thành công');
+      this.router.navigate(['/dat-hang']);
+    }
   }
 
 }

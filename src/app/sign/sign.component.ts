@@ -38,6 +38,7 @@ export class SignComponent implements OnInit, OnDestroy {
           } else {
             sessionStorage.setItem('user', JSON.stringify({username: formSignIn.value.username, quyen: 1}));
             sessionStorage.setItem('token', res['token']);
+            sessionStorage.setItem('isLogin', JSON.stringify(true));
           }
         }, err => {
           this.toastr.error('', 'Lỗi rồi');
@@ -61,7 +62,7 @@ export class SignComponent implements OnInit, OnDestroy {
                 sub.unsubscribe();
                 console.log(res['message']);
                 this.toastr.error('Lỗi tạo khách hàng', 'Tạo tài khoản thất bại');
-                this.service.removeUser(formSignUp.value['username']);
+                this.service.removeUser(formSignUp.value['username']).subscribe();
               }
             }, err => {
               this.toastr.error('', 'Lỗi rồi');

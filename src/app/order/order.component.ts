@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrderService } from "./order.service";
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { CartSessionService } from '../_service/cart-session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -11,18 +13,57 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class OrderComponent implements OnInit, OnDestroy {
 
-  isLogin = true;
-  client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
-  arrCarts = [
-    { id: '1', product: { id: '1', name: 'adidas', image: 'assets/img/product/giay1.jpg' }, amount: 1, price: 3000, size: 30 },
-    { id: '2', product: { id: '2', name: 'nike', image: 'assets/img/product/giay1.jpg' }, amount: 2, price: 3000, size: 31 },
-    { id: '3', product: { id: '3', name: 'hunter', image: 'assets/img/product/giay1.jpg' }, amount: 3, price: 3000, size: 32 },
-  ];
+  // client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
+  // arrCarts = [
+  //   { id: '1', product: { id: '1', name: 'adidas', image: 'assets/img/product/giay1.jpg' }, amount: 1, price: 3000, size: 30 },
+  //   { id: '2', product: { id: '2', name: 'nike', image: 'assets/img/product/giay1.jpg' }, amount: 2, price: 3000, size: 31 },
+  //   { id: '3', product: { id: '3', name: 'hunter', image: 'assets/img/product/giay1.jpg' }, amount: 3, price: 3000, size: 32 },
+  // ];
+  arrCarts = [];
+  username = '';
+  client = {};
   subscriptions: Subscription[] = [];
 
-  constructor(private service: OrderService, private toastr: ToastrService) { }
+  constructor(private service: OrderService, private toastr: ToastrService,
+    private cartSessionService: CartSessionService, private router: Router) { }
 
   ngOnInit() {
+    this.arrCarts = this.cartSessionService.getCart();
+    if (this.arrCarts !== null) {
+      this.arrCarts.forEach(e => {
+        const sub = this.service.getProduct(e.productId)
+          .subscribe(res => {
+            if (!res['success']) {
+              sub.unsubscribe();
+              this.toastr.error('Lỗi lấy sản phẩm');
+              console.log(res['message']);
+            } else {
+              Object.assign(e, { product: res['message'] });
+            }
+          }, err => {
+            this.toastr.error('Lỗi rồi');
+            console.log(err);
+          }, () => this.subscriptions.push(sub));
+      });
+    }
+    if (this.getIsLogin()) {
+      this.username = JSON.parse(sessionStorage.getItem('user')).username;
+      const s = this.service.getInfo(this.username)
+        .subscribe(res => {
+          if (!res['success']) {
+            s.unsubscribe();
+            console.log(res['message']);
+            this.toastr.warning('Không tìm thấy người dùng', '');
+            this.router.navigate(['/home']);
+          } else {
+            // console.log(res['message']);
+            this.client = res['message'];
+          }
+        }, err => {
+          console.log(err);
+          this.toastr.error('Lỗi rồi');
+        }, () => this.subscriptions.push(s));
+    }
   }
 
   ngOnDestroy() {
@@ -31,7 +72,9 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   getTotalPrice() {
     let total = 0;
-    this.arrCarts.forEach(cart => total += cart.amount * cart.price);
+    try {
+      this.arrCarts.forEach(cart => { total += cart.product.price * cart.amount; })
+    } catch (e) { }
     return total;
   }
 
@@ -43,14 +86,14 @@ export class OrderComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.error('Sửa thất bại','Lỗi rồi');
+            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }
         }, err => {
           console.log(err);
-          this.toastr.error('','Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          this.toastr.success('Sửa thành công','Thành công');
+          this.toastr.success('Sửa thành công', 'Thành công');
         });
     }
   }
@@ -63,21 +106,96 @@ export class OrderComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.warning('Tên đăng nhập hoặc mật khẩu sai','!!!');
+            this.toastr.warning('Tên đăng nhập hoặc mật khẩu sai', '!!!');
+          } else {
+            sessionStorage.setItem('user', JSON.stringify({ username: formSignIn.value.username, quyen: 1 }));
+            sessionStorage.setItem('token', res['token']);
+            sessionStorage.setItem('isLogin', JSON.stringify(true));
           }
         }, err => {
           console.log(err);
-          this.toastr.error('','Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          this.isLogin = true;
-          // this.toastr('Sửa thành công');
+          this.username = JSON.parse(sessionStorage.getItem('user')).username;
+          const s = this.service.getInfo(this.username)
+            .subscribe(res => {
+              if (!res['success']) {
+                s.unsubscribe();
+                console.log(res['message']);
+                this.toastr.warning('Không tìm thấy người dùng', '');
+                this.router.navigate(['/home']);
+              } else {
+                // console.log(res['message']);
+                this.client = res['message'];
+              }
+            }, err => {
+              console.log(err);
+              this.toastr.error('Lỗi rồi');
+            }, () => this.subscriptions.push(s));
         });
     }
   }
 
   validSignIn(formSignIn) {
     return !formSignIn.value.username.includes(' ');
+  }
+
+  order() {
+    if (this.getIsLogin) {
+      if(this.arrCarts.length > 0){
+        const order = { username: this.username, price: this.getTotalPrice(), state: 'dat' };
+        const sub = this.service.addOrder(order)
+          .subscribe(res => {
+            if (!res['success']) {
+              sub.unsubscribe();
+              console.log(res['message']);
+              this.toastr.error('Không thể tạo đơn hàng');
+            } else {
+              const model = res['message'];
+              try {
+                this.arrCarts.forEach(e => {
+                  const detail = {
+                    orderId: model._id, productId: e.productId, size: e.size,
+                    amount: e.amount, price: e.product.price
+                  };
+                  this.service.addDetailOrder(detail)
+                    .subscribe(r => {
+                      if (!r['success']) {
+                        this.service.deleteOrder(model._id).subscribe();
+                        sub.unsubscribe();
+                        console.log(res['message']);
+                        this.toastr.error('Không thể tạo chi tiết đơn hàng');
+                        return;
+                      }
+                    }, err => {
+                      console.log(err);
+                      this.toastr.error('Lỗi rồi');
+                    });
+                });
+              } catch (e) { }
+            }
+          }, err => {
+            console.log(err);
+            this.toastr.error('Lỗi rồi');
+          }, () => {
+            this.subscriptions.push(sub);
+            this.toastr.success('Đặt hàng thành công');
+            sessionStorage.removeItem('cart');
+            this.arrCarts = [];
+          });
+      } else {
+        this.toastr.info('Giỏ hàng của bạn hiện đang trống');
+      }
+    } else {
+      this.toastr.info('Vui lòng đăng nhập trước khi đặt hàng');
+    }
+  }
+
+  getIsLogin(): Boolean {
+    if (sessionStorage.getItem('isLogin'))
+      return JSON.parse(sessionStorage.getItem('isLogin'));
+    return false;
   }
 
   keyPress(event: any) {

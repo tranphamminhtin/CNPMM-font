@@ -56,7 +56,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
               if (!employee['success']) {
                 this.toastr.error('Lỗi tạo nhân viên', 'Lỗi');
                 console.log(employee['message']);
-                this.service.removeUser(formAddEmployee.value.username);
+                this.service.removeUser(formAddEmployee.value.username).subscribe();
                 sub.unsubscribe();
               }
             }, err => {

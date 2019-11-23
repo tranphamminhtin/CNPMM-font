@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HeaderComponent } from './header.component';
 
 @Component({
     selector: 'app-account',
@@ -62,7 +63,8 @@ export class AccountComponent implements OnInit {
 
     signOut() {
         sessionStorage.removeItem('user');
-		sessionStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('isLogin');
         this.toastr.success('Đăng xuất thành công', 'Thành công');
         this.router.navigate(['/home']);
     }
