@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListClientService } from "./list-client.service";
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-client',
@@ -19,7 +20,8 @@ export class ListClientComponent implements OnInit, OnDestroy {
   // ];
   arrClients = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: ListClientService, private toastr: ToastrService) { }
+  constructor(private service: ListClientService, private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getListClient();
@@ -35,7 +37,11 @@ export class ListClientComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.toastr.warning('Lỗi lấy khách hàng', '!!!');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else
+            this.toastr.warning('Lỗi lấy khách hàng', '!!!');
         } else {
           // console.log(res['message']);
           this.arrClients = res['message'];
@@ -52,7 +58,11 @@ export class ListClientComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else
+            this.toastr.error('Xóa thất bại', 'Lỗi rồi');
         }
       }, err => {
         console.log(err);

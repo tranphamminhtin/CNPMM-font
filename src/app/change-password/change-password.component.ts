@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class ChangePasswordComponent implements OnDestroy {
 
 	username = 'tin';
 	subscriptions: Subscription[] = [];
-	constructor(private http: HttpClient, private router: Router) { }
+	constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) { }
 
 	ngOnDestroy() {
 		this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -31,14 +32,18 @@ export class ChangePasswordComponent implements OnDestroy {
 					if (!res['success']) {
 						sub.unsubscribe();
 						console.log(res['message']);
-						alert(res['message']);
+						if (res['login']) {
+							this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+							this.router.navigate(['/dang-nhap']);
+						} else
+							this.toastr.error(res['message']);
 					}
 				}, err => {
 					console.log(err);
-					alert('Lỗi rồi');
+					this.toastr.error('Lỗi rồi');
 				}, () => {
 					this.subscriptions.push(sub);
-					alert('Đổi mật khẩu thành công');
+					this.toastr.success('Đổi mật khẩu thành công');
 					formChangePassword.reset();
 				});
 		}

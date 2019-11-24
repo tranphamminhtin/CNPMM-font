@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListEmployeeService } from "./list-employee.service";
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-employee',
@@ -27,7 +28,8 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
   // ];
   arrEmployees = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: ListEmployeeService, private toastr: ToastrService) { }
+  constructor(private service: ListEmployeeService, private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getListEmployee();
@@ -43,7 +45,11 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.toastr.warning('Không lấy được danh sách', '!!!');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else
+            this.toastr.warning('Không lấy được danh sách', '!!!');
         } else {
           // console.log(res['message']);
           this.arrEmployees = res['message'];
@@ -58,6 +64,7 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
                   Object.assign(employee, { right: right['message'] });
                 }
               }, err => {
+                sub.unsubscribe();
                 console.log(err);
                 this.toastr.error('', 'Lỗi rồi');
               });
@@ -75,11 +82,15 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else
+            this.toastr.error('Xóa thất bại');
         }
       }, err => {
         console.log(err);
-        this.toastr.error('', 'Lỗi rồi');
+        this.toastr.error('Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
         this.toastr.success('Xóa thành công', 'Thành công');

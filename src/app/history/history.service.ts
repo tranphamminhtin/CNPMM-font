@@ -15,8 +15,18 @@ export class HistoryService {
         return this.http.get(url, { headers: this.headers });
     }
 
+    getDetail(orderId) {
+        const url = 'http://localhost:3000/detail-order/order/' + orderId;
+        return this.http.get(url, { headers: this.headers });
+    }
+
     delete(orderId) {
         const url = 'http://localhost:3000/order/' + orderId;
+        return this.http.delete(url, { headers: this.headers });
+    }
+
+    deleteDetail(orderId) {
+        const url = 'http://localhost:3000/detail-order/' + orderId;
         return this.http.delete(url, { headers: this.headers });
     }
 }

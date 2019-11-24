@@ -53,7 +53,11 @@ export class FixProductComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
+            if (res['login']) {
+              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login']);
+            } else
+              this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }
         }, err => {
           console.log(err);

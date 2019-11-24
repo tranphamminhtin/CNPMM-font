@@ -30,8 +30,13 @@ export class FixRightComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.toastr.warning('Không tìm thấy quyền', 'Sai mã quyền');
-          this.router.navigate(['/admin/ql-quyen']);
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else {
+            this.toastr.warning('Không tìm thấy quyền', 'Sai mã quyền');
+            this.router.navigate(['/admin/ql-quyen']);
+          }
         } else {
           this.right = res['message'];
         }
@@ -53,7 +58,11 @@ export class FixRightComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
+            if (res['login']) {
+              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login']);
+            } else
+              this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }
         }, err => {
           console.log(err);

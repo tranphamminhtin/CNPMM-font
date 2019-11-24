@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { AppComponent } from '../app.component';
 import { ToastrService } from 'ngx-toastr'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-employee',
@@ -22,7 +23,8 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
   //   email: 'tin@', right: { id: '', description: '' }
   // };
   subscriptions: Subscription[] = [];
-  constructor(private service: AccountEmployeeService, private toastr: ToastrService) { }
+  constructor(private service: AccountEmployeeService, private toastr: ToastrService,
+    private router: Router) { }
 
   username = '';
   information = {};
@@ -41,24 +43,29 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
               if (!right['success']) {
                 s.unsubscribe();
                 console.log(right['message']);
-                this.toastr.error('Lỗi lấy quyền của người dùng','Lỗi lấy quyền');
+                this.toastr.error('Lỗi lấy quyền của người dùng', 'Lỗi lấy quyền');
               } else {
                 Object.assign(this.information, { right: right['message'] });
               }
             }, err => {
               console.log(err);
-              this.toastr.error('','Lỗi rồi');
+              sub.unsubscribe();
+              this.toastr.error('', 'Lỗi rồi');
             });
         } else {
           console.log(res['message']);
-          this.toastr.error('Lỗi lấy thông tin người dùng','Lỗi lấy người');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else {
+            this.toastr.error('Lỗi lấy thông tin người dùng', 'Lỗi lấy người');
+          }
         }
       }, err => {
         console.log(err);
-        this.toastr.error('','Lỗi rồi');
+        this.toastr.error('', 'Lỗi rồi');
       }, () => {
         this.subscriptions.push(sub);
-        console.log(this.information);
       });
   }
 
@@ -69,19 +76,23 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
   editInfoSubmit(formInfo) {
     if (formInfo.valid) {
       console.log(formInfo.value);
-        const sub = this.service.editInfo(formInfo.value)
+      const sub = this.service.editInfo(formInfo.value)
         .subscribe(res => {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.error('Sửa thất bại','Lỗi sửa thông tin');
+            if (res['login']) {
+              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login']);
+            } else
+              this.toastr.error('Sửa thất bại', 'Lỗi sửa thông tin');
           }
         }, err => {
           console.log(err);
-          this.toastr.error('','Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          this.toastr.success('Sửa thành công','Thành công');
+          this.toastr.success('Sửa thành công', 'Thành công');
         });
     }
   }
@@ -95,14 +106,18 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.error(res['message'],'Lỗi rồi');
+            if (res['login']) {
+              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login']);
+            } else
+              this.toastr.error(res['message'], 'Lỗi rồi');
           }
         }, err => {
           console.log(err);
-          this.toastr.error('','Lỗi rồi');
+          this.toastr.error('', 'Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          this.toastr.success('Đổi mật khẩu thành công','Thành công');
+          this.toastr.success('Đổi mật khẩu thành công', 'Thành công');
           formChangePassword.reset();
         });
     }

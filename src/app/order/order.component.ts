@@ -28,6 +28,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     private cartSessionService: CartSessionService, private router: Router) { }
 
   ngOnInit() {
+    console.log(1);
     this.arrCarts = this.cartSessionService.getCart();
     if (this.arrCarts !== null) {
       this.arrCarts.forEach(e => {
@@ -73,7 +74,10 @@ export class OrderComponent implements OnInit, OnDestroy {
   getTotalPrice() {
     let total = 0;
     try {
-      this.arrCarts.forEach(cart => { total += cart.product.price * cart.amount; })
+      this.arrCarts.forEach(cart => {
+        total += parseFloat(((cart.product.price - cart.product.price * cart.product.promotion / 100)
+          * cart.amount).toString());
+      });
     } catch (e) { }
     return total;
   }
@@ -142,8 +146,8 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   order() {
-    if (this.getIsLogin) {
-      if(this.arrCarts.length > 0){
+    if (this.getIsLogin()) {
+      if (this.arrCarts.length > 0) {
         const order = { username: this.username, price: this.getTotalPrice(), state: 'dat' };
         const sub = this.service.addOrder(order)
           .subscribe(res => {
@@ -157,7 +161,8 @@ export class OrderComponent implements OnInit, OnDestroy {
                 this.arrCarts.forEach(e => {
                   const detail = {
                     orderId: model._id, productId: e.productId, size: e.size,
-                    amount: e.amount, price: e.product.price
+                    amount: e.amount,
+                    price: parseFloat((e.product.price - e.product.price * e.product.promotion / 100).toString())
                   };
                   this.service.addDetailOrder(detail)
                     .subscribe(r => {
@@ -169,6 +174,7 @@ export class OrderComponent implements OnInit, OnDestroy {
                         return;
                       }
                     }, err => {
+                      sub.unsubscribe();
                       console.log(err);
                       this.toastr.error('Lỗi rồi');
                     });

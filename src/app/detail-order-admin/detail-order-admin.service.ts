@@ -10,23 +10,23 @@ export class DetailOrderAdminService {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token')
     });
 
-    getDetailOrder(id) {
-        const url = 'http://localhost:3000/detail-order/order/' + id;
+    getDetailOrder(orderId) {
+        const url = 'http://localhost:3000/detail-order/order/' + orderId;
         return this.http.get(url, { headers: this.headers });
     }
 
-    getProduct(id) {
-        const url = 'http://localhost:3000/product/' + id;
+    getProduct(productId) {
+        const url = 'http://localhost:3000/product/' + productId;
         return this.http.get(url);
     }
 
-    getClient(id) {
-        const url = 'http://localhost:3000/client/' + id;
+    getClient(username) {
+        const url = 'http://localhost:3000/client/' + username;
         return this.http.get(url, { headers: this.headers });
     }
 
-    getOrder(id) {
-        const url = 'http://localhost:3000/order/' + id;
+    getOrder(orderId) {
+        const url = 'http://localhost:3000/order/' + orderId;
         return this.http.get(url, { headers: this.headers });
     }
 }

@@ -34,14 +34,15 @@
                                 <td class="product-name">
                                     <a routerLink="/san-pham/{{cart.productId}}">{{ cart.product?.name }}</a></td>
                                 <td class="product-price"><span class="amount">
-                                        {{ cart.product?.price + ' đ'}}</span></td>
+                                        {{ (cart.product?.price - cart.product?.price * cart.product?.promotion / 100) + ' đ'}}</span></td>
                                 <td class="product-quantity">
                                     <input type="number" value="{{ cart.amount }}" min="1" #amount />
                                 </td>
                                 <td class="product-size"><span>
                                         {{ cart.size }}</span></td>
                                 <td class="product-subtotal"><span class="amount">
-                                        {{ cart.product?.price * cart.amount }}đ</span></td>
+                                        {{ (cart.product?.price - cart.product?.price * cart.product?.promotion / 100) * cart.amount }}đ</span>
+                                </td>
                                 <td class="product-remove">
                                     <a (click)="updateCart(cart.productId, cart.size, amount.value);"><i
                                             class="fa fa-edit"></i></a>

@@ -29,10 +29,10 @@
                             <tbody>
                                 <tr *ngFor="let detailOrder of arrDetailOrders">
                                     <td class="product-thumbnail"><a>
-                                            <img src="{{ detailOrder.product.image }}" alt="" />
+                                            <img src="{{ detailOrder.product?.image }}" alt="" />
                                         </a></td>
                                     <td class="product-name"><a>
-                                            {{ detailOrder.product.name }}
+                                            {{ detailOrder.product?.name }}
                                         </a></td>
                                     <td class="product-price"><span class="amount">
                                             {{ detailOrder.price + ' đ'}}</span></td>

@@ -37,8 +37,13 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.router.navigate(['/admin/ql-nhan-vien']);
-          this.toastr.warning('Nhân viên không tồn tại', 'Sai mã nhân viên');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else {
+            this.router.navigate(['/admin/ql-nhan-vien']);
+            this.toastr.warning('Nhân viên không tồn tại', 'Sai mã nhân viên');
+          }
         } else {
           this.employee = res['message'];
           console.log(res['message']);
@@ -76,7 +81,11 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
+            if (res['login']) {
+              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login']);
+            } else
+              this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }
         }, err => {
           console.log(err);

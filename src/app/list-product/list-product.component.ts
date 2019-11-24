@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListProductService } from "./list-product.service";
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-product',
@@ -31,7 +32,8 @@ export class ListProductComponent implements OnInit, OnDestroy {
   // ];
   arrProducts = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: ListProductService, private toastr: ToastrService) { }
+  constructor(private service: ListProductService, private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getListProduct();
@@ -63,7 +65,11 @@ export class ListProductComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else
+            this.toastr.error('Xóa thất bại');
         }
       }, err => {
         console.log(err);

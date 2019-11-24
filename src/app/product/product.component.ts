@@ -69,6 +69,7 @@ export class ProductComponent implements OnInit, OnDestroy {
                   Object.assign(product, { size: size['message'] });
                 }
               }, err => {
+                sub.unsubscribe();
                 console.log(err);
                 this.toastr.error('', 'Lỗi rồi');
               });

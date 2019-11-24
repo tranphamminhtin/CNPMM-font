@@ -45,6 +45,7 @@ export class DetailProductComponent implements OnInit, OnDestroy {
                 console.log(this.product);
               }
             }, err => {
+              sub.unsubscribe();
               console.log(err);
               this.toastr.error('', 'Lỗi rồi');
             })

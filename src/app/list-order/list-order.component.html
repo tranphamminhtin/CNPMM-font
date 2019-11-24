@@ -7,10 +7,10 @@
         </ol>
     </div>
     <div class="btn-group btn-group-justified">
-        <a class="btn btn-info" [ngClass]="{'active': stateShow ==='aa'}" (click)="show('aa');">Đơn hàng
-            chưa hoàn thành</a> <a class="btn btn-info" [ngClass]="{'active': stateShow ==='as'}"
-            (click)="show('as');">Đơn hàng đã duyệt</a> <a class="btn btn-info"
-            [ngClass]="{'active': stateShow ==='ad'}" (click)="show('ad');">Đơn hàng đã
+        <a class="btn btn-info" [ngClass]="{'active': stateShow ==='dat'}" (click)="show('dat');">Đơn hàng
+            chưa hoàn thành</a> <a class="btn btn-info" [ngClass]="{'active': stateShow ==='duyet'}"
+            (click)="show('duyet');">Đơn hàng đã duyệt</a> <a class="btn btn-info"
+            [ngClass]="{'active': stateShow ==='giao'}" (click)="show('giao');">Đơn hàng đã
             giao</a>
     </div>
     <table class="table table-bordered">
@@ -27,17 +27,17 @@
         <tbody>
             <tr *ngFor="let order of arrFiltered">
                 <td>{{ order._id }}</td>
-                <td>{{ order.date }}</td>
+                <td>{{ order.date | date:"dd/MM/yyyy"}}</td>
                 <td>{{ order.username }}</td>
-                <td>{{ getAmount(order.id) }}</td>
+                <td>{{ order.amount }}</td>
                 <td>{{ order.price + ' đ'}}</td>
                 <td>
-                    <button type="button" class="btn btn-info" *ngIf="order.state!=='ad'" (click)="next(order.id);"><i
+                    <button type="button" *ngIf="order.state !== 'giao'" class="btn btn-info" (click)="next(order._id);"><i
                             class="fa fa-sign-in"></i> Duyệt</button> &nbsp;
                     <a routerLink='/admin/chi-tiet-don-hang-ad/{{order._id}}'>
                         <button type="button" class="btn btn-info"><i class="fa fa-info-circle"></i> Xem</button>
                     </a>&nbsp;
-                    <button type="button" class="btn btn-info " data-toggle="modal"
+                    <button *ngIf="order.state === 'giao'" type="button" class="btn btn-info " data-toggle="modal"
                         [attr.data-target]="'#myModal'+ order._id"><i class="fa fa-times"></i>Xóa</button>
                     <div class="modal fade" id="myModal{{ order._id }}" role="dialog">
                         <div class="modal-dialog">

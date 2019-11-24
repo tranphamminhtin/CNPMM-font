@@ -50,7 +50,10 @@ export class CartComponent implements OnInit, OnDestroy {
   getTotalPrice(): number {
     let total = 0;
     try {
-      this.arrCarts.forEach(cart => { total += cart.product['price'] * cart.amount; })
+      this.arrCarts.forEach(cart => {
+        total += parseFloat(((cart.product.price - cart.product.price * cart.product.promotion / 100)
+          * cart.amount).toString());
+      });
     } catch (e) { }
     return total;
   }

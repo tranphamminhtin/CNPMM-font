@@ -29,6 +29,11 @@
                                 [ngModel]="client.numberPhone" (keypress)="keyPress($event)" minlength="10" required />
                         </div>
                         <div class="form-group">
+                            <label>Email <span class="required">*</span></label>
+                            <input type="text" placeholder="Địa chỉ email" name="email" class="form-control"
+                                [ngModel]="client.email" required />
+                        </div>
+                        <div class="form-group">
                             <label>Địa chỉ <span class="required">*</span></label>
                             <textarea name="addressh" placeholder="Địa chỉ" class="form-control"
                                 [ngModel]="client.address" required>
@@ -71,7 +76,7 @@
                             <tbody>
                                 <tr class="cart_item" *ngFor="let cart of arrCarts">
                                     <td class="product-name">
-                                        {{ cart.product.name }}
+                                        {{ cart.product?.name }}
                                         <strong class="product-quantity"> ×
                                             {{ cart.amount }}
                                         </strong></td>
@@ -79,7 +84,7 @@
                                         {{ cart.size }}
                                     </td>
                                     <td class="product-total"><span class="amount">
-                                            {{ cart.price * cart.amount + ' đ' }}</span>
+                                            {{ (cart.product?.price - cart.product?.price * cart.product?.promotion / 100) * cart.amount + ' đ' }}</span>
                                     </td>
                                 </tr>
                             </tbody>

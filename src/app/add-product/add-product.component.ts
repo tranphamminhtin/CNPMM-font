@@ -36,9 +36,13 @@ export class AddProductComponent implements OnInit, OnDestroy {
       const sub = this.service.add(formAddProduct.value)
         .subscribe(res => {
           if (!res['success']) {
-            this.toastr.error('Thêm thất bại', 'Lỗi');
-            console.log(res['message']);
             sub.unsubscribe();
+            console.log(res['message']);
+            if (res['login']) {
+              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login']);
+            } else
+              this.toastr.error('Thêm thất bại', 'Lỗi');
           }
         }, err => {
           console.log(err);

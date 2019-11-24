@@ -18,11 +18,11 @@ export class AuthEmployeeGuard implements CanActivate {
       else {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('token');
-        this.router.navigate(['/dang-nhap']);
+        this.router.navigate(['/login']);
         return false;
       }
     } else {
-      this.router.navigate(['/dang-nhap']);
+      this.router.navigate(['/login']);
       return false;
     }
   }

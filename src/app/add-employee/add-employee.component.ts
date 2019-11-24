@@ -48,7 +48,11 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
         .subscribe(res => {
           if (!res['success']) {
             sub.unsubscribe();
-            this.toastr.error('Lỗi tạo người dùng', 'Lỗi');
+            if (res['login']) {
+              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login']);
+            } else
+              this.toastr.error('Lỗi tạo người dùng', 'Lỗi');
             console.log(res['message']);
           }
           this.service.addEmployee(formAddEmployee.value)
@@ -61,6 +65,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
               }
             }, err => {
               console.log(err);
+              sub.unsubscribe();
               this.toastr.error('', 'Lỗi rồi');
             });
         }, err => {

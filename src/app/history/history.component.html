@@ -28,17 +28,15 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let order of arrOrders">
-                                <td><span>{{ order.date }}</span></td>
-                                <td class="ma"><span>{{ order.id }}</span></td>
+                                <td><span>{{ order.date | date:"dd/MM/yyyy" }}</span></td>
+                                <td class="ma"><span>{{ order._id }}</span></td>
                                 <td class="so-luong"><span>{{ order.amount }}</span></td>
                                 <td class="tong-gia"><span class="amount">{{ order.price +'đ'}}</span></td>
-                                <td class="tinh-trang"><span>{{ order.state }}</span></td>
-                                <td class="chi-tiet"><a>
-                                        <!-- <a href="ChiTietDonHangController?madh=<c:out value="
-                                        ${donhang.getMaDonHang()}" />"> -->
+                                <td class="tinh-trang"><span>{{ showState(order.state) }}</span></td>
+                                <td class="chi-tiet"><a routerLink="/chi-tiet-don-hang/{{order._id}}">
                                         <i class="fa fa-list"></i></a></td>
-                                <td class="xoa" *ngIf="order.state !== 'al'">
-                                    <a (click)="removeOrder(order.id);"><i class="fa fa-times"></i></a></td>
+                                <td class="xoa" *ngIf="order.state !== 'duyet'">
+                                    <a (click)="removeOrder(order._id);"><i class="fa fa-times"></i></a></td>
                             </tr>
                         </tbody>
                     </table>

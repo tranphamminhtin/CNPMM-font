@@ -64,6 +64,7 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
         }
       }, err => {
         console.log(err);
+        sub.unsubscribe();
         this.toastr.error('', 'Lỗi rồi');
       });
   }
@@ -76,7 +77,11 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.error('Thêm thất bại', 'Lỗi rồi');
+            if (res['login']) {
+              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login']);
+            } else
+              this.toastr.error('Thêm thất bại', 'Lỗi rồi');
           } else {
             this.refreshArrAmounts(sub);
             formAdd.reset();
@@ -100,7 +105,11 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.toastr.error('Sửa thất bại', 'Lỗi rồi');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else
+            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
         } else {
           this.refreshArrAmounts(sub);
         }
@@ -122,7 +131,11 @@ export class DetailAmountComponent implements OnInit, OnDestroy {
         if (!res['success']) {
           sub.unsubscribe();
           console.log(res['message']);
-          this.toastr.error('Xóa thất bại', 'Lỗi rồi');
+          if (res['login']) {
+            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.router.navigate(['/login']);
+          } else
+            this.toastr.error('Xóa thất bại', 'Lỗi rồi');
         } else {
           this.refreshArrAmounts(sub);
         }
