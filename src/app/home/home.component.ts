@@ -3,7 +3,7 @@ import { HomeService } from "./home.service";
 import { AppComponent } from '../app.component';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CartSessionService } from '../_service/cart-session.service';
 
 @Component({
@@ -23,11 +23,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   arrProducts = [];
   allProducts = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: HomeService, private toastr: ToastrService,
+  constructor(private service: HomeService, private toastr: ToastrService, private activatedRoute: ActivatedRoute,
     private router: Router, private cartSessionService: CartSessionService) { }
 
+  token;
+  id;
   ngOnInit() {
     AppComponent.isAdmin = false;
+    // this.activatedRoute.queryParams.subscribe(param => {
+    //   this.token = param.token;
+    //   this.id = param.id;
+    // });
+    // if (this.token != null && this.id != null) {
+    //   sessionStorage.setItem('user', JSON.stringify({ username: this.id, quyen: 1 }));
+    //   sessionStorage.setItem('token', this.token);
+    //   sessionStorage.setItem('isLogin', JSON.stringify(true));
+    //   this.router.navigate(['/thong-tin']);
+    // } else {
     const sub = this.service.getList()
       .subscribe(res => {
         if (!res['success']) {

@@ -30,6 +30,7 @@ import { AboutComponent } from "./about.component";
 import { AccountComponent } from "./account.component";
 import { ContactComponent } from "./contact.component";
 import { LoginAdminModule } from './login-admin/login-admin.module';
+import { LoadingComponent } from "./loading.component";
 
 import { AuthClientGuard } from "./_guard/auth-client.guard";
 
@@ -38,6 +39,7 @@ const routesConfig: Routes = [
     { path: 'gioi-thieu', component: AboutComponent},
     { path: 'account', component: AccountComponent, canActivate: [AuthClientGuard]},
     { path: 'lien-he', component: ContactComponent},
+    {path:'loading', component: LoadingComponent},
     { path: '**', redirectTo: '/home', pathMatch: 'full'}
   ];
 
@@ -47,7 +49,8 @@ const routesConfig: Routes = [
     declarations: [
         AboutComponent,
         AccountComponent,
-        ContactComponent
+        ContactComponent,
+        LoadingComponent
     ],
     imports: [
         AccountEmployeeModule,

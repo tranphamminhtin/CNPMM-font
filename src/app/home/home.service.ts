@@ -14,5 +14,10 @@ export class HomeService {
         const url = 'http://localhost:3000/detail-product/product/' + ProductId
         return this.http.get(url);
     }
+
+    getCurrentUser(){
+        const url = 'http://localhost:3000/';
+        return this.http.get(url);
+    }
 }
 

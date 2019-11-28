@@ -36,7 +36,7 @@ export class SignComponent implements OnInit, OnDestroy {
             console.log(res['message']);
             this.toastr.warning("Tên đăng nhập hoặc mật khẩu sai", '!!!');
           } else {
-            sessionStorage.setItem('user', JSON.stringify({username: formSignIn.value.username, quyen: 1}));
+            sessionStorage.setItem('user', JSON.stringify({ username: formSignIn.value.username, quyen: 1 }));
             sessionStorage.setItem('token', res['token']);
             sessionStorage.setItem('isLogin', JSON.stringify(true));
           }
@@ -107,6 +107,14 @@ export class SignComponent implements OnInit, OnDestroy {
       return false;
     }
     return true;
+  }
+
+  loginWithFB() {
+    window.location.href = 'http://localhost:3000/user/fb';
+  }
+
+  loginWithGG() {
+    window.location.href = 'http://localhost:3000/user/gg';
   }
 
   keyPress(event: any) {

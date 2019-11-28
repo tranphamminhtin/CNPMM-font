@@ -5,20 +5,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 export class InformationService {
     constructor(private http: HttpClient) { }
 
-    headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-    });
+
 
     editInfo(value) {
         const url = 'http://localhost:3000/client/' + value.username;
         const body = JSON.stringify(value);
-        return this.http.put(url, body, { headers: this.headers });
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        });
+        return this.http.put(url, body, { headers: headers });
     }
 
     getInfo(username) {
         const url = 'http://localhost:3000/client/' + username;
-        return this.http.get(url, { headers: this.headers });
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        });
+        return this.http.get(url, { headers: headers });
     }
 }
 
