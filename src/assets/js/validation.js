@@ -1,4 +1,3 @@
-
 $(function(){
 	$.validator.setDefaults({
 		errorClass:'help-block',

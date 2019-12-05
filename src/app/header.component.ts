@@ -25,21 +25,7 @@ import { ToastrService } from 'ngx-toastr';
                                     <li><a routerLink="/">TRANG CHỦ</a>
                                     </li>
                                     <li><a routerLink="/gioi-thieu">GIỚI THIỆU</a></li>
-                                    <li><a routerLink="/san-pham">GIÀY NAM</a>
-                                        <ul>
-                                            <li><a href="#">ADIDAS</a></li>
-                                            <li><a href="#">NIKE</a></li>
-                                            <li><a href="#">BITIS</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a routerLink="/san-pham">GIÀY NỮ</a>
-                                        <ul>
-                                            <li><a href="#">ADIDAS</a></li>
-                                            <li><a href="#">NIKE</a></li>
-                                            <li><a href="#">BITIS</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">TIN TỨC</a></li>
+                                    <li><a routerLink="/san-pham">SẢN PHẨM</a></li>
                                     <li><a routerLink="/lien-he">LIÊN HỆ</a></li>
                                 </ul>
                             </nav>

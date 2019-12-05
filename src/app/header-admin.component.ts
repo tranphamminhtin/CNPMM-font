@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header-admin',
-  template: `
+	selector: 'app-header-admin',
+	template: `
   <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -35,7 +35,7 @@ import { Router } from '@angular/router';
 		<div class="divider"></div>
 		<ul class="nav menu">
 			<li><a routerLink="/admin/home"><em >&nbsp;</em> Quản lý tài khoản</a></li>
-			<ng-container *ngIf="rightAdmin">
+			<ng-container *ngIf="getAdmin()">
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
 				<em class="fa fa-navicon">&nbsp;</em> Quản lý nhân viên <span data-toggle="collapse"  class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
@@ -53,11 +53,11 @@ import { Router } from '@angular/router';
 			<li><a routerLink="/admin/ql-don-hang"><em >&nbsp;</em> Quản lý đơn hàng</a></li>
             </ng-container>
             
-            <li *ngIf="show(rightClient);"><a routerLink="/admin/ql-khach-hang"><em >&nbsp;</em> Quản lý khách hàng</a></li>	
+            <li *ngIf="getClient();"><a routerLink="/admin/ql-khach-hang"><em >&nbsp;</em> Quản lý khách hàng</a></li>	
             		
-			<li *ngIf="show(rightProduct);"><a routerLink="/admin/ql-san-pham"><em >&nbsp;</em> Quản lý sản phẩm</a></li>
+			<li *ngIf="getProduct();"><a routerLink="/admin/ql-san-pham"><em >&nbsp;</em> Quản lý sản phẩm</a></li>
 
-			<li *ngIf="show(rightOrder);"><a routerLink="/admin/ql-don-hang"><em >&nbsp;</em> Quản lý đơn hàng</a></li>
+			<li *ngIf="getOrder();"><a routerLink="/admin/ql-don-hang"><em >&nbsp;</em> Quản lý đơn hàng</a></li>
 			
 			<li><a (click)="logOut();"><em >&nbsp;</em> Đăng xuất</a></li>
 		</ul>
@@ -65,29 +65,51 @@ import { Router } from '@angular/router';
   `
 })
 export class HeaderAdminComponent {
-    rightAdmin = true;
-    rightClient = true;
-    rightProduct = true;
-    rightOrder = true;
+	rightAdmin = true;
+	rightClient = true;
+	rightProduct = true;
+	rightOrder = true;
+	constructor(private cdRef : ChangeDetectorRef, private router: Router){}
 
-	constructor(private router: Router) {}
-
-    show(right : boolean): boolean {
-        if(right === true && this.rightAdmin === false) {
-            return true;
-        }
-        return false;
-	}
+	// show(right: boolean): boolean {
+	// 	if (right === true && this.rightAdmin === false) {
+	// 		return true;
+	// 	}
+	// 	return false;
+	// }
 
 	logOut() {
 		sessionStorage.removeItem('user');
 		sessionStorage.removeItem('token');
+		sessionStorage.removeItem('admin');
+		sessionStorage.removeItem('client');
+		sessionStorage.removeItem('product');
+		sessionStorage.removeItem('order');
 		this.router.navigate(['/login']);
 	}
-	
-	// constructor(private cdRef : ChangeDetectorRef){}
 
-    // ngAfterViewChecked() {
-    //     this.cdRef.detectChanges();
-    // }
+	ngAfterViewChecked() {
+	    this.cdRef.detectChanges();
+	}
+	getAdmin(): Boolean {
+		return JSON.parse(sessionStorage.getItem('admin'));
+	}
+
+	getClient(): Boolean {
+		if (this.getAdmin())
+			return false;
+		return JSON.parse(sessionStorage.getItem('client'));
+	}
+
+	getProduct(): Boolean {
+		if (this.getAdmin())
+			return false;
+		return JSON.parse(sessionStorage.getItem('product'));
+	}
+
+	getOrder(): Boolean {
+		if (this.getAdmin())
+			return false;
+		return JSON.parse(sessionStorage.getItem('order'));
+	}
 }

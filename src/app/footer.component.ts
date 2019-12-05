@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
-  selector: 'app-footer',
-  template: `
+    selector: 'app-footer',
+    template: `
     <div class="brand-area">
         <div class="container">
             <div class="brand-inner-container pad-60">
@@ -85,7 +85,6 @@ import { Component } from '@angular/core';
                             <ul class="footer-menu">
                                 <li><a routerLink="/gioi-thieu">Giới thiệu</a></li>
                                 <li><a routerLink="/san-pham">Sản phẩm</a></li>
-                                <li><a href="TinTucController">Tin tức</a></li>
                                 <li><a routerLink="/lien-he">Liên hệ</a></li>
                             </ul>
                         </div>
@@ -94,15 +93,14 @@ import { Component } from '@angular/core';
                         <div class="footer-widget">
                             <h3>Tài Khoản</h3>
                             <ul class="footer-menu">
-                                <li *ngIf="isLogin"><a href="TaiKhoanController">Tài khoản</a></li>
-                                <li *ngIf="!isLogin"><a href="login.jsp">Đăng nhập</a></li>
-                                <li><a href="LienHe.jsp">Liên hệ với GIAYNE</a></li>
-                                <li *ngIf="isLogin"><a href="DonHangController">Lịch sử mua hàng</a></li>
-                                <li><a href="GioHangController">Giỏ hàng</a></li>
+                                <li *ngIf="getIsLogin()"><a routerLink="TaiKhoanController">Tài khoản</a></li>
+                                <li *ngIf="!getIsLogin()"><a routerLink="login.jsp">Đăng nhập</a></li>
+                                <li><a routerLink="/lien-he">Liên hệ với GIAYNE</a></li>
+                                <li *ngIf="getIsLogin()"><a routerLink="/lich-su">Lịch sử mua hàng</a></li>
+                                <li><a routerLink="/gio-hang">Giỏ hàng</a></li>
                             </ul>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -110,9 +108,15 @@ import { Component } from '@angular/core';
   `
 })
 export class FooterComponent {
-    // constructor(private cdRef : ChangeDetectorRef){}
+    constructor(private cdRef: ChangeDetectorRef) { }
 
-    // ngAfterViewChecked() {
-    //     this.cdRef.detectChanges();
-    // }
+    ngAfterViewChecked() {
+        this.cdRef.detectChanges();
+    }
+
+    getIsLogin(): Boolean {
+        if (sessionStorage.getItem('isLogin'))
+            return JSON.parse(sessionStorage.getItem('isLogin'));
+        return false;
+    }
 }
