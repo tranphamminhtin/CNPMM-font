@@ -59,7 +59,7 @@ export class FixProductComponent implements OnInit, OnDestroy {
             console.log(res['message']);
             if (res['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'], { queryParams: { return: '/admin/sua-san-pham/' + this.id } });
             } else
               this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }

@@ -42,7 +42,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
           console.log(res['message']);
           if (res['login']) {
             this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/login'], { queryParams: { return: '/admin/ql-khach-hang' } });
           } else
             this.toastr.warning('Lỗi lấy khách hàng', '!!!');
         } else {
@@ -63,7 +63,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
           console.log(res['message']);
           if (res['login']) {
             this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/login'], { queryParams: { return: '/admin/ql-khach-hang' } });
           } else
             this.toastr.error('Xóa thất bại', 'Lỗi rồi');
         }

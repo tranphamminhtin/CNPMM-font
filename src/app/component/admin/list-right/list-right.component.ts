@@ -41,7 +41,7 @@ export class ListRightComponent implements OnInit, OnDestroy {
           console.log(res['message']);
           if (res['login']) {
             this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/login'], { queryParams: { return: '/admin/ql-quyen' } });
           } else
             this.toastr.warning('Lỗi lấy quyền');
         } else {
@@ -61,7 +61,7 @@ export class ListRightComponent implements OnInit, OnDestroy {
           console.log(res['message']);
           if (res['login']) {
             this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/login'], { queryParams: { return: '/admin/ql-quyen' } });
           } else
             this.toastr.error('Xóa thất bại');
         }

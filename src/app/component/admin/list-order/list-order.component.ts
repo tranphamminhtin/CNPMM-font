@@ -37,7 +37,7 @@ export class ListOrderComponent implements OnInit, OnDestroy {
             console.log(res['message']);
             if (res['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'], { queryParams: { return: '/admin/ql-don-hang' } });
             } else
               this.toastr.error('Lỗi lấy danh sách');
           } else {
@@ -92,7 +92,7 @@ export class ListOrderComponent implements OnInit, OnDestroy {
           console.log(detail['message']);
           if (detail['login']) {
             this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/login'], { queryParams: { return: '/admin/ql-don-hang' } });
           } else
             this.toastr.error('Xóa thất bại');
         } else {
@@ -142,7 +142,7 @@ export class ListOrderComponent implements OnInit, OnDestroy {
           console.log(res['message']);
           if (res['login']) {
             this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            this.router.navigate(['/login']);
+            this.router.navigate(['/login'], { queryParams: { return: '/admin/ql-don-hang' } });
           } else
             this.toastr.error('Duyệt thất bại');
           this.arrOrder[index].state = state;

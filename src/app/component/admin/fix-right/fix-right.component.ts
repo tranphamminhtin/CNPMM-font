@@ -24,29 +24,29 @@ export class FixRightComponent implements OnInit, OnDestroy {
     private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
-    if(!sessionStorage.getItem('admin')){
+    if (!sessionStorage.getItem('admin')) {
       this.router.navigate(['/admin/home']);
     } else {
       this.id = this.activatedRoute.snapshot.paramMap.get('id').toString();
-    const sub = this.service.searchRight(this.id)
-      .subscribe(res => {
-        if (!res['success']) {
-          sub.unsubscribe();
-          console.log(res['message']);
-          if (res['login']) {
-            this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            this.router.navigate(['/login']);
+      const sub = this.service.searchRight(this.id)
+        .subscribe(res => {
+          if (!res['success']) {
+            sub.unsubscribe();
+            console.log(res['message']);
+            if (res['login']) {
+              this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.router.navigate(['/login'], { queryParams: { return: '/admin/sua-quyen/' + this.id } });
+            } else {
+              this.toastr.warning('Không tìm thấy quyền', 'Sai mã quyền');
+              this.router.navigate(['/admin/ql-quyen']);
+            }
           } else {
-            this.toastr.warning('Không tìm thấy quyền', 'Sai mã quyền');
-            this.router.navigate(['/admin/ql-quyen']);
+            this.right = res['message'];
           }
-        } else {
-          this.right = res['message'];
-        }
-      }, err => {
-        console.log(err);
-        this.toastr.error('', 'Lỗi rồi');
-      }, () => this.subscriptions.push(sub));
+        }, err => {
+          console.log(err);
+          this.toastr.error('', 'Lỗi rồi');
+        }, () => this.subscriptions.push(sub));
     }
   }
 
@@ -64,7 +64,7 @@ export class FixRightComponent implements OnInit, OnDestroy {
             console.log(res['message']);
             if (res['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'], { queryParams: { return: '/admin/sua-quyen/' + this.id } });
             } else
               this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }

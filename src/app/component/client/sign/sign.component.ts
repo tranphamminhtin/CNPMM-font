@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SignService } from "./sign.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -19,9 +19,11 @@ export class SignComponent implements OnInit, OnDestroy {
   password = '123456';
   subscriptions: Subscription[] = [];
   constructor(private service: SignService, private router: Router
-    , private toastr: ToastrService, private authService: AuthService) { }
-
+    , private toastr: ToastrService, private authService: AuthService, private route: ActivatedRoute) { }
+  return = '';
   ngOnInit() {
+    this.route.queryParams
+      .subscribe(params => this.return = params['return'] || '/home');
   }
 
   ngOnDestroy() {
@@ -46,7 +48,9 @@ export class SignComponent implements OnInit, OnDestroy {
           console.log(err);
         }, () => {
           this.subscriptions.push(sub);
-          this.router.navigate(['/account']);
+          this.route.queryParams
+            .subscribe(params => this.return = params['return'] || '/account');
+          this.router.navigate([this.return]);
         });
     }
   }
@@ -133,7 +137,9 @@ export class SignComponent implements OnInit, OnDestroy {
           this.toastr.error('Lỗi rồi');
         }, () => {
           this.subscriptions.push(sub);
-          this.router.navigate(['/thong-tin']);
+          this.route.queryParams
+            .subscribe(params => this.return = params['return'] || '/thong-tin');
+          this.router.navigate([this.return]);
         });
     });
   }

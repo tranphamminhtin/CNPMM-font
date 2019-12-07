@@ -33,7 +33,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
           console.log(res['message']);
           if (res['login']) {
             this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-            this.router.navigate(['/dang-nhap']);
+            this.router.navigate(['/dang-nhap'], { queryParams: { return: '/lich-su' } });
           } else
             this.toastr.error('Lỗi lấy lịch sử');
         } else {
@@ -79,7 +79,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
             console.log(detail['message']);
             if (detail['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/dang-nhap']);
+              this.router.navigate(['/dang-nhap'], { queryParams: { return: '/lich-su' } });
             } else
               this.toastr.error('Xóa thất bại');
           } else {

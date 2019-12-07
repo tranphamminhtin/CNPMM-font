@@ -28,7 +28,7 @@ export class AuthClientGuard implements CanActivate {
               if (!res['success']) {
                 sessionStorage.removeItem('user');
                 sessionStorage.removeItem('token');
-                this.router.navigate(['/dang-nhap']);
+                this.router.navigate(['/dang-nhap'], { queryParams: { return: state.url } });
                 if (res['login'])
                   this.toastr.warning('Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại');
                 resolve(false);
@@ -37,7 +37,7 @@ export class AuthClientGuard implements CanActivate {
             }, err => {
               sessionStorage.removeItem('user');
               sessionStorage.removeItem('token');
-              this.router.navigate(['/dang-nhap']);
+              this.router.navigate(['/dang-nhap'], { queryParams: { return: state.url } });
               resolve(false);
             });
         });
@@ -45,11 +45,11 @@ export class AuthClientGuard implements CanActivate {
       else {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('token');
-        this.router.navigate(['/dang-nhap']);
+        this.router.navigate(['/dang-nhap'], { queryParams: { return: state.url } });
         return false;
       }
     } else {
-      this.router.navigate(['/dang-nhap']);
+      this.router.navigate(['/dang-nhap'], { queryParams: { return: state.url } });
       return false;
     }
   }

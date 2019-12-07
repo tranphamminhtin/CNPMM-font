@@ -41,7 +41,7 @@ export class DetailOrderAdminComponent implements OnInit, OnDestroy {
             console.log(order['message']);
             if (order['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'], { queryParams: { return: '/admin/chi-tiet-don-hang-ad/' + this.id } });
             } else
               this.toastr.error('Lỗi lấy thông tin đơn hàng');
           } else {

@@ -54,7 +54,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
             sub.unsubscribe();
             if (res['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'],{queryParams: {return: '/admin/them-nhan-vien'}});
             } else
               this.toastr.error('Lỗi tạo người dùng', 'Lỗi');
             console.log(res['message']);

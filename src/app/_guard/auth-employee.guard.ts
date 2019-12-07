@@ -29,7 +29,7 @@ export class AuthEmployeeGuard implements CanActivate {
                 sessionStorage.removeItem('user');
                 sessionStorage.removeItem('token');
                 console.log(res);
-                this.router.navigate(['/login']);
+                this.router.navigate(['/login'], { queryParams: { return: state.url } });
                 // if (res['login'])
                 //   this.toastr.warning('Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại');
                 resolve(false);
@@ -38,7 +38,7 @@ export class AuthEmployeeGuard implements CanActivate {
             }, err => {
               sessionStorage.removeItem('user');
               sessionStorage.removeItem('token');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'], { queryParams: { return: state.url } });
               resolve(false);
             });
         });
@@ -46,11 +46,11 @@ export class AuthEmployeeGuard implements CanActivate {
       else {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('token');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'], { queryParams: { return: state.url } });
         return false;
       }
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], { queryParams: { return: state.url } });
       return false;
     }
   }

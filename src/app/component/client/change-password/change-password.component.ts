@@ -34,7 +34,7 @@ export class ChangePasswordComponent implements OnDestroy {
 						console.log(res['message']);
 						if (res['login']) {
 							this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-							this.router.navigate(['/dang-nhap']);
+							this.router.navigate(['/dang-nhap'], { queryParams: { return: '/doi-mk' } });
 						} else
 							this.toastr.error(res['message']);
 					}

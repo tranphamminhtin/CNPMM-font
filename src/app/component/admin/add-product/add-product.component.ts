@@ -43,7 +43,7 @@ export class AddProductComponent implements OnInit, OnDestroy {
             console.log(res['message']);
             if (res['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'],{queryParams: {return: '/admin/them-san-pham'}});
             } else
               this.toastr.error('Thêm thất bại', 'Lỗi');
           }

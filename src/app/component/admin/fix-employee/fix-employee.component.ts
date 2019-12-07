@@ -42,7 +42,7 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
             console.log(res['message']);
             if (res['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'], { queryParams: { return: '/admin/sua-nhan-vien/' + this.id } });
             } else {
               this.router.navigate(['/admin/ql-nhan-vien']);
               this.toastr.warning('Nhân viên không tồn tại', 'Sai mã nhân viên');
@@ -87,7 +87,7 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
             console.log(res['message']);
             if (res['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'], { queryParams: { return: '/admin/sua-nhan-vien/' + this.id } });
             } else
               this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }

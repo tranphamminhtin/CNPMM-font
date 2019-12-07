@@ -32,7 +32,7 @@ export class AddRightComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             if (res['login']) {
               this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
-              this.router.navigate(['/login']);
+              this.router.navigate(['/login'],{queryParams: {return: '/admin/them-quyen'}});
             } else
               this.toastr.error('Thêm thất bại', 'Lỗi');
             console.log(res['message']);
