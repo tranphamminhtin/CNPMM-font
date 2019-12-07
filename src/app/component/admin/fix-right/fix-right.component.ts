@@ -34,7 +34,7 @@ export class FixRightComponent implements OnInit, OnDestroy {
           sub.unsubscribe();
           console.log(res['message']);
           if (res['login']) {
-            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
             this.router.navigate(['/login']);
           } else {
             this.toastr.warning('Không tìm thấy quyền', 'Sai mã quyền');
@@ -63,7 +63,7 @@ export class FixRightComponent implements OnInit, OnDestroy {
             sub.unsubscribe();
             console.log(res['message']);
             if (res['login']) {
-              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
               this.router.navigate(['/login']);
             } else
               this.toastr.error('Sửa thất bại', 'Lỗi rồi');

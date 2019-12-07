@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { CartSessionService } from '../../../_service/cart-session.service';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-order',
@@ -28,7 +29,6 @@ export class OrderComponent implements OnInit, OnDestroy {
     private cartSessionService: CartSessionService, private router: Router) { }
 
   ngOnInit() {
-    console.log(1);
     this.arrCarts = this.cartSessionService.getCart();
     if (this.arrCarts !== null) {
       this.arrCarts.forEach(e => {
@@ -90,7 +90,11 @@ export class OrderComponent implements OnInit, OnDestroy {
           if (!res['success']) {
             sub.unsubscribe();
             console.log(res['message']);
-            this.toastr.error('Sửa thất bại', 'Lỗi rồi');
+            if (res['login']) {
+              this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              sessionStorage.setItem('isLogin', JSON.stringify(false));
+            } else
+              this.toastr.error('Sửa thất bại', 'Lỗi rồi');
           }
         }, err => {
           console.log(err);
@@ -102,7 +106,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
   }
 
-  signInSubmit(formSignIn) {
+  signInSubmit(formSignIn: NgForm) {
     if (formSignIn.valid && this.validSignIn(formSignIn)) {
       console.log(formSignIn.value);
       const sub = this.service.signInPost(formSignIn.value)
@@ -115,6 +119,7 @@ export class OrderComponent implements OnInit, OnDestroy {
             sessionStorage.setItem('user', JSON.stringify({ username: formSignIn.value.username, quyen: 1 }));
             sessionStorage.setItem('token', res['token']);
             sessionStorage.setItem('isLogin', JSON.stringify(true));
+            formSignIn.reset();
           }
         }, err => {
           console.log(err);
@@ -154,7 +159,11 @@ export class OrderComponent implements OnInit, OnDestroy {
             if (!res['success']) {
               sub.unsubscribe();
               console.log(res['message']);
-              this.toastr.error('Không thể tạo đơn hàng');
+              if (res['login']) {
+                this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+                sessionStorage.setItem('isLogin', JSON.stringify(false));
+              } else
+                this.toastr.error('Không thể tạo đơn hàng');
             } else {
               const model = res['message'];
               try {

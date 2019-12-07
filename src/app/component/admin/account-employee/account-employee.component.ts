@@ -59,7 +59,7 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
         } else {
           console.log(res['message']);
           if (res['login']) {
-            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
             this.router.navigate(['/login']);
           } else {
             this.toastr.error('Lỗi lấy thông tin người dùng', 'Lỗi lấy người');
@@ -86,7 +86,7 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
             sub.unsubscribe();
             console.log(res['message']);
             if (res['login']) {
-              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
               this.router.navigate(['/login']);
             } else
               this.toastr.error('Sửa thất bại', 'Lỗi sửa thông tin');
@@ -111,7 +111,7 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
             sub.unsubscribe();
             console.log(res['message']);
             if (res['login']) {
-              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
               this.router.navigate(['/login']);
             } else
               this.toastr.error(res['message'], 'Lỗi rồi');

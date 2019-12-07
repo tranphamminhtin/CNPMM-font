@@ -31,7 +31,7 @@ export class AddRightComponent implements OnInit, OnDestroy {
         .subscribe(res => {
           if (!res['success']) {
             if (res['login']) {
-              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
               this.router.navigate(['/login']);
             } else
               this.toastr.error('Thêm thất bại', 'Lỗi');

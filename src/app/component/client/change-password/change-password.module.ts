@@ -32,7 +32,7 @@ export class ChangePasswordModule implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.username = JSON.parse(sessionStorage.getItem('user')).username;
-     }
+    }
     subscriptions: Subscription[] = [];
     ngOnDestroy() {
         this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -46,7 +46,11 @@ export class ChangePasswordModule implements OnInit, OnDestroy {
                 .subscribe(res => {
                     if (!res['success']) {
                         console.log(res['message']);
-                        this.toastr.error('Đổi mật khẩu thất bại', 'Lỗi rồi!');
+                        if (res['login']) {
+                            this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+                            this.router.navigate(['/dang-nhap']);
+                        } else
+                            this.toastr.error('Đổi mật khẩu thất bại', 'Lỗi rồi!');
                         sub.unsubscribe();
                     }
                 }, err => {

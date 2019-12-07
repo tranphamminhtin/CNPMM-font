@@ -27,7 +27,7 @@ export class InformationComponent implements OnInit, OnDestroy {
           sub.unsubscribe();
           console.log(res['message']);
           if (res['login']) {
-            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
             this.router.navigate(['/dang-nhap']);
           } else {
             this.toastr.warning('Không tìm thấy người dùng', '');
@@ -56,7 +56,7 @@ export class InformationComponent implements OnInit, OnDestroy {
             sub.unsubscribe();
             console.log(res['message']);
             if (res['login']) {
-              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
               this.router.navigate(['/dang-nhap']);
             } else
               this.toastr.error('Sửa thất bại', 'Lỗi rồi');

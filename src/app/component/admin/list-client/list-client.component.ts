@@ -41,7 +41,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
           sub.unsubscribe();
           console.log(res['message']);
           if (res['login']) {
-            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
             this.router.navigate(['/login']);
           } else
             this.toastr.warning('Lỗi lấy khách hàng', '!!!');
@@ -62,7 +62,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
           sub.unsubscribe();
           console.log(res['message']);
           if (res['login']) {
-            this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+            this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
             this.router.navigate(['/login']);
           } else
             this.toastr.error('Xóa thất bại', 'Lỗi rồi');

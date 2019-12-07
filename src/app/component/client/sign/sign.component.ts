@@ -115,6 +115,7 @@ export class SignComponent implements OnInit, OnDestroy {
     } else if (socialProvider === 'google') {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
+    this.authService.signOut();
     this.authService.signIn(socialPlatformProvider).then(socialusers => {
       const sub = this.service.socialSignIn(socialProvider, socialusers)
         .subscribe(res => {

@@ -40,7 +40,7 @@ export class DetailOrderAdminComponent implements OnInit, OnDestroy {
             sub.unsubscribe();
             console.log(order['message']);
             if (order['login']) {
-              this.toastr.error('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
+              this.toastr.warning('Phiên đăng nhập hết hạn, vui lòng đăng nhập lại');
               this.router.navigate(['/login']);
             } else
               this.toastr.error('Lỗi lấy thông tin đơn hàng');
