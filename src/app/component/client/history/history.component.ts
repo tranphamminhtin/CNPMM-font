@@ -12,12 +12,6 @@ import { Router } from '@angular/router';
 })
 export class HistoryComponent implements OnInit, OnDestroy {
 
-  // arrOrders = [
-  //   { id: '1', date: '02/11/2019', amount: 1, price: 3000, state: 'al' },
-  //   { id: '2', date: '03/11/2019', amount: 1, price: 3000, state: 'as' },
-  //   { id: '3', date: '04/11/2019', amount: 1, price: 3000, state: 'ad' },
-  //   { id: '4', date: '05/11/2019', amount: 1, price: 3000, state: 'af' }
-  // ];
   arrOrders = [];
   subscriptions: Subscription[] = [];
   username = '';

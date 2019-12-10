@@ -14,12 +14,6 @@ import { NgForm } from '@angular/forms';
 })
 export class OrderComponent implements OnInit, OnDestroy {
 
-  // client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
-  // arrCarts = [
-  //   { id: '1', product: { id: '1', name: 'adidas', image: 'assets/img/product/giay1.jpg' }, amount: 1, price: 3000, size: 30 },
-  //   { id: '2', product: { id: '2', name: 'nike', image: 'assets/img/product/giay1.jpg' }, amount: 2, price: 3000, size: 31 },
-  //   { id: '3', product: { id: '3', name: 'hunter', image: 'assets/img/product/giay1.jpg' }, amount: 3, price: 3000, size: 32 },
-  // ];
   arrCarts = [];
   username = '';
   client = {};
@@ -57,7 +51,6 @@ export class OrderComponent implements OnInit, OnDestroy {
             this.toastr.warning('Không tìm thấy người dùng', '');
             this.router.navigate(['/home']);
           } else {
-            // console.log(res['message']);
             this.client = res['message'];
           }
         }, err => {
@@ -84,7 +77,6 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   editInfoSubmit(formInfo) {
     if (formInfo.valid) {
-      console.log(formInfo.value);
       const sub = this.service.editInfo(formInfo.value)
         .subscribe(res => {
           if (!res['success']) {
@@ -108,7 +100,6 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   signInSubmit(formSignIn: NgForm) {
     if (formSignIn.valid && this.validSignIn(formSignIn)) {
-      console.log(formSignIn.value);
       const sub = this.service.signInPost(formSignIn.value)
         .subscribe(res => {
           if (!res['success']) {
@@ -135,7 +126,6 @@ export class OrderComponent implements OnInit, OnDestroy {
                 this.toastr.warning('Không tìm thấy người dùng', '');
                 this.router.navigate(['/home']);
               } else {
-                // console.log(res['message']);
                 this.client = res['message'];
               }
             }, err => {
@@ -222,5 +212,4 @@ export class OrderComponent implements OnInit, OnDestroy {
       event.preventDefault();
     }
   }
-
 }

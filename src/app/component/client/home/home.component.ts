@@ -14,16 +14,10 @@ import { CartSessionService } from '../../../_service/cart-session.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  // arrProducts = [
-  //   { id: '1', name: 'adidas', color: 'red', sex: 'nam', brand: 'Adidas', promotion: 5, price: 3000, image: 'assets/img/product/giay1.jpg' },
-  //   { id: '2', name: 'adidas1', color: 'blue', sex: 'nam', brand: 'Nike', promotion: 0, price: 3000, image: 'assets/img/product/giay1.jpg' },
-  //   { id: '3', name: 'adidas2', color: 'pink', sex: 'nữ', brand: 'Adidas', promotion: 2, price: 3000, image: 'assets/img/product/giay1.jpg' },
-  //   { id: '4', name: 'adidas3', color: 'white', sex: 'nữ', brand: 'Nike', promotion: 3, price: 3000, image: 'assets/img/product/giay1.jpg' }
-  // ];
   arrProducts = [];
   allProducts = [];
   subscriptions: Subscription[] = [];
-  constructor(private service: HomeService, private toastr: ToastrService, private activatedRoute: ActivatedRoute,
+  constructor(private service: HomeService, private toastr: ToastrService,
     private router: Router, private cartSessionService: CartSessionService) { }
 
   token;
@@ -37,7 +31,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log(res['message']);
           this.toastr.error('Lỗi lấy sản phẩm', 'Lỗi rồi');
         } else {
-          // console.log(res['message']);
           this.allProducts = res['message'];
           this.allProducts.reverse();
           this.arrProducts = this.allProducts.slice(0, 4);

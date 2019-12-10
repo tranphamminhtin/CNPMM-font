@@ -35,7 +35,6 @@ export class AddProductComponent implements OnInit, OnDestroy {
   addProductSubmit(formAddProduct) {
     if (formAddProduct.valid && this.validImage()) {
       Object.assign(formAddProduct.value, this.img);
-      // console.log(formAddProduct.value);
       const sub = this.service.add(formAddProduct.value)
         .subscribe(res => {
           if (!res['success']) {
@@ -65,7 +64,6 @@ export class AddProductComponent implements OnInit, OnDestroy {
   }
 
   onFileChange(event, value: Number) {
-    // console.log(this.img[value] + '   value: ' + value);
     const file = <File>event.target.files[0];
     this.ref = this.afStorage.ref('/product/' + file.name + Date.now().toString());
     this.task = this.ref.put(file);

@@ -12,11 +12,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FixRightComponent implements OnInit, OnDestroy {
 
-  // rightAdmin = false;
-  // rightClient = false;
-  // rightProduct = true;
-  // rightOrder = false;
-  // right = { id: 1, description: 'Nhóm sản phẩm' };
   right = {};
   id = '';
   subscriptions: Subscription[] = [];
@@ -56,7 +51,6 @@ export class FixRightComponent implements OnInit, OnDestroy {
 
   fixRightSubmit(formFixRight) {
     if (formFixRight.valid) {
-      console.log(formFixRight.value);
       const sub = this.service.fixhRight(formFixRight.value)
         .subscribe(res => {
           if (!res['success']) {

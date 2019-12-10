@@ -13,13 +13,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DetailAmountComponent implements OnInit, OnDestroy {
 
-  // product = { id: '1', name: 'adidas1' };
-  // arrAmounts = [
-  //   { id: '1', size: 39, amount: 20 },
-  //   { id: '2', size: 40, amount: 40 },
-  //   { id: '3', size: 41, amount: 41 },
-  //   { id: '4', size: 42, amount: 42 }
-  // ];
   product = {};
   arrAmounts = [];
   subscriptions: Subscription[] = [];

@@ -22,13 +22,11 @@ export class ChangePasswordComponent implements OnDestroy {
 
 	changePasswordSubmit(formChangePassword) {
 		if (formChangePassword.valid && this.validFormChangePassword(formChangePassword)) {
-			console.log(formChangePassword.value);
 			const url = 'http://localhost:3000/user/users/' + this.username;
 			const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 			const body = JSON.stringify(formChangePassword.value);
 			const sub = this.http.put(url, body, { headers: headers })
 				.subscribe(res => {
-					console.log(res);
 					if (!res['success']) {
 						sub.unsubscribe();
 						console.log(res['message']);

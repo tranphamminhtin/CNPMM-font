@@ -30,11 +30,12 @@
                             <tr *ngFor="let cart of arrCarts">
                                 <td class="product-thumbnail">
                                     <a routerLink="/san-pham/{{cart.productId}}"><img src="{{ cart.product?.image }}"
-                                            alt="" /></a></td>
+                                            alt=" " /></a></td>
                                 <td class="product-name">
                                     <a routerLink="/san-pham/{{cart.productId}}">{{ cart.product?.name }}</a></td>
                                 <td class="product-price"><span class="amount">
-                                        {{ (cart.product?.price - cart.product?.price * cart.product?.promotion / 100) + ' đ'}}</span></td>
+                                        {{ (cart.product?.price - cart.product?.price * cart.product?.promotion / 100) + ' đ'}}</span>
+                                </td>
                                 <td class="product-quantity">
                                     <input type="number" value="{{ cart.amount }}" min="1" #amount />
                                 </td>

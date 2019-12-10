@@ -12,16 +12,12 @@ export class CartSessionService {
 
     addCart(productId, size, amount) {
         this.getCart();
-        console.log(productId);
-        console.log(size);
-        console.log(amount);
         if (this.cart === null) {
             this.cart = [];
             var item = { productId: productId, size: size, amount: amount };
             this.cart.push(item);
         } else {
             const index = this.cart.findIndex(e => (e.productId == productId && e.size == size));
-            console.log(index);
             if (index > -1) {
                 var total = parseInt(this.cart[index].amount);
                 total += parseInt(amount);

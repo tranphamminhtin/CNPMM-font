@@ -12,17 +12,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FixEmployeeComponent implements OnInit, OnDestroy {
 
-  // employee = {
-  //   id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', numberPhone: '1234567890',
-  //   email: 'tin@gmail.com', right: { id: '1', description: 'Nhóm sản phẩm' }
-  // };
-  // user = { id: '1', username: 'tintin', password: '123456' };
-  // arrRights = [
-  //   { id: '1', description: 'Nhóm sản phẩm' },
-  //   { id: '2', description: 'Nhóm đơn hàng' },
-  //   { id: '3', description: 'Nhóm nhân viên' }
-  // ];
-
   employee = {};
   arrRights = [];
   subscriptions: Subscription[] = [];
@@ -49,7 +38,6 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
             }
           } else {
             this.employee = res['message'];
-            console.log(res['message']);
           }
         }, err => {
           console.log(err);
@@ -79,7 +67,6 @@ export class FixEmployeeComponent implements OnInit, OnDestroy {
 
   fixEmployeeSubmit(formFixEmployee) {
     if (formFixEmployee.valid && this.validPassword(formFixEmployee.value.password)) {
-      console.log(formFixEmployee.value);
       const sub = this.service.fixhEmployee(formFixEmployee.value)
         .subscribe(res => {
           if (!res['success']) {

@@ -14,14 +14,6 @@ import { Router } from '@angular/router';
 })
 export class AccountEmployeeComponent implements OnInit, OnDestroy {
 
-  // information = {
-  //   id: '5dcbe09e14d7f3514cb9ddc2', username: 'tintin', name: 'tranphamminhtin', numberPhone: '1234567890',
-  //   email: 'tin@gmail', right: { id: '5dca750ea5c6196650e854aa', description: 'Nhóm sản phẩm' }
-  // };
-  // information = {
-  //   id: '', username: '', name: '', numberPhone: '',
-  //   email: 'tin@', right: { id: '', description: '' }
-  // };
   subscriptions: Subscription[] = [];
   constructor(private service: AccountEmployeeService, private toastr: ToastrService,
     private router: Router) { }
@@ -34,7 +26,6 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
     const sub = this.service.getEmployee(this.username)
       .subscribe(res => {
         if (res['success']) {
-          // Object.assign(this.information, res['message']);
           this.information = res['message'];
           const s = this.service.getRight(this.information['rightId'])
             .subscribe(right => {
@@ -54,7 +45,6 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
               sessionStorage.setItem('client', this.information['right']['client']);
               sessionStorage.setItem('product', this.information['right']['product']);
               sessionStorage.setItem('order', this.information['right']['order']);
-              console.log(sessionStorage.getItem('admin'));
             });
         } else {
           console.log(res['message']);
@@ -79,7 +69,6 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
 
   editInfoSubmit(formInfo) {
     if (formInfo.valid) {
-      console.log(formInfo.value);
       const sub = this.service.editInfo(formInfo.value)
         .subscribe(res => {
           if (!res['success']) {
@@ -103,7 +92,6 @@ export class AccountEmployeeComponent implements OnInit, OnDestroy {
 
   changePasswordSubmit(formChangePassword: NgForm) {
     if (formChangePassword.valid && this.validChangePasswordForm(formChangePassword)) {
-      console.log(formChangePassword.value);
       const sub = this.service.changePassword(formChangePassword.value, this.information['username'])
         .subscribe(res => {
           console.log(res);

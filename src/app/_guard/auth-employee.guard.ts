@@ -28,10 +28,9 @@ export class AuthEmployeeGuard implements CanActivate {
               if (!res['success']) {
                 sessionStorage.removeItem('user');
                 sessionStorage.removeItem('token');
-                console.log(res);
                 this.router.navigate(['/login'], { queryParams: { return: state.url } });
-                // if (res['login'])
-                //   this.toastr.warning('Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại');
+                if (res['login'])
+                  this.toastr.warning('Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại');
                 resolve(false);
               } else
                 resolve(true);

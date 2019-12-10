@@ -26,7 +26,6 @@ export class AddRightComponent implements OnInit, OnDestroy {
 
   addRightSubmit(formAddRight) {
     if (formAddRight.valid) {
-      console.log(formAddRight.value);
       const sub = this.service.add(formAddRight.value)
         .subscribe(res => {
           if (!res['success']) {

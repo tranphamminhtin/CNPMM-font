@@ -12,20 +12,6 @@ import { Router } from '@angular/router';
 })
 export class ListEmployeeComponent implements OnInit, OnDestroy {
 
-  // arrEmployees = [
-  //   {
-  //     id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', numberPhone: '1234567890',
-  //     email: 'tin@gmail.com', right: { id: '1', description: 'Nhóm sản phẩm' }
-  //   },
-  //   {
-  //     id: '2', username: 'tungtung', name: 'Trần Minh Tùng', numberPhone: '1234567890',
-  //     email: 'tung@gmail.com', right: { id: '1', description: 'Nhóm khách hàng' }
-  //   },
-  //   {
-  //     id: '3', username: 'tintung', name: 'Tín Tùng', numberPhone: '1234567890',
-  //     email: 'tintung@gmail.com', right: { id: '1', description: 'Admin' }
-  //   }
-  // ];
   arrEmployees = [];
   subscriptions: Subscription[] = [];
   constructor(private service: ListEmployeeService, private toastr: ToastrService,
@@ -54,7 +40,6 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
           } else
             this.toastr.warning('Không lấy được danh sách', '!!!');
         } else {
-          // console.log(res['message']);
           this.arrEmployees = res['message'];
           this.arrEmployees.forEach(employee => {
             this.service.getRight(employee.rightId)

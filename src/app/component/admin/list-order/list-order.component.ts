@@ -12,12 +12,6 @@ import { Router } from '@angular/router';
 })
 export class ListOrderComponent implements OnInit, OnDestroy {
 
-  // arrOrder = [
-  //   { id: '1', date: '02/11/2019', amount: 1, price: 3000, state: 'aa', username: 'tintin' },
-  //   { id: '2', date: '03/11/2019', amount: 1, price: 3000, state: 'as', username: 'tintin' },
-  //   { id: '3', date: '04/11/2019', amount: 1, price: 3000, state: 'ad', username: 'tintin' },
-  //   { id: '4', date: '05/11/2019', amount: 1, price: 3000, state: 'ad', username: 'tintin' }
-  // ];
   arrOrder = [];
   arrFiltered = [];
   isDone = false;

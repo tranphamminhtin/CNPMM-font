@@ -12,7 +12,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class InformationComponent implements OnInit, OnDestroy {
 
-  // client = { id: '1', username: 'tintin', name: 'Trần Phạm Minh Tín', email: 'tin@gmail.com', numberPhone: '1234567890', address: '1 Võ Văn Ngân' };
   username = '';
   client = {};
   subscriptions: Subscription[] = [];
@@ -34,7 +33,6 @@ export class InformationComponent implements OnInit, OnDestroy {
             this.router.navigate(['/home']);
           }
         } else {
-          // console.log(res['message']);
           this.client = res['message'];
         }
       }, err => {
@@ -49,7 +47,6 @@ export class InformationComponent implements OnInit, OnDestroy {
 
   editInfo(formInfo) {
     if (formInfo.valid) {
-      console.log(formInfo.value);
       const sub = this.service.editInfo(formInfo.value)
         .subscribe(res => {
           if (!res['success']) {

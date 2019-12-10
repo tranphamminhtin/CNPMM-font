@@ -32,7 +32,6 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
             this.toastr.error('Lấy danh sách quyền thất bại', 'Lỗi rồi');
           } else {
             this.arrRights = res['message'];
-            // console.log(res['message']);
           }
         }, err => {
           console.log(err);
@@ -47,7 +46,6 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
 
   addEmployeeSubmit(formAddEmployee) {
     if (formAddEmployee.valid) {
-      console.log(formAddEmployee.value);
       const sub = this.service.addUser(formAddEmployee.value)
         .subscribe(res => {
           if (!res['success']) {

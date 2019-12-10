@@ -29,7 +29,6 @@ export class LoginAdminComponent implements OnDestroy, OnInit {
 
   signInAdmin(formSignInAdmin) {
     if (formSignInAdmin.valid && this.validFormSignIn(formSignInAdmin)) {
-      console.log(formSignInAdmin.value);
       const url = 'http://localhost:3000/user/login/0';
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       const body = JSON.stringify(formSignInAdmin.value);
@@ -48,6 +47,7 @@ export class LoginAdminComponent implements OnDestroy, OnInit {
           this.toastr.error('', 'Có lỗi');
         }, () => {
           this.subscriptions.push(sub);
+          AppComponent.isAdmin = true;
           this.router.navigate([this.return]);
         });
     }

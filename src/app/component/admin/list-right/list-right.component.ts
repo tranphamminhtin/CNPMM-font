@@ -12,11 +12,6 @@ import { Router } from '@angular/router';
 })
 export class ListRightComponent implements OnInit, OnDestroy {
 
-  // arrRights = [
-  //   { id: '1', description: 'Nhóm sản phẩm' },
-  //   { id: '2', description: 'Nhóm đơn hàng' },
-  //   { id: '3', description: 'Nhóm nhân viên' }
-  // ];
   arrRights = [];
   subscriptions: Subscription[] = [];
   constructor(private service: ListRightService, private toastr: ToastrService,
@@ -72,9 +67,6 @@ export class ListRightComponent implements OnInit, OnDestroy {
         this.subscriptions.push(sub);
         this.toastr.success('Xóa thành công', 'Thành công');
         this.getListRight();
-        // refresh lại
-        // const index = this.arrRights.findIndex(e => e.id === id);
-        // this.arrRights.splice(index, 1);
       });
   }
 }

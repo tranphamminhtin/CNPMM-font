@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-header-admin',
@@ -69,7 +70,7 @@ export class HeaderAdminComponent {
 	rightClient = true;
 	rightProduct = true;
 	rightOrder = true;
-	constructor(private cdRef : ChangeDetectorRef, private router: Router){}
+	constructor(private cdRef : ChangeDetectorRef, private router: Router, private toastr: ToastrService){}
 
 	// show(right: boolean): boolean {
 	// 	if (right === true && this.rightAdmin === false) {
@@ -86,6 +87,7 @@ export class HeaderAdminComponent {
 		sessionStorage.removeItem('product');
 		sessionStorage.removeItem('order');
 		this.router.navigate(['/login']);
+		this.toastr.success('Đăng xuất thành công');
 	}
 
 	ngAfterViewChecked() {

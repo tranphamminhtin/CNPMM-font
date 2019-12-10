@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
           <div class="row">
               <div class="col-md-12">
                   <div class="about-img">
-                      <img src="../assets/img/about.jpg" alt="" />
+                      <img src="../assets/img/about.jpg" alt=" " />
                   </div>
               </div>
               <div class="col-md-12">
